@@ -1,0 +1,39 @@
+.list__record--page {
+  margin: 22px;
+  border-left: 2px solid rgba(254, 121, 43, 0.2);
+}
+
+.list__record--container {
+  font-size: 14px;
+  margin-right: 0;
+  padding: 22px;
+}
+
+.list__record--container span {
+  position: relative;
+  color: #828181;
+  line-height: 2;
+}
+
+.list__record--container span::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: -27px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fb7f5b;
+}
+
+.list__record--container div {
+  background: #FFF;
+  border-radius: 4px;
+  padding: 16px 10px 20px;
+  color: #1E1E21;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 10px 10px 0 rgba(254, 121, 43, 0.05);
+}

@@ -1,0 +1,5 @@
+const config = {
+  chain: 'http://localhost:1337',
+  privateKey: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+}
+module.exports = config
