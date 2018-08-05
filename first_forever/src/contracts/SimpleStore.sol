@@ -1,23 +1,13 @@
 pragma solidity 0.4.24;
 
 contract SimpleStore {
-    address private owner;
-    mapping (uint256 => string) private records;
-    uint256[] private category;
-    modifier onlyOwner(){
-        require(msg.sender == owner);
-        _;
-    }
+    mapping (address => mapping (uint256 => string)) private records;
+    mapping (address => uint256[]) private categories;
     
-    event Recorded(string indexed _text, uint256 indexed _time);
-
-    constructor () public 
-    {
-        owner = msg.sender;
-    }
+    event Recorded(address _sender, string indexed _text, uint256 indexed _time);
     
-    function _addToList(uint256 time) private {
-        category.push(time);
+    function _addToList(address from, uint256 time) private {
+        categories[from].push(time);
     }
     
     function getList()
@@ -25,16 +15,16 @@ contract SimpleStore {
     view
     returns (uint256[])
     {
-        return category;
+        return categories[msg.sender];
     }
     
-    function add(string text, uint256 time) public onlyOwner {
-        records[time]=text;
-        _addToList(time);
-        emit Recorded(text, time);
+    function add(string text, uint256 time) public {
+        records[msg.sender][time]=text;
+        _addToList(msg.sender, time);
+        emit Recorded(msg.sender, text, time);
     }
     function get(uint256 time) public view returns(string) {
         
-        return records[time];
+        return records[msg.sender][time];
     }
 }

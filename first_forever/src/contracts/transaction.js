@@ -4,7 +4,6 @@ const transaction = {
   privateKey: nervos.eth.accounts.wallet[0].privateKey,
   nonce: 999999,
   quota: 1000000,
-  // data: bytecode,
   chainId: 1,
   version: 0,
   validUntilBlock: 999999,
