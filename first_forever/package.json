@@ -12,7 +12,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom --runInBand",
+    "eject": "react-scripts eject",
+    "deploy": "node ./src/contracts/deploy.js",
+    "test:contract": "node ./src/contracts/contracts.js"
   }
 }

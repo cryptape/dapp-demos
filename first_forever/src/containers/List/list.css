@@ -1,6 +1,7 @@
 .list__record--page {
   margin: 22px;
   border-left: 2px solid rgba(254, 121, 43, 0.2);
+  margin-bottom: 70px;
 }
 
 .list__record--container {
