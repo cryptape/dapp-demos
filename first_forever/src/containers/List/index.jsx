@@ -2,7 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import BottomNav from '../../components/BottomNav'
 import { simpleStoreContract } from '../../simpleStore'
+import nervos from '../../nervos'
+import transaction from '../../contracts/transaction'
 require('./list.css')
+console.log(transaction)
+console.log(nervos.eth.accounts.wallet[0])
 
 const Record = ({ time, text }) => {
   const _time = new Date(+time)
@@ -22,12 +26,16 @@ class List extends React.Component {
     texts: [],
   }
   componentDidMount() {
+    const from = nervos.eth.accounts.wallet[0] ? nervos.eth.accounts.wallet[0].address : ''
     simpleStoreContract.methods
       .getList()
-      .call()
+      .call({
+        from,
+      })
       .then(times => {
+        times.reverse()
         this.setState({ times })
-        return Promise.all(times.map(time => simpleStoreContract.methods.get(time).call()))
+        return Promise.all(times.map(time => simpleStoreContract.methods.get(time).call({ from })))
       })
       .then(texts => {
         this.setState({ texts })

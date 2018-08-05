@@ -1,8 +1,9 @@
 .bottomnav__bar--container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100vw;
+  background: #F6F5F5;
 }
 
 .bottomnav__navs--container {
