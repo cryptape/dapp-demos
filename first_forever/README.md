@@ -183,7 +183,7 @@ Create directory in `src`
 
 - Store SimpleStore Source Code in [SimpleStore.sol](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/SimpleStore.sol)
 
-- Store **bytecode** and **abi** in [compiled](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/compiled.js)
+- Store **bytecode** and **abi** in [compiled.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/compiled.js)
 
 - Store transaction template in [transaction.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/transaction.js)
 
