@@ -26,6 +26,7 @@
   height: 8px;
   border-radius: 50%;
   background: #fb7f5b;
+  opacity: 0.5;
 }
 
 .list__record--container div {
@@ -37,4 +38,40 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   box-shadow: 0 10px 10px 0 rgba(254, 121, 43, 0.05);
+}
+
+.list__record--container div.list__record--year {
+  position: relative;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: 900;
+}
+
+.list__record--container div.list__record--year::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: -27px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fb7f5b;
+}
+
+.list__record--container div.list__record--year::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: -31px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fb7f5b;
+  opacity: 0.5;
 }
