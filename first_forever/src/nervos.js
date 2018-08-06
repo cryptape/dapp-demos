@@ -1,6 +1,6 @@
 const {
   default: Nervos
-} = require('@nervos/web3')
+} = require('@nervos/chain')
 
 const config = require('./config')
 
