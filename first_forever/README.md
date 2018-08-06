@@ -8,11 +8,11 @@ This demo shows the entire process of building a MVP Dapp on Appchain.
 
 All interactions with Smart Contract are:
 
-- Store Text in Smart Contract: an `sendTransaction` action;
+- Store Text in Smart Contract: a `sendTransaction` action;
 
-- Get TextList from Smart Contract: an `call` action;
+- Get TextList from Smart Contract: a `call` action;
 
-- Get Text from Smart Contract: an `call` action;
+- Get Text from Smart Contract: a `call` action;
 
 The final project looks like
 
@@ -230,7 +230,7 @@ Create directory in `src`
     .catch(err => console.error(err))
   ```
 
-- Store test script in [contracts.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/contracts.test.js)
+- Store test script in [contracts.test.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/contracts.test.js)
 
   ```javascript
   const nervos = require('../nervos')
