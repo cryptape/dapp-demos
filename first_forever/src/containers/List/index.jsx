@@ -5,14 +5,12 @@ import { simpleStoreContract } from '../../simpleStore'
 import nervos from '../../nervos'
 import transaction from '../../contracts/transaction'
 require('./list.css')
-console.log(transaction)
-console.log(nervos.eth.accounts.wallet[0])
 
 const Record = ({ time, text }) => {
   const _time = new Date(+time)
   return (
     <div className="list__record--container">
-      <span>{`${_time.getFullYear()} ${_time.getHours()}:${_time.getMinutes()}`}</span>
+      <span>{`${_time.getMonth() + 1}-${_time.getDate()} ${_time.getHours()}:${_time.getMinutes()}`}</span>
       <Link to={`/show/${time}`}>
         <div>{text}</div>
       </Link>
