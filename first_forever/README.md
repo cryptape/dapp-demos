@@ -100,11 +100,11 @@ All above are just traditional webapp development, and next we are going to dapp
 
 ## 3. Nervos.js
 
-This is the core of Dapps running on Appchain, all interactions between Appchain is executed by the `nervos.js`
+This step instructs how to have a Dapp running on Nervos Appchain. 
 
-Details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/package/@nervos/chain)
+The Dapp interacts with Appchain by the `nervos.js` and details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/package/@nervos/chain)
 
-Add nervos.js as other packages, simply `yarn add @nervos/chain`, then instantiate `nervos` in `src/nervos.js`
+In order to use nervos.js, add nervos.js as other packages by yarn `yarn add @nervos/chain`, and then instantiate `nervos` in `src/nervos.js`.
 
 ```javascript
 const { default: Nervos } = require('@nervos/web3')
@@ -272,8 +272,27 @@ Create directory in `src`
     3000,
   )
   ```
+- Add deploy and test script in package.json
+```
+"deploy": "node ./src/contracts/deploy.js",
+"test:contract": "node ./src/contracts/contracts.js"
+```
+- Add settings in [`config.js`](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/config.js.example).
 
-After all of that, `npm run deploy` to deploy the contract, and set the contractAddress in `/config.js`, and then use `npm test` to test the contract.
+- Deploy the contract  
+`npm run deploy` 
+
+- Add contract address to config.js and test
+For now the contract should be like:  
+```javascript
+const config = {
+    chain: '{addr of net you are using}',
+    privateKey: '{your private key}',
+    contractAddress: '{deployed contract address}'
+  }
+  module.exports = config
+  
+```
 
 ## Integrate Contract into Dapp
 
