@@ -1,6 +1,6 @@
 # Demo1: First Forever
 
-This demo shows the entire process of building a MVP Dapp on Appchain.
+This demo shows the entire process of building a MVP Dapp on Appchain, which run in neuron wallet.
 
 > Notice: This tutorial is for the developers who is able to build webapps and has basic knowledge of Blockchain and Smart Contract.
 
@@ -106,15 +106,21 @@ Details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/pac
 
 Add nervos.js as other packages, simply `yarn add @nervos/chain`, then instantiate `nervos` in `src/nervos.js`
 
+Fisrt you should set a provider (HttpProvider)
+
 ```javascript
 const { default: Nervos } = require('@nervos/web3')
 
 const config = require('./config')
 
-const nervos = Nervos(config.chain) // config.chain indicates that the address of Appchain to interact
-const account = nervos.eth.accounts.privateKeyToAccount(config.privateKey) // create account by private key from config
-
-nervos.eth.accounts.wallet.add(account) // add account to nervos
+if (typeof window.nervos !== 'undefined') {
+  window.nervos = Nervos(window.nervos.currentProvider);
+  window.nervos.currentProvider.setHost("localhost:1337");  // set CITA node IP address and port
+} else {
+  console.log('No nervos? You should consider trying Neuron!')
+  window.nervos = Nervos(config.chain);
+}
+var nervos = window.nervos
 
 module.exports = nervos
 ```
@@ -187,11 +193,11 @@ Create directory in `src`
 
 - Store transaction template in [transaction.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/transaction.js)
 
+This dapp is running in neuron wallet who will provide from address and private key.
+
   ```javascript
   const nervos = require('../nervos')
   const transaction = {
-    from: nervos.eth.accounts.wallet[0].address,
-    privateKey: nervos.eth.accounts.wallet[0].privateKey,
     nonce: 999999,
     quota: 1000000,
     chainId: 1,
@@ -200,8 +206,9 @@ Create directory in `src`
     value: '0x0',
   }
   ```
-
 - Store deploy script in [deploy.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/deploy.js)
+
+> You should deploy contract on develop branch, which contains private key
 
   ```javascript
   const nervos = require('../nervos')
@@ -300,44 +307,42 @@ In `src/containers/Add/index.jsx`, bind the following method to submit button
 
 ```javascript
 handleSubmit = e => {
-  const { time, text } = this.state
-  nervos.appchain
-    .getBlockNumber()
-    .then(current => {
-      const tx = {
-        ...transaction,
-        validUntilBlock: +current + 88,
-      }
-      this.setState({
-        submitText: submitTexts.submitting,
+    const { time, text } = this.state
+    nervos.appchain
+      .getBlockNumber()
+      .then(current => {
+        const tx = {
+          ...transaction,
+          from:JSON.parse(window.neuron.getAccounts())[0],
+          validUntilBlock: +current + 88,
+        }
+        this.setState({
+          submitText: submitTexts.submitting,
+        })
+        var that = this;
+        simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
+          if (res) {
+            nervos.listeners.listenToTransactionReceipt(res)
+              .then(receipt => {
+                if (!receipt.errorMessage) {
+                  that.setState({ submitText: submitTexts.submitted })
+                } else {
+                  throw new Error(receipt.errorMessage)
+                }
+              })
+          } else {
+            throw new Error('No Transaction Hash Received' + err)
+          }
+        })
       })
-      return simpleStoreContract.methods.add(text, +time).send(tx) // execute add method to store memo in the contract
-    })
-    .then(res => {
-      if (res.hash) {
-        return nervos.listeners.listenToTransactionReceipt(res.hash)
-      } else {
-        throw new Error('No Transaction Hash Received')
-      }
-    })
-    .then(receipt => {
-      if (!receipt.errorMessage) {
-        this.setState({ submitText: submitTexts.submitted })
-      } else {
-        throw new Error(receipt.errorMessage)
-      }
-    })
-    .catch(err => {
-      this.setState({ errorText: JSON.stringify(err) })
-    })
-}
+  }
 ```
 
 In `src/containers/List/index.jsx`, load memos on mount
 
 ```javascript
 componentDidMount() {
-  const from = nervos.eth.accounts.wallet[0] ? nervos.eth.accounts.wallet[0].address : ''
+  const from = JSON.parse(window.neuron.getAccounts())[0]
   simpleStoreContract.methods
     .getList()
     .call({
@@ -364,7 +369,7 @@ componentDidMount() {
     simpleStoreContract.methods
       .get(time)
       .call({
-        from: nervos.eth.accounts.wallet[0].address,
+        from: JSON.parse(window.neuron.getAccounts())[0],
       })
       .then(text => {
         this.setState({ time, text })

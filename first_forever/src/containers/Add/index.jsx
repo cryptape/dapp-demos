@@ -30,30 +30,29 @@ class Add extends React.Component {
       .then(current => {
         const tx = {
           ...transaction,
+          from:JSON.parse(window.neuron.getAccounts())[0],
           validUntilBlock: +current + 88,
         }
         this.setState({
           submitText: submitTexts.submitting,
         })
-        return simpleStoreContract.methods.add(text, +time).send(tx)
+        var that = this;
+        simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
+          if (res) {
+            nervos.listeners.listenToTransactionReceipt(res)
+              .then(receipt => {
+                if (!receipt.errorMessage) {
+                  that.setState({ submitText: submitTexts.submitted })
+                } else {
+                  throw new Error(receipt.errorMessage)
+                }
+              })
+          } else {
+            throw new Error('No Transaction Hash Received' + err)
+          }
+        })
       })
-      .then(res => {
-        if (res.hash) {
-          return nervos.listeners.listenToTransactionReceipt(res.hash)
-        } else {
-          throw new Error('No Transaction Hash Received')
-        }
-      })
-      .then(receipt => {
-        if (!receipt.errorMessage) {
-          this.setState({ submitText: submitTexts.submitted })
-        } else {
-          throw new Error(receipt.errorMessage)
-        }
-      })
-      .catch(err => {
-        this.setState({ errorText: JSON.stringify(err) })
-      })
+      
   }
   render() {
     const { time, text, submitText, errorText } = this.state
