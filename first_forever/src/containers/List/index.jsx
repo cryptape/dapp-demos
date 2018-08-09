@@ -24,7 +24,7 @@ class List extends React.Component {
     texts: [],
   }
   componentDidMount() {
-    const from = JSON.parse(window.neuron.getAccounts())[0]
+    const from = window.neuron.getAccount()
     simpleStoreContract.methods
       .getList()
       .call({
@@ -33,6 +33,7 @@ class List extends React.Component {
       .then(times => {
         times.reverse()
         this.setState({ times })
+        console.log("list account" + window.neuron.getAccount())
         return Promise.all(times.map(time => simpleStoreContract.methods.get(time).call({ from })))
       })
       .then(texts => {

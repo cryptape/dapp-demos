@@ -13,11 +13,12 @@ class Show extends React.Component {
 
   componentDidMount() {
     const { time } = this.props.match.params
+    console.log("show account" + window.neuron.getAccount())
     if (time) {
       simpleStoreContract.methods
         .get(time)
         .call({
-          from: JSON.parse(window.neuron.getAccounts())[0],
+          from: window.neuron.getAccount(),
         })
         .then(text => {
           this.setState({ time, text })

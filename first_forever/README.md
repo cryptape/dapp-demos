@@ -313,7 +313,7 @@ handleSubmit = e => {
       .then(current => {
         const tx = {
           ...transaction,
-          from:JSON.parse(window.neuron.getAccounts())[0],
+          from: window.neuron.getAccount(),
           validUntilBlock: +current + 88,
         }
         this.setState({
@@ -342,7 +342,7 @@ In `src/containers/List/index.jsx`, load memos on mount
 
 ```javascript
 componentDidMount() {
-  const from = JSON.parse(window.neuron.getAccounts())[0]
+  const from = window.neuron.getAccount()
   simpleStoreContract.methods
     .getList()
     .call({
@@ -369,7 +369,7 @@ componentDidMount() {
     simpleStoreContract.methods
       .get(time)
       .call({
-        from: JSON.parse(window.neuron.getAccounts())[0],
+        from: window.neuron.getAccount(),
       })
       .then(text => {
         this.setState({ time, text })

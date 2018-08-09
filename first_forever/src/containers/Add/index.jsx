@@ -30,12 +30,13 @@ class Add extends React.Component {
       .then(current => {
         const tx = {
           ...transaction,
-          from:JSON.parse(window.neuron.getAccounts())[0],
+          from:window.neuron.getAccount(),
           validUntilBlock: +current + 88,
         }
         this.setState({
           submitText: submitTexts.submitting,
         })
+        console.log("add account" + window.neuron.getAccount())
         var that = this;
         simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
           if (res) {
