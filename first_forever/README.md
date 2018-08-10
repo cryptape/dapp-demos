@@ -98,7 +98,33 @@ The Route indicates that the demo has 4 pages:
 
 All above are just traditional webapp development, and next we are going to dapp development.
 
-## 3. Nervos.js
+## 3. manifest.json & link tag config
+
+A DApp need to talk Neuron wallet some information of blockchain by manifest.json file, which contains chain name, chain id, node httpprovider etc.
+
+As follows, we provider an example of manifest.json. In general, we suggest to put manifest.json in root directory of the project.
+
+If you have more than one chains, you should set more pairs of chain id and node httpprovider in chain set.
+
+```json
+{
+  "name": "Nervos First Forever",                               // chain name
+  "blockViewer": "https://etherscan.io/",                       // bowser of blockchain
+  "chainSet": {                                                 // chainId and node httpprovider
+    "1": "http://121.196.200.225:1337"                          // key is chainId, value is node httpprovider 
+  },
+  "icon": "http://7xq40y.com1.z0.glb.clouddn.com/23.pic.jpg",   // chain icon
+  "entry": "index.html",                                        // DAPP entry
+  "provider": "https://etherscan.io/"                           // DAPP provider
+}
+```
+You should also set path of manifest.json in html file using link tag.
+
+```html
+<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+```
+
+## 4. Nervos.js
 
 This is the core of Dapps running on Appchain, all interactions between Appchain is executed by the `nervos.js`
 
@@ -125,7 +151,7 @@ var nervos = window.nervos
 module.exports = nervos
 ```
 
-## 4. Smart Contract
+## 5. Smart Contract
 
 This Dapp works with an extremely simple smart contract -- [SimpleStore](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/SimpleStore.sol).
 
@@ -282,7 +308,7 @@ This dapp is running in neuron wallet who will provide from address and private 
 
 After all of that, `npm run deploy` to deploy the contract, and set the contractAddress in `/config.js`, and then use `npm test` to test the contract.
 
-## Integrate Contract into Dapp
+## 7. Integrate Contract into Dapp
 
 ### Instantiate Contract
 
