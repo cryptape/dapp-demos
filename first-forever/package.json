@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nervos/chain": "^0.17.4",
     "@nervos/web3": "^0.17.40",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

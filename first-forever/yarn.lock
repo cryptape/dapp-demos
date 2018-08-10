@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@nervos/chain@^0.17.4":
+  version "0.17.4"
+  resolved "https://registry.npmjs.org/@nervos/chain/-/chain-0.17.4.tgz#fbb0dbd2b637ecd426f9f71fcf3ba73877fe8902"
+  dependencies:
+    "@nervos/signer" "^1.0.28"
+    web3 "^1.0.0-beta.34"
+
 "@nervos/signer@^1.0.28":
   version "1.0.28"
   resolved "https://registry.npmjs.org/@nervos/signer/-/signer-1.0.28.tgz#685d2613db998a60e3cca03d79077f2dff30f7ab"
