@@ -106,7 +106,7 @@ As follows, we provider an example of manifest.json. In general, we suggest to p
 
 If you have more than one chains, you should set more pairs of chain id and node httpprovider in chain set.
 
-```json
+```javascript
 {
   "name": "Nervos First Forever",                               // chain name
   "blockViewer": "https://etherscan.io/",                       // bowser of blockchain
