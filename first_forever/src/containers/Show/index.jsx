@@ -13,7 +13,7 @@ class Show extends React.Component {
 
   componentDidMount() {
     const { time } = this.props.match.params
-    console.log("show account" + window.neuron.getAccount())
+    console.log('show account' + window.neuron.getAccount())
     if (time) {
       simpleStoreContract.methods
         .get(time)
