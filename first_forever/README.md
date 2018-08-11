@@ -132,7 +132,7 @@ Details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/pac
 
 Add nervos.js as other packages, simply `yarn add @nervos/chain`, then instantiate `nervos` in `src/nervos.js`
 
-Fisrt you should set a provider (HttpProvider)
+Fisrt you should set a provider (HttpProvider), the method of setHost will tell neuron wallet which chain you want to connect.
 
 ```javascript
 const { default: Nervos } = require('@nervos/web3')
