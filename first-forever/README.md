@@ -49,13 +49,13 @@ The final project looks like
 This Demo use `create-react-app` to start the project, so you need the `create-react-app` scaffold firstly
 
 ```shell
-yarn global add create-react-app
+$ yarn global add create-react-app
 ```
 
 After that the project can be initiated by
 
 ```shell
-create-react-app first_forever && cd first_forever
+$ create-react-app first_forever && cd first_forever
 ```
 
 Now the project looks like
@@ -100,7 +100,7 @@ All above are just traditional webapp development, and next we are going to dapp
 
 ## 3. Nervos.js
 
-This step instructs how to have a Dapp running on Nervos Appchain. 
+This step instructs how to have a Dapp running on Nervos Appchain.
 
 The Dapp interacts with Appchain by the `nervos.js` and details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/package/@nervos/chain)
 
@@ -272,27 +272,40 @@ Create directory in `src`
     3000,
   )
   ```
-- Add deploy and test script in package.json
-```
-"deploy": "node ./src/contracts/deploy.js",
-"test:contract": "node ./src/contracts/contracts.js"
-```
-- Add settings in [`config.js`](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/config.js.example).
 
-- Deploy the contract  
-`npm run deploy` 
+- Add deploy and test script in [package.json](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/package.json)
+
+  ```json
+  "scripts": {
+    "deploy": "node ./src/contracts/deploy.js",
+    "test:contract": "node ./src/contracts/contracts.js"
+  }
+  ```
+
+- Create `src/config.js`, set private key and chain ip in it.
+
+  ```shell
+  $ cp src/config.js.example src/config.js
+  ```
+
+- Deploy the contract
+
+  ```shell
+  $ npm run deploy
+  ```
 
 - Add contract address to config.js and test
-For now the contract should be like:  
-```javascript
-const config = {
+
+  For now the `config.js` should be like:
+
+  ```javascript
+  const config = {
     chain: '{addr of net you are using}',
     privateKey: '{your private key}',
-    contractAddress: '{deployed contract address}'
+    contractAddress: '{deployed contract address}',
   }
   module.exports = config
-  
-```
+  ```
 
 ## Integrate Contract into Dapp
 
