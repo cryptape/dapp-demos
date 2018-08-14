@@ -278,7 +278,7 @@ Create directory in `src`
   ```json
   "scripts": {
     "deploy": "node ./src/contracts/deploy.js",
-    "test:contract": "node ./src/contracts/contracts.js"
+    "test:contract": "jest ./src/contracts/contracts.test.js"
   }
   ```
 
