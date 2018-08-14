@@ -49,13 +49,13 @@ The final project looks like
 This Demo use `create-react-app` to start the project, so you need the `create-react-app` scaffold firstly
 
 ```shell
-yarn global add create-react-app
+$ yarn global add create-react-app
 ```
 
 After that the project can be initiated by
 
 ```shell
-create-react-app first-forever && cd first-forever
+$ create-react-app first_forever && cd first_forever
 ```
 
 Now the project looks like
@@ -273,29 +273,39 @@ Create directory in `src`
   )
   ```
 
-- Add deploy and test script in package.json
+- Add deploy and test script in [package.json](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/package.json)
 
-```
-"deploy": "node ./src/contracts/deploy.js",
-"test:contract": "node ./src/contracts/contracts.js"
-```
+  ```json
+  "scripts": {
+    "deploy": "node ./src/contracts/deploy.js",
+    "test:contract": "jest ./src/contracts/contracts.test.js"
+  }
+  ```
 
-- Add settings in [`config.js`](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/config.js.example).
+- Create `src/config.js`, set private key and chain ip in it.
 
-- Deploy the contract  
-  `npm run deploy`
+  ```shell
+  $ cp src/config.js.example src/config.js
+  ```
+
+- Deploy the contract
+
+  ```shell
+  $ npm run deploy
+  ```
 
 - Add contract address to config.js and test
-  For now the contract should be like:
 
-```javascript
-const config = {
-  chain: '{addr of net you are using}',
-  privateKey: '{your private key}',
-  contractAddress: '{deployed contract address}',
-}
-module.exports = config
-```
+  For now the `config.js` should be like:
+
+  ```javascript
+  const config = {
+    chain: '{addr of net you are using}',
+    privateKey: '{your private key}',
+    contractAddress: '{deployed contract address}',
+  }
+  module.exports = config
+  ```
 
 ## Integrate Contract into Dapp
 
