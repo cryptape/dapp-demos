@@ -1,7 +1,7 @@
 {
   "short_name": "First Forever",
   "name": "First Forever",
-  "icon": "https://cdn.cryptape.com/Artboard%203.png",
+  "icon": "https://cdn.cryptape.com/neuron/Artboard3.png",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
