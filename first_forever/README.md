@@ -111,13 +111,14 @@ If you have more than one chains, you should set more pairs of chain id and node
   "name": "Nervos First Forever",                               // chain name
   "blockViewer": "https://etherscan.io/",                       // bowser of blockchain
   "chainSet": {                                                 // chainId and node httpprovider
-    "1": "http://121.196.200.225:1337"                          // key is chainId, value is node httpprovider 
+    "1": "http://121.196.200.225:1337"                          // key is chainId, value is node httpprovider
   },
   "icon": "http://7xq40y.com1.z0.glb.clouddn.com/23.pic.jpg",   // chain icon
   "entry": "index.html",                                        // DAPP entry
   "provider": "https://etherscan.io/"                           // DAPP provider
 }
 ```
+
 You should also set path of manifest.json in html file using link tag.
 
 ```html
@@ -140,11 +141,11 @@ const { default: Nervos } = require('@nervos/web3')
 const config = require('./config')
 
 if (typeof window.nervos !== 'undefined') {
-  window.nervos = Nervos(window.nervos.currentProvider);
-  window.nervos.currentProvider.setHost("localhost:1337");  // set CITA node IP address and port
+  window.nervos = Nervos(window.nervos.currentProvider)
+  window.nervos.currentProvider.setHost('localhost:1337') // set CITA node IP address and port
 } else {
   console.log('No nervos? You should consider trying Neuron!')
-  window.nervos = Nervos(config.chain);
+  window.nervos = Nervos(config.chain)
 }
 var nervos = window.nervos
 
@@ -190,11 +191,11 @@ contract SimpleStore {
 
 Smart Contract can be debugged on [Remix](https://remix.ethereum.org/), an online solidity debugger
 
-![remix](http://pccoq959o.bkt.clouddn.com/docs/images/remix.png)
+![remix](https://cdn.cryptape.com/docs/images/remix.png)
 
 By clicking on `Detail` in the right-side panel, compiled details will show as follow
 
-![remix](http://pccoq959o.bkt.clouddn.com/docs/images/remix_detail.png)
+![remix](https://cdn.cryptape.com/docs/images/remix_detail.png)
 
 In details, **bytecode** and **abi** will be used in this demo.
 
@@ -221,47 +222,48 @@ Create directory in `src`
 
 This dapp is running in neuron wallet who will provide from address and private key.
 
-  ```javascript
-  const nervos = require('../nervos')
-  const transaction = {
-    nonce: 999999,
-    quota: 1000000,
-    chainId: 1,
-    version: 0,
-    validUntilBlock: 999999,
-    value: '0x0',
-  }
-  ```
+```javascript
+const nervos = require('../nervos')
+const transaction = {
+  nonce: 999999,
+  quota: 1000000,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
+}
+```
+
 - Store deploy script in [deploy.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/deploy.js)
 
 > You should deploy contract on develop branch, which contains private key
 
-  ```javascript
-  const nervos = require('../nervos')
-  const { abi, bytecode } = require('./compiled.js')
+```javascript
+const nervos = require('../nervos')
+const { abi, bytecode } = require('./compiled.js')
 
-  const transaction = require('./transaction')
-  let _contractAddress = ''
+const transaction = require('./transaction')
+let _contractAddress = ''
 
-  nervos.appchain
-    .getBlockNumber()
-    .then(current => {
-      transaction.validUntilBlock = +current + 88 // update transaction.validUntilBlock
-      return nervos.appchain.deploy(bytecode, transaction) // deploy contract
-    })
-    .then(res => {
-      const { contractAddress, errorMessage } = res
-      if (errorMessage) throw new Error(errorMessage)
-      console.log(`contractAddress is: ${contractAddress}`)
-      _contractAddress = contractAddress
-      return nervos.appchain.storeAbi(contractAddress, abi, transaction) // store abi on the chain
-    })
-    .then(res => {
-      if (res.errorMessage) throw new Error(res.errorMessage)
-      return nervos.appchain.getAbi(_contractAddress).then(console.log) // get abi from the chain
-    })
-    .catch(err => console.error(err))
-  ```
+nervos.appchain
+  .getBlockNumber()
+  .then(current => {
+    transaction.validUntilBlock = +current + 88 // update transaction.validUntilBlock
+    return nervos.appchain.deploy(bytecode, transaction) // deploy contract
+  })
+  .then(res => {
+    const { contractAddress, errorMessage } = res
+    if (errorMessage) throw new Error(errorMessage)
+    console.log(`contractAddress is: ${contractAddress}`)
+    _contractAddress = contractAddress
+    return nervos.appchain.storeAbi(contractAddress, abi, transaction) // store abi on the chain
+  })
+  .then(res => {
+    if (res.errorMessage) throw new Error(res.errorMessage)
+    return nervos.appchain.getAbi(_contractAddress).then(console.log) // get abi from the chain
+  })
+  .catch(err => console.error(err))
+```
 
 - Store test script in [contracts.js](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/src/contracts/contracts.test.js)
 
@@ -333,35 +335,32 @@ In `src/containers/Add/index.jsx`, bind the following method to submit button
 
 ```javascript
 handleSubmit = e => {
-    const { time, text } = this.state
-    nervos.appchain
-      .getBlockNumber()
-      .then(current => {
-        const tx = {
-          ...transaction,
-          from: window.neuron.getAccount(),
-          validUntilBlock: +current + 88,
-        }
-        this.setState({
-          submitText: submitTexts.submitting,
-        })
-        var that = this;
-        simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
-          if (res) {
-            nervos.listeners.listenToTransactionReceipt(res)
-              .then(receipt => {
-                if (!receipt.errorMessage) {
-                  that.setState({ submitText: submitTexts.submitted })
-                } else {
-                  throw new Error(receipt.errorMessage)
-                }
-              })
+  const { time, text } = this.state
+  nervos.appchain.getBlockNumber().then(current => {
+    const tx = {
+      ...transaction,
+      from: window.neuron.getAccount(),
+      validUntilBlock: +current + 88,
+    }
+    this.setState({
+      submitText: submitTexts.submitting,
+    })
+    var that = this
+    simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
+      if (res) {
+        nervos.listeners.listenToTransactionReceipt(res).then(receipt => {
+          if (!receipt.errorMessage) {
+            that.setState({ submitText: submitTexts.submitted })
           } else {
-            throw new Error('No Transaction Hash Received' + err)
+            throw new Error(receipt.errorMessage)
           }
         })
-      })
-  }
+      } else {
+        throw new Error('No Transaction Hash Received' + err)
+      }
+    })
+  })
+}
 ```
 
 In `src/containers/List/index.jsx`, load memos on mount
@@ -409,7 +408,7 @@ componentDidMount() {
 
 As all of these done, start the local server by `npm start` to launch the dapp.
 
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_1.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_2.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_3.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_4.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_1.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_2.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_3.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_4.png)
