@@ -48,10 +48,8 @@ class Add extends React.Component {
                   throw new Error(receipt.errorMessage)
                 }
               })
-          } else if(err === 'cancelled') {
-            that.setState({ submitText: submitTexts.normal })
           } else {
-            throw new Error('No Transaction Hash Received' + err)
+            that.setState({ submitText: submitTexts.normal })
           }
         })
       })
