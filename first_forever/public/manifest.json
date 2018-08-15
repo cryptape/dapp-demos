@@ -2,13 +2,13 @@
   "short_name": "First Forever",
   "name": "First Forever",
   "icon": "https://cdn.cryptape.com/neuron/Artboard3.png",
-  "start_url": "https://dapp.cryptape.com/demo/first-forever",
+  "start_url": "https://dapp.cryptape.com:88/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "blockViewer": "https://etherscan.io/",
   "chainSet": {
-    "1": "http://121.196.200.225:1337"
+    "1": "https://node.cryptape.com"
   },
-  "entry": "https://dapp.cryptape.com/demo/first-forever"
+  "entry": "https://dapp.cryptape.com:88/"
 }
