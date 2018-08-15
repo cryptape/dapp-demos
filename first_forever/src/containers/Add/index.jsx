@@ -45,7 +45,7 @@ class Add extends React.Component {
                 if (!receipt.errorMessage) {
                   that.setState({ submitText: submitTexts.submitted })
                 } else if (receipt.errorMessage === 'cancelled'){
-                  that.setState({ submitText: submitTexts.send})
+                  that.setState({ submitText: submitTexts.normal })
                 } else {
                   throw new Error(receipt.errorMessage)
                 }
