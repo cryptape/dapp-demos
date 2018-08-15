@@ -2,7 +2,6 @@
   "name": "first_forever",
   "version": "0.1.0",
   "private": true,
-  "homepage": "first-forever",
   "dependencies": {
     "@nervos/web3": "^0.17.40",
     "react": "^16.4.1",
