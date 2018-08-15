@@ -2,7 +2,7 @@
   "short_name": "First Forever",
   "name": "First Forever",
   "icon": "https://cdn.cryptape.com/neuron/Artboard3.png",
-  "start_url": "https://dapp.cryptape.com:88/",
+  "start_url": "http://dapp.cryptape.com:8080/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
@@ -10,5 +10,5 @@
   "chainSet": {
     "1": "https://node.cryptape.com"
   },
-  "entry": "https://dapp.cryptape.com:88/"
+  "entry": "http://dapp.cryptape.com:8080/"
 }
