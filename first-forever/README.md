@@ -158,11 +158,11 @@ contract SimpleStore {
 
 Smart Contract can be debugged on [Remix](https://remix.ethereum.org/), an online solidity debugger
 
-![remix](http://pccoq959o.bkt.clouddn.com/docs/images/remix.png)
+![remix](https://cdn.cryptape.com/docs/images/remix.png)
 
 By clicking on `Detail` in the right-side panel, compiled details will show as follow
 
-![remix](http://pccoq959o.bkt.clouddn.com/docs/images/remix_detail.png)
+![remix](https://cdn.cryptape.com/docs/images/remix_detail.png)
 
 In details, **bytecode** and **abi** will be used in this demo.
 
@@ -410,7 +410,7 @@ componentDidMount() {
 
 As all of these done, start the local server by `npm start` to launch the dapp.
 
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_1.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_2.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_3.png)
-![first forever](http://pccoq959o.bkt.clouddn.com/docs/images/ff_4.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_1.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_2.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_3.png)
+![first forever](https://cdn.cryptape.com/docs/images/ff_4.png)
