@@ -310,6 +310,17 @@ nervos.appchain
 
 After all of that, `npm run deploy` to deploy the contract, and set the contractAddress in `/config.js`, and then use `npm test` to test the contract.
 
+For now the config.js should be like:
+
+```javascript
+const config = {
+  chain: '{host address of appchain you are using}',
+  privateKey: '{your private key}',
+  contractAddress: '{deployed contract address}',
+}
+module.exports = config
+```
+
 ## 7. Integrate Contract into Dapp
 
 ### Instantiate Contract
