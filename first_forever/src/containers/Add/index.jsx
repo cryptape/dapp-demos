@@ -42,14 +42,14 @@ class Add extends React.Component {
           if (res) {
             nervos.listeners.listenToTransactionReceipt(res)
               .then(receipt => {
-                if (!receipt.errorMessage) {
+                if (!receipt.errorMessage) { 
                   that.setState({ submitText: submitTexts.submitted })
-                } else if (receipt.errorMessage === 'cancelled'){
-                  that.setState({ submitText: submitTexts.normal })
                 } else {
                   throw new Error(receipt.errorMessage)
                 }
               })
+          } else if(err === 'cancelled') {
+            that.setState({ submitText: submitTexts.normal })
           } else {
             throw new Error('No Transaction Hash Received' + err)
           }
