@@ -3,8 +3,6 @@ const {
 } = require('@nervos/web3')
 
 const config = require('./config')
-
-// const nervos = Nervos(config.chain) // config.chain indicates that the address of Appchain to interact
 if (typeof window.nervos !== 'undefined') {
   window.nervos = Nervos(window.nervos.currentProvider);
   window.nervos.currentProvider.setHost("https://node.cryptape.com");
