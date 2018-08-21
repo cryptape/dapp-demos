@@ -55,7 +55,7 @@ $ yarn global add create-react-app
 After that the project can be initiated by
 
 ```shell
-$ create-react-app first_forever && cd first_forever
+$ create-react-app first-forever && cd first-forever
 ```
 
 Now the project looks like
@@ -107,7 +107,7 @@ The Dapp interacts with Appchain by the `nervos.js` and details of `nervos` can 
 In order to use nervos.js, add nervos.js as other packages by yarn `yarn add @nervos/chain`, and then instantiate `nervos` in `src/nervos.js`.
 
 ```javascript
-const { default: Nervos } = require('@nervos/web3')
+const { default: Nervos } = require('@nervos/chain')
 
 const config = require('./config')
 
@@ -273,7 +273,7 @@ Create directory in `src`
   )
   ```
 
-- Add deploy and test script in [package.json](https://github.com/cryptape/dapp-demos/blob/develop/first_forever/package.json)
+- Add deploy and test script in [package.json](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/package.json)
 
   ```json
   "scripts": {
