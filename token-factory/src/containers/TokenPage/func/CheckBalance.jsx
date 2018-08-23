@@ -7,13 +7,13 @@ import InputTo from "../../../components/Input/index";
 import Button from "../../../components/Button/index";
 import { balanceOf } from "../../../contracts/tokenStore";
 
-const toHint = "to:eg. 0x1ce21fa";
+const toHint = "eg. 0x1ce21fa";
 
 export default class ApproveAccount extends React.Component {
   constructor() {
     super();
     this.state = {
-      to: '',
+      to: "",
       button_status: true,
       button_text: "Check Balance",
       balance: ""
@@ -26,6 +26,7 @@ export default class ApproveAccount extends React.Component {
         <text style={Styles.Title}>Check Balance</text>
         <text style={Styles.Tip}>Check balance of account.</text>
         <InputTo
+          title={"to"}
           def={this.state.to}
           value={toHint}
           inputChanged={input => {

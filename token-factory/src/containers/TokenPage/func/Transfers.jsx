@@ -8,8 +8,8 @@ import InputAmount from "../../../components/Input/index";
 import Button from "../../../components/Button/index";
 import { transfer } from "../../../contracts/tokenStore";
 
-const toHint = "to:eg. 0x1ce21fa";
-const amountHint = "amount: eg. 10";
+const toHint = "eg. 0x1ce21fa";
+const amountHint = "eg. 10";
 
 export default class Transfers extends React.Component {
   constructor() {
@@ -29,12 +29,14 @@ export default class Transfers extends React.Component {
         <text style={Styles.Title}>Transfer {this.props.name}</text>
         <text style={Styles.Tip}>Transfer to another account.</text>
         <InputTo
+          title={"to"}
           value={toHint}
           inputChanged={input => {
             this.setState({ to: input });
           }}
         />
         <InputAmount
+          title={"amount"}
           value={amountHint}
           inputChanged={input => {
             this.setState({ amount: input });

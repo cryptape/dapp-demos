@@ -8,8 +8,8 @@ import InputAmount from "../../../components/Input/index";
 import { approveAccount } from "../../../contracts/tokenStore";
 import Button from "../../../components/Button/index";
 
-const toHint = "to:eg. 0x1ce21fa";
-const amountHint = "amount: eg. 10";
+const toHint = "eg. 0x1ce21fa";
+const amountHint = "eg. 10";
 
 export default class ApproveAccount extends React.Component {
   constructor() {
@@ -31,12 +31,14 @@ export default class ApproveAccount extends React.Component {
           Approve account to withdraw multiple times up to the specified amount.
         </text>
         <InputTo
+          title={"to"}
           value={toHint}
           inputChanged={input => {
             this.setState({ to: input });
           }}
         />
         <InputAmount
+          title={"amount"}
           value={amountHint}
           inputChanged={input => {
             this.setState({ amount: input });
@@ -73,7 +75,7 @@ export default class ApproveAccount extends React.Component {
           });
         })
         .catch(err => {
-          alert(err)
+          alert(err);
           this.setState({
             button_status: true,
             button_text: "Approve Amount"

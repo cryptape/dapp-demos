@@ -10,10 +10,10 @@ import SymbolInput from "../../components/Input/index";
 import { deploy } from "../../contracts/tokenStore";
 import Button from "../../components/Button/index";
 
-let input_totally_supply = "totally supply eg. 10";
-let input_name = "name eg. Nervos";
-let input_decimal_places = "decimal places eg. 4";
-let input_symbol = "symbol eg. NOS";
+let input_totally_supply = "eg. 10";
+let input_name = "eg. Nervos";
+let input_decimal_places = "eg. 4";
+let input_symbol = "eg. NOS";
 
 export default class Create extends React.Component {
   constructor() {
@@ -38,24 +38,28 @@ export default class Create extends React.Component {
           Create Token Contract with the following parameters.
         </text>
         <SupplyInput
+          title={"totally supply"}
           value={input_totally_supply}
           inputChanged={input => {
             this.setState({ input_totally_supply: input });
           }}
         />
         <NameInput
+          title={"name"}
           value={input_name}
           inputChanged={input => {
             this.setState({ input_name: input });
           }}
         />
         <DecimalInput
+          title={"decimal"}
           value={input_decimal_places}
           inputChanged={input => {
             this.setState({ input_decimal_places: input });
           }}
         />
         <SymbolInput
+          title={"symbol"}
           value={input_symbol}
           inputChanged={input => {
             this.setState({ input_symbol: input });

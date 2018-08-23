@@ -9,9 +9,9 @@ import InputAmount from "../../../components/Input/index";
 import Button from "../../../components/Button/index";
 import { transferAllowance } from "../../../contracts/tokenStore";
 
-const fromHint = "from:eg. 0x1287fasjs";
-const toHint = "to:eg. 0x1ce21fa";
-const amountHint = "amount: eg. 10";
+const fromHint = "eg. 0x1287fasjs";
+const toHint = "eg. 0x1ce21fa";
+const amountHint = "eg. 10";
 
 export default class ApproveAccount extends React.Component {
   constructor() {
@@ -35,18 +35,21 @@ export default class ApproveAccount extends React.Component {
           authorised to do so.
         </text>
         <InputFrom
+          title={"from"}
           value={fromHint}
           inputChanged={input => {
             this.setState({ from: input });
           }}
         />
         <InputTo
+          title={"to"}
           value={toHint}
           inputChanged={input => {
             this.setState({ to: input });
           }}
         />
         <InputAmount
+          title={"amount"}
           value={amountHint}
           inputChanged={input => {
             this.setState({ amount: input });

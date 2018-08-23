@@ -8,8 +8,8 @@ import InputSpender from "../../../components/Input/index";
 import Button from "../../../components/Button/index";
 import { checkAllowance } from "../../../contracts/tokenStore";
 
-const ownerHint = "owner:eg. 0x1ce21fa";
-const spenderHint = "spender: eg. 0x1ce21fa";
+const ownerHint = "eg. 0x1ce21fa";
+const spenderHint = "eg. 0x1ce21fa";
 
 export default class ApproveAccount extends React.Component {
   constructor() {
@@ -32,12 +32,14 @@ export default class ApproveAccount extends React.Component {
           accounts.
         </text>
         <InputOwner
+          title={"owner"}
           value={ownerHint}
           inputChanged={input => {
             this.setState({ owner: input });
           }}
         />
         <InputSpender
+          title={"spender"}
           value={spenderHint}
           inputChanged={input => {
             this.setState({ spender: input });

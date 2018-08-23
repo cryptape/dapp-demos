@@ -20,7 +20,8 @@ export default class Input extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={Styles.Content}>
+        <text style={Styles.Title}>{this.props.title}</text>
         <input
           style={Styles.Input}
           value={this.state.input}
@@ -39,9 +40,20 @@ export default class Input extends React.Component {
 }
 
 const Styles = {
+  Content: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 15
+  },
+  Title: {
+    width: 55,
+    textAlign: "right"
+  },
   Input: {
-    marginTop: 15,
-    width: "100%",
+    marginLeft: 7,
+    width: 250,
     color: "#000000",
     fontSize: 16,
     padding: "4px 8px"

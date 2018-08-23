@@ -26,6 +26,7 @@ export default class Interact extends React.Component {
           Enter the address of the token contract you want to interact with:
         </text>
         <Input
+          title={"address"}
           value={hint}
           onKeyDown={e => this._enterPress(e)}
           inputChanged={input => {
