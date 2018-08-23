@@ -24,3 +24,6 @@ yarn-error.log*
 
 # config
 config.js
+token-factory/.idea/workspace.xml
+token-factory/package-lock.json
+token-factory/.gitignore
