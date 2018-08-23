@@ -1,11 +1,13 @@
-#Token Factory
+# Token Factory
+
 The Token Factory can create a simple standard ERC20 token on AppChain. It requires @nervos/chain  and it runs on the Neuron.(We highly recommend using the Neuron for a better experience).
 It will tell you how transplant a Eth Dapp to AppChain.We build a [ConsenSys/Token-Factory](https://github.com/ConsenSys/Token-Factory) in AppChain and we use his contract.You can compare the transplant.
 > Notice: Please read [First Forever](https://github.com/cryptape/dapp-demos/tree/develop/first-forever) first.It will show the entire process of building a MVP Dapp on Appchain.
 
 >Notice: This demo build by create-react-app
 
->Notice：Fuction store in here
+>Notice：Fuction store in here[tokenStore](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/tokenStore.js)
+
 #Getting Started
 ## 1. Use Scaffold for Project
 
@@ -43,14 +45,13 @@ Now the project looks like
 
 ## 2. Add Components of the Dapp
 
-This step is very familiar to webapp developers, [Route](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/Routes.jsx), [Containers](https://github.com/cryptape/dapp-demos/tree/develop/first-forever/src/containers) and [Components](https://github.com/cryptape/dapp-demos/tree/develop/first-forever/src/components) will be added to the Dapp
+This step is very familiar to webapp developers, [Router](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/Router.jsx), [containers](https://github.com/cryptape/dapp-demos/tree/develop/token-factory/src/containers) and [components](https://github.com/cryptape/dapp-demos/tree/develop/token-factory/src/components) will be added to the Dapp
 
 ```shell
 └── src
     ├── Router.jsx
     ├── components
-    ├── contrainers
-    └── contracts
+    └── contrainers
 ```
 All above are just traditional webapp development, and next we are going to dapp development.
 ## 3. Nervos.js
@@ -79,7 +80,7 @@ module.exports = nervos
 
 ```
 ##4.Basic ERC20 Contract
-Token.sol
+[Token.sol](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/soli/Token.sol)
 ```
 pragma solidity ^0.4.4;
 
@@ -121,7 +122,7 @@ contract Token {
 }
 
 ```
-Standardtoken.sol
+[Standardtoken.sol](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/soli/StandardToken.sol)
 ```
 /*
 This implements ONLY the standard functions and NOTHING else.
@@ -182,7 +183,7 @@ contract StandardToken is Token {
     uint256 public totalSupply;
 }
 ```
-HumanStandardToken.sol
+[HumanStandardToken.sol](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/soli/HumanStandardToken.sol)
 ```
 /*
 This Token Contract implements the standard token functionality (https://github.com/ethereum/EIPs/issues/20) as well as the following OPTIONAL extras intended for use by humans.
@@ -252,11 +253,11 @@ In details, **bytecode** and **abi** will be used in this demo.
 
 **bytecode** is used to deploy the contract, and **abi** is used to instantiate a contract instance for interacting.
 ### Deploy
-- Store SimpleStore Source Code in [SimpleStore.sol](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/contracts/SimpleStore.sol)
+- Store SimpleStore Source Code in [contracts](https://github.com/cryptape/dapp-demos/tree/develop/token-factory/src/contracts/soli)
 
-- Store **bytecode** and **abi** in [compiled.js](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/contracts/compiled.js)
+- Store **bytecode** and **abi** in [compiled.js](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/compiled.js)
 
-- Store transaction template in [transaction.js](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/contracts/transaction.js)
+- Store transaction template in [transaction.js](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/transaction.js)
 ```
 const transaction = {
     nonce: 999999,
@@ -335,10 +336,9 @@ export const deploy = async function(args) {
 
 0x0f3304454f47bd1c4a60ef68547d279f5c4deba6f30947c8ed53526f2bed099c
 
-<h5>If you run in explorer,it will return a json like this
-```
+<h5>If you run in explorer,it will return a json like this</h5>
+
 {hash: "0x0f3304454f47bd1c4a60ef68547d279f5c4deba6f30947c8ed53526f2bed099c", status: "OK"}
-```
 
 ```
 deploy([
@@ -360,7 +360,7 @@ deploy([
     }
 ```
 ## Integrate Contract into Dapp
-
+[tokenStore.js](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/tokenStore.js)
 ### 1.Get Name,Symbol,Decimals,TotalSupply
 ```
 export const getAttrs = async function (contract, attr) {
@@ -480,19 +480,21 @@ export const transfer = async function (contract, to, amount) {
 };
 ```
 ### 3.Neuron special callback
-If you run on the Neuron,we have two callbacks.
+If you run on the Neuron,we have two callbacks.There are not in @nervos/chain.
 
-There are not in @nervos/chain.
 ```
 onSignError(position, protocol)
 ```
 When you cancel action of sign or get some error,we will callback on onSignError.
+
 ```
 onSignSuccessful(position, protocol)
 ```
 When sign successfully,we will callback on onSignSuccessful.
-<h5>Notice: If you add onSignSuccess callback,send(tx) will not return Promise!You can use it like this.</h5>
-<h5>It just works on Neuron!If you use explorer,it will not works.Please use 2.Transfer send(tx) </h5>
+<h4>Notice: If you add onSignSuccess callback,send(tx) will not return Promise!You can use it like this.</h4>
+
+[TransferAllowance.jsx](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/containers/TokenPage/func/TransferAllowance.jsx)
+
 ```
  export const transferAllowance = function (contract, from, to, amount) {
      getTX().then(tx => {
@@ -569,3 +571,5 @@ When sign successfully,we will callback on onSignSuccessful.
       });
   }
 ```
+
+<h4>It just works on Neuron!If you use explorer,it will not works.Please use 2.Transfer send(tx) </h4>
