@@ -8,7 +8,7 @@ It will tell you how transplant a Eth Dapp to AppChain.We build a [ConsenSys/Tok
 
 >Notice：Fuction store in here[tokenStore](https://github.com/cryptape/dapp-demos/blob/develop/token-factory/src/contracts/tokenStore.js)
 
-#Getting Started
+# Getting Started
 ## 1. Use Scaffold for Project
 
 This Demo use `create-react-app` to start the project, so you need the `create-react-app` scaffold firstly
@@ -51,7 +51,7 @@ This step is very familiar to webapp developers, [Router](https://github.com/cry
 └── src
     ├── Router.jsx
     ├── components
-    └── contrainers
+    └── containers
 ```
 All above are just traditional webapp development, and next we are going to dapp development.
 ## 3. Nervos.js
