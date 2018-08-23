@@ -91,7 +91,7 @@ export default class ApproveAccount extends React.Component {
   }
 
   _onSignSuccessful(position, protocol) {
-    alert(protocol);
+    // alert(protocol);
     this.setState({
       button_text: "pending..."
     });
