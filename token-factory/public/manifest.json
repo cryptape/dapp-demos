@@ -1,0 +1,10 @@
+{
+  "name": "Nervos Token Factory",
+  "blockViewer": "https://etherscan.io/",
+  "chainSet": {
+    "1": "http://121.196.200.225:1337"
+  },
+  "icon": "http://7xq40y.com1.z0.glb.clouddn.com/23.pic.jpg",
+  "entry": "index.html",
+  "provider": "https://etherscan.io/"
+}
