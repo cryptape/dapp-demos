@@ -20,7 +20,7 @@ $ yarn global add create-react-app
 After that the project can be initiated by
 
 ```shell
-$ create-react-app first-forever && cd first-forever
+$ create-react-app token-factory && cd token-factory
 ```
 
 Now the project looks like
