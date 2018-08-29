@@ -48,6 +48,8 @@ The final project looks like
 
 This Demo use `create-react-app` to start the project, so you need the `create-react-app` scaffold firstly
 
+> Notice: This demo is created by create-react-app and supported by modern browser. If es5 version needed, just eject the scaffold and add `@babel/preset-es2015` in `.babelrc`
+
 ```shell
 $ yarn global add create-react-app
 ```
