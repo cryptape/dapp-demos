@@ -155,7 +155,7 @@ Set privateKey here for later useage, no more need for initWeb3.
 App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, contract_address)
 ```
 
-Create contract instance by using abi and deployed contract address.
+Create contract instance by using abi and deployed contract address.
 
 ### Getting The Adopted Pets and Updating The UI
 
