@@ -116,7 +116,7 @@ After you click the Adopt Button under any dog pic, browser will alert 'Waiting 
 The Adopt button will becomes disabled and the text will change to 'Success'. Melisa in the first row is an example.
 
 ---
-# Where is the difference
+# Where are the differences
 
 From here, we assume you already read the [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
