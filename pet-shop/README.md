@@ -148,7 +148,7 @@ var nervos = NervosWeb3('http://121.196.200.225:1337')
 ```
 The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
 
-Set privateKey here for later useage, no more need for initWeb3.
+No more need for initWeb3.
 
 ### Instantiating the contract
 
