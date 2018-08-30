@@ -4,7 +4,7 @@ This demo shows how to deploy the [pet-shop-box](https://github.com/truffle-box/
 
 > Notice: This tutorial is for the developers who is able to build webapps and has basic knowledge of Blockchain and Smart Contract.
 
-We **highly recommend** you to get familiar with the offical [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
+We **highly recommend** you to get familiar with the offical [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
 
 The final project looks like
 
@@ -119,9 +119,9 @@ The Adopt button will becomes disabled and the text will change to 'Success'. Me
 ---
 # Where are the differences
 
-From here, we assume you already read the [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
+From here, we assume you already read the [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
-> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)**
+> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).**
 
 ## src/index.html
 
