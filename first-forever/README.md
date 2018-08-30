@@ -114,9 +114,9 @@ const { default: Nervos } = require('@nervos/chain')
 const config = require('./config')
 
 const nervos = Nervos(config.chain) // config.chain indicates that the address of Appchain to interact
-const account = nervos.eth.accounts.privateKeyToAccount(config.privateKey) // create account by private key from config
+const account = nervos.appchain.accounts.privateKeyToAccount(config.privateKey) // create account by private key from config
 
-nervos.eth.accounts.wallet.add(account) // add account to nervos
+nervos.appchain.accounts.wallet.add(account) // add account to nervos
 
 module.exports = nervos
 ```
@@ -192,8 +192,8 @@ Create directory in `src`
   ```javascript
   const nervos = require('../nervos')
   const transaction = {
-    from: nervos.eth.accounts.wallet[0].address,
-    privateKey: nervos.eth.accounts.wallet[0].privateKey,
+    from: nervos.appchain.accounts.wallet[0].address,
+    privateKey: nervos.appchain.accounts.wallet[0].privateKey,
     nonce: 999999,
     quota: 1000000,
     chainId: 1,
@@ -211,12 +211,28 @@ Create directory in `src`
 
   const transaction = require('./transaction')
   let _contractAddress = ''
+  // contract contract instance
+  const myContract = new nervos.appchain.Contract(abi)
 
   nervos.appchain
     .getBlockNumber()
     .then(current => {
       transaction.validUntilBlock = +current + 88 // update transaction.validUntilBlock
-      return nervos.appchain.deploy(bytecode, transaction) // deploy contract
+      // deploy contract
+      return myContract
+        .deploy({
+          data: bytecode,
+          arguments: [],
+        })
+        .send(transaction)
+    })
+    .then(txRes => {
+      if (txRes.hash) {
+        // get transaction receipt
+        return nervos.listeners.listenToTransactionReceipt(txRes.hash)
+      } else {
+        throw new Error('No Transaction Hash Received')
+      }
     })
     .then(res => {
       const { contractAddress, errorMessage } = res
@@ -242,7 +258,7 @@ Create directory in `src`
 
   const simpleStoreContract = new nervos.appchain.Contract(abi, contractAddress) // instantiate contract
 
-  nervos.appchain.getBalance(nervos.eth.accounts.wallet[0].address).then(console.log) // check balance of account
+  nervos.appchain.getBalance(nervos.appchain.accounts.wallet[0].address).then(console.log) // check balance of account
   console.log(`Interact with contract at ${contractAddress}`)
   const time = new Date().getTime()
   const text = 'hello world at ' + time
@@ -371,7 +387,7 @@ In `src/containers/List/index.jsx`, load memos on mount
 
 ```javascript
 componentDidMount() {
-  const from = nervos.eth.accounts.wallet[0] ? nervos.eth.accounts.wallet[0].address : ''
+  const from = nervos.appchain.accounts.wallet[0] ? nervos.appchain.accounts.wallet[0].address : ''
   simpleStoreContract.methods
     .getList()
     .call({
@@ -398,7 +414,7 @@ componentDidMount() {
     simpleStoreContract.methods
       .get(time)
       .call({
-        from: nervos.eth.accounts.wallet[0].address,
+        from: nervos.appchain.accounts.wallet[0].address,
       })
       .then(text => {
         this.setState({ time, text })

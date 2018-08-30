@@ -24,7 +24,7 @@ class List extends React.Component {
     texts: [],
   }
   componentDidMount() {
-    const from = nervos.eth.accounts.wallet[0] ? nervos.eth.accounts.wallet[0].address : ''
+    const from = nervos.appchain.accounts.wallet[0] ? nervos.appchain.accounts.wallet[0].address : ''
     simpleStoreContract.methods
       .getList()
       .call({
