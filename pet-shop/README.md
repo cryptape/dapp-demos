@@ -107,20 +107,21 @@ Saving artifacts...
 ```shell
 npm run dev
 ```
-If everything works well, you will automatically jump to a webpage like this:
+If everything works well, you will automatically jump to a web page like this:
 
 ![homepage](src/pics/homepage.png)
 
+
 After you click the Adopt Button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'
 
-The Adopt button will becomes disabled and the text will change to 'Success'. Melisa in the first row is an example.
+The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
 
 ---
 # Where are the differences
 
 From here, we assume you already read the [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
-**You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)**
+> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)**
 
 ## src/index.html
 
@@ -140,7 +141,7 @@ From here, we assume you already read the [pet-shop-box- tutorial](https://truff
 ## src/app.js
 
 
-### Instantiating Nervos.js
+### Instantiating nervos.js
 
 ```js
 var nervos = NervosWeb3('http://121.196.200.225:1337')
