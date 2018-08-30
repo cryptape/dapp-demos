@@ -4,7 +4,7 @@ This demo shows how to deploy the [pet-shop-box](https://github.com/truffle-box/
 
 > Notice: This tutorial is for the developers who is able to build webapps and has basic knowledge of Blockchain and Smart Contract.
 
-We **highly recommend** you to get familiar with the offical [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
+We **highly recommend** you to get familiar with the offical [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
 
 The final project looks like
 
@@ -107,20 +107,21 @@ Saving artifacts...
 ```shell
 npm run dev
 ```
-If everything works well, you will automatically jump to a webpage like this:
+If everything works well, you will automatically jump to a web page like this:
 
 ![homepage](src/pics/homepage.png)
 
-After you click the Adopt Button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'
 
-The Adopt button will becomes disabled and the text will change to 'Success'. Melisa in the first row is an example.
+After you click the Adopt button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'
+
+The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
 
 ---
-# Where is the difference
+# Where are the differences
 
-From here, we assume you already read the [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
+From here, we assume you already read the [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
-**You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)**
+> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).**
 
 ## src/index.html
 
@@ -140,14 +141,14 @@ From here, we assume you already read the [pet-shop-box- tutorial](https://truff
 ## src/app.js
 
 
-### Instantiating Nervos.js
+### Instantiating nervos.js
 
 ```js
 var nervos = NervosWeb3('http://121.196.200.225:1337')
 ```
-The Nervos JavaScript library interacts with the AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
+The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
 
-Set privateKey here for later useage, no more need for initWeb3.
+No more need for initWeb3.
 
 ### Instantiating the contract
 
