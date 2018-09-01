@@ -200,7 +200,9 @@ Create directory in `src`
     version: 0,
     validUntilBlock: 999999,
     value: '0x0',
-  }
+  };
+
+  module.exports = transaction
   ```
 
 - Store deploy script in [deploy.js](https://github.com/cryptape/dapp-demos/blob/develop/first-forever/src/contracts/deploy.js)
