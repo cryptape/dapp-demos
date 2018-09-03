@@ -46,9 +46,6 @@ App = {
         $(document).on('click', '.btn-adopt', App.handleAdopt)
     },
 
-
-
-
     markAdopted: (adopters, account) => {
         App.contracts.Adoption.methods.getAdopters().call().then((adopters) => {
             for (i = 0; i < adopters.length; i++) {
@@ -60,9 +57,6 @@ App = {
             console.log(err.message)
         })
     },
-
-
-
 
     handleAdopt: (event) => {
         event.preventDefault()
