@@ -1,10 +1,12 @@
 # Demo2: pet-shop
 
+[中文版](doc/zh/README_zh.md)
+
 This demo shows how to deploy the [pet-shop-box](https://github.com/truffle-box/pet-shop-box) on AppChain.
 
 > Notice: This tutorial is for the developers who is able to build webapps and has basic knowledge of Blockchain and Smart Contract.
 
-We **highly recommend** you to get familiar with the offical [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
+We **highly recommend** you to get familiar with the offical [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop) first, this will help you fully understand what's going on in this demo.
 
 The final project looks like
 
@@ -13,39 +15,39 @@ The final project looks like
 ├── package.json
 ├── node_modules
 ├── build
-│   ├── contracts
-│       ├── Adoption.json
-│       ├── Migrations.json
+│   ├── contracts
+│       ├── Adoption.json
+│       ├── Migrations.json
 ├── contracts
-│   ├── Adoption.sol
-│   ├── Migration.sol
+│   ├── Adoption.sol
+│   ├── Migration.sol
 ├── migrations
-│   ├── 1_initial_migration.js
-│   ├── 2_deploy_contracts.js
+│   ├── 1_initial_migration.js
+│   ├── 2_deploy_contracts.js
 ├── src
-│   ├── css
-│       ├── bootstrap.min.css
-│       ├── bootstrap.min.css.map
-│   ├── fonts
-│       ├── glyphicons-halflings-regular.eot
-│       ├── glyphicons-halflings-regular.svg
-│       ├── glyphicons-halflings-regular.ttf
-│       ├── glyphicons-halflings-regular.woff
-│       ├── glyphicons-halflings-regular.woff2
-│   ├── images
-│       ├── boxer.jpeg
-│       ├── french-bulldog.jpeg
-│       ├── golden-retriever.jpeg
-│       ├── scottish-terrier.jpeg
-│   ├── pics
-│   ├── js
-│       ├── app.js
-│       ├── bootstrap.min.js
-│       ├── bundle.js
-│   ├── index.html
-│   ├── pets.json
+│   ├── css
+│       ├── bootstrap.min.css
+│       ├── bootstrap.min.css.map
+│   ├── fonts
+│       ├── glyphicons-halflings-regular.eot
+│       ├── glyphicons-halflings-regular.svg
+│       ├── glyphicons-halflings-regular.ttf
+│       ├── glyphicons-halflings-regular.woff
+│       ├── glyphicons-halflings-regular.woff2
+│   ├── images
+│       ├── boxer.jpeg
+│       ├── french-bulldog.jpeg
+│       ├── golden-retriever.jpeg
+│       ├── scottish-terrier.jpeg
+│   ├── pics
+│   ├── js
+│       ├── app.js
+│       ├── bootstrap.min.js
+│       ├── bundle.js
+│   ├── index.html
+│   ├── pets.json
 ├── test
-│   ├── TestAdoption.sol
+│   ├── TestAdoption.sol
 ├── box-img-lg.png
 ├── box-img-sm.png
 ├── bs-config-json
@@ -59,7 +61,17 @@ The final project looks like
 # How to run this demo
 
 ## 1. Download repo
-Download this repo to your Desktop and unzip.
+Download this repo.
+
+```shell
+git clone https://github.com/cryptape/dapp-demos.git
+```
+Change directory to pet-shop.
+
+```shell
+cd dapp-demos
+cd pet-shop
+```
 
 Finish the [setting-up](https://truffleframework.com/tutorials/pet-shop#setting-up-the-development-environment).
 
@@ -82,7 +94,7 @@ You will get a new folder named build.
 ```shell
 npm run migrate
 ```
-If your terminal shows informations below means you have successed.
+If your terminal shows informations below means you successfully deployed the contract.
 
 ```shell
 > appchain-migrate migrate
@@ -107,20 +119,21 @@ Saving artifacts...
 ```shell
 npm run dev
 ```
-If everything works well, you will automatically jump to a webpage like this:
+If everything works well, you will automatically jump to a web page like this:
 
 ![homepage](src/pics/homepage.png)
 
-After you click the Adopt Button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'
 
-The Adopt button will becomes disabled and the text will change to 'Success'. Melisa in the first row is an example.
+After you click the Adopt button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'.
+
+The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
 
 ---
-# Where is the difference
+# Where are the differences
 
-From here, we assume you already read the [pet-shop-box- tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
+From here, we assume you already read the [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
-**You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)**
+> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).**
 
 ## src/index.html
 
@@ -140,14 +153,14 @@ From here, we assume you already read the [pet-shop-box- tutorial](https://truff
 ## src/app.js
 
 
-### Instantiating Nervos.js
+### Instantiating nervos.js
 
 ```js
 var nervos = NervosWeb3('http://121.196.200.225:1337')
 ```
-The Nervos JavaScript library interacts with the AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
+The nervos.js library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
 
-Set privateKey here for later useage, no more need for initWeb3.
+No more need for initWeb3.
 
 ### Instantiating the contract
 
@@ -168,7 +181,7 @@ App.contracts.Adoption.methods.getAdopters().call().then(() => {
 ```
 getAdopters is a method name written in the contract.
 
-We can use App.contracts.Adoption.methods.methodName, to call the method in  deployed contract.
+We can use App.contracts.Adoption.methods.methodName, to call the method in deployed contract.
 
 ### Handling the adopt() Function
 
@@ -187,7 +200,7 @@ const transaction = {
 ```
 transaction object provide some configuration options to interact with AppChain.
 
-For more details about transaction object, you can refer to [nervos.js](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).
+For more details about transaction object, please refer to [nervos.js](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).
 
 ```js
 nervos.appchain.getBlockNumber().then((res) => {
@@ -196,7 +209,7 @@ nervos.appchain.getBlockNumber().then((res) => {
 })
 ```
 
-Check the block number right now, set an interval for valid block number.
+Check the block height right now and update validUntilBlock, if transaction doesn't executed after validUntilBlock, then we can say transaction failed.
 
 ```js
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
@@ -221,4 +234,4 @@ Polling to get transaction receipt by using transaction hash.
     console.log(err.message)
 })
 ```
-If receipt received, then call markAdopted method or throw the error.
+If receipt received and no error message appear, then call markAdopted method, or throw the error.
