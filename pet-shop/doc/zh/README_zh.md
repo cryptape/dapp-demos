@@ -4,7 +4,7 @@
 
 > 注意：本教程是给有一定 web 应用开发经验以及对区块链，智能合约开发有所了解的开发者准备的。
 
-我们**强烈建议**你先学习下[pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
+我们**强烈建议**先学习下[pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
 
 最终的 demo 文件夹结构如下：
 
@@ -72,7 +72,7 @@ cd dapp-demos
 cd pet-shop
 ```
 
-完成[初始化配置](https://truffleframework.com/tutorials/pet-shop#setting-up-the-development-environment).
+完成[初始化配置](https://truffleframework.com/tutorials/pet-shop#setting-up-the-development-environment)。
 
 ## 2. 安装依赖
 
@@ -85,10 +85,10 @@ yarn install
 truffle compile
 ```
 
-项目文件夹中将会生成一个新的文件夹 build。
+项目文件夹中将会生成一个新的文件夹 build。
 
 ## 4. 部署合约
-> 注意: 我们使用 [AppChain-Truffle-Box](https://github.com/cryptape/appchain-truffle-box) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
+> 注意: 我们使用 [AppChain-Truffle-Box](https://github.com/cryptape/appchain-truffle-box) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
 npm run migrate
@@ -113,7 +113,7 @@ store abi success
 Saving artifacts...
 ```
 
-## 5. 运行服务器
+## 5. 运行服务器
 
 ```shell
 npm run dev
@@ -122,14 +122,14 @@ npm run dev
 
 ![homepage](../../src/pics/homepage.png)
 
-当你点击任何宠物狗图片下的 Adopt 按钮之后，浏览器会提示 'Waiting for transaction result'，点击确认按钮之后，新的提示会告知你 'Transaction Done!'。
+当你点击任何宠物狗图片下的 Adopt 按钮之后，浏览器会提示 'Waiting for transaction result'，点击确认按钮之后，新的提示会告知你 'Transaction Done!'。
 
 Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 就像第一行的 Melissa 那样。
 
 ---
 # 区别在哪
 
-从这部分开始，我们假设你已经阅读过 [pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)， 之后将会着重关注两个demo之间**不同的部分**。
+从这部分开始，我们假设你已经阅读过 [pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)， 之后将会着重关注两个demo之间**不同的部分**。
 
 > 注意：这个 demo 使用 nervos.js 代替 web3.js 与 AppChain 进行交互。
 **可以在[这里](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)找到 nervos.js 的教程**
