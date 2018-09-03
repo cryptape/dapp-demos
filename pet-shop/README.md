@@ -89,7 +89,7 @@ truffle compile
 You will get a new folder named build.
 
 ## 4. Deploy the contract
-> Notice: We use [AppChain-Truffle-Box](https://github.com/cryptape/appchain-truffle-box) to deploy the contract, so the commend is different from truffle-box.
+> Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
 ```shell
 npm run migrate

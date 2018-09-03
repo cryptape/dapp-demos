@@ -88,7 +88,7 @@ truffle compile
 项目文件夹中将会生成一个新的文件夹 build。
 
 ## 4. 部署合约
-> 注意: 我们使用 [AppChain-Truffle-Box](https://github.com/cryptape/appchain-truffle-box) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
+> 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
 npm run migrate
