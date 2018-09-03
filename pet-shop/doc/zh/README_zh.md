@@ -180,7 +180,7 @@ App.contracts.Adoption.methods.getAdopters().call().then(() => {
 ```
 getAdopters 是合约中的方法名。
 
-我们可以使用 App.contracts.Adoption.methods.方法名 这种方法，来调用合约中的方法。
+我们可以使用 App.contracts.Adoption.methods.方法名 这种方式，来调用合约中的方法。
 
 ### 处理 adopt() 函数
 
