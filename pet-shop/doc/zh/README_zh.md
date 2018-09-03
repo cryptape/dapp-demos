@@ -199,7 +199,7 @@ const transaction = {
 ```
 交易对象提供了一些与 AppChain 交互的配置参数。
 
-关于交易对象的详情, 可以参考 [nervos.js](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).
+关于交易对象字段的详情, 可以参考 [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
 ```js
 nervos.appchain.getBlockNumber().then((res) => {

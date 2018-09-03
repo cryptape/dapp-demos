@@ -200,7 +200,7 @@ const transaction = {
 ```
 transaction object provide some configuration options to interact with AppChain.
 
-For more details about transaction object, please refer to [nervos.js](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).
+For more details about transaction object, please refer to [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
 ```js
 nervos.appchain.getBlockNumber().then((res) => {
