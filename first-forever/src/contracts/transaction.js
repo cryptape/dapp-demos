@@ -1,7 +1,7 @@
 const nervos = require('../nervos')
 const transaction = {
-  from: nervos.eth.accounts.wallet[0].address,
-  privateKey: nervos.eth.accounts.wallet[0].privateKey,
+  from: nervos.appchain.accounts.wallet[0].address,
+  privateKey: nervos.appchain.accounts.wallet[0].privateKey,
   nonce: 999999,
   quota: 1000000,
   chainId: 1,

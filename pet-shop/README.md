@@ -123,7 +123,6 @@ If everything works well, you will automatically jump to a web page like this:
 
 ![homepage](src/pics/homepage.png)
 
-
 After you click the Adopt button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'.
 
 The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
@@ -158,7 +157,8 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 ```js
 var nervos = NervosWeb3('http://121.196.200.225:1337')
 ```
-The nervos.js library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
+
+The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
 
 No more need for initWeb3.
 
