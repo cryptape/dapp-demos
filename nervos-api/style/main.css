@@ -1,0 +1,126 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-width: 320px;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+    word-break: break-word;
+    font-weight: 400;
+    margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+button, input {
+    line-height: normal;
+}
+
+html, button, input, select, textarea {
+    font-family: sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+}
+
+button, select {
+    text-transform: none;
+}
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 20px;
+}
+
+button {
+    font-family: inherit;
+}
+
+button:focus, button:active, a:active, a:hover {
+    outline: 0;
+}
+
+button {
+    font-family: inherit;
+    font-size: 100%;
+    padding: .5em 1em;
+    color: #444;
+    color: rgba(0, 0, 0, .8);
+    border: 1px solid #999;
+    border: transparent;
+    background-color: #E6E6E6;
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+button {
+    display: inline-block;
+    zoom: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button, input, textarea, li {
+    margin: 10px 0;
+}
+
+button:hover {
+    filter: alpha(opacity=90);
+    background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+}
+
+button:active {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px rgba(0, 0, 0, .2) inset;
+    border-color: #000 \9;
+}
+
+input, textarea, select, p {
+    padding: .5em .6em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 0;
+    border-color: #129FEA;
+}
+
+#id-div-main {
+    max-width: 100%;
+    width: 1080px;
+    margin: auto;
+    padding: 10px;
+}

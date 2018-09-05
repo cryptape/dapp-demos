@@ -1,0 +1,9 @@
+{
+  "name": "nervos_api",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "nervos-api",
+  "dependencies": {
+    "@nervos/chain": "^0.17.10"
+  }
+}

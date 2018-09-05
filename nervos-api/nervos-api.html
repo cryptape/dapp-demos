@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+<!--
+Author: watson
+More information:
+https://github.com/cryptape
+
+nervos.js version used: 1.0
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="./style/main.css">
+<link ref="manifest" href="/manifest.json">
+
+<title>Using nervos.js API with Neuron</title>
+<script type="text/javascript" src="./node_modules/@nervos/chain/lib/bundle.js"></script>
+<!-- for ecrecover -->
+<script type="text/javascript" src="./ethereumjs-util.js"></script>
+<script>
+
+
+window.addEventListener('load', function() {
+
+  // Checking if nervos has been injected by the neuron 
+  if (typeof nervos !== 'undefined') {
+    nervos = Nervos(nervos.currentProvider);
+    nervos.currentProvider.setHost("http://121.196.200.225:1337");
+  } else {
+    console.log('No Nervos? You should consider trying Neuron!')
+	  nervos = Nervos("http://121.196.200.225:1337");
+  }
+
+  // Now you can start your app & access nervos freely:
+  startApp();
+})
+
+// =================================================
+
+function startApp(){
+  showAPIVersion();
+  showPeerCount();
+  showMetaData();
+  showAccounts();
+  showCurrentBlockNumber();
+  showGetBalance();
+}
+// =================================================
+
+function showAPIVersion() {
+  // No async method available
+  document.getElementById('api').innerHTML = "[nervos.version] The appchain js version = " + nervos.version + "<br />";
+}
+
+// =================================================
+
+function showPeerCount() {
+  nervos.appchain.peerCount((err, res) => {
+    var output = "";
+
+    if (!err) {
+      output = parseInt(res, 16);
+    } else {
+      output = "Error";
+    }
+    document.getElementById('peer').innerHTML = "[nervos.appchain.getPeerCount] The number of peers currently connected to the client = " + output + "<br />";
+  })
+}
+
+// =================================================
+
+function showMetaData() {
+  nervos.appchain.getMetaData((err, res) => {
+    var output = "";
+
+    if (!err) {
+      output = JSON.stringify(res);
+    } else {
+      output = "Error";
+    }
+
+    document.getElementById('metaData').innerHTML = "[nervos.appchain.getMetaData] The default block = " + output + "<br />";
+  })
+  
+}
+
+// =================================================
+
+function showAccounts() {
+  var output = neuron.getAccounts();
+  document.getElementById('accounts').innerHTML = "[neuron.getAccounts] Accounts = <br />" + output + "<br />";
+}
+
+// =================================================
+
+function showCurrentBlockNumber() {
+  nervos.appchain.getBlockNumber((err, res) => {
+    var output = "";
+
+    if (!err) {
+      output = res;
+    } else {
+      output = "Error";
+    }
+    document.getElementById('blocknumber').innerHTML = "[nervos.appchain.getBlockNumber] Current block number = " + output + "<br />";
+  })
+}
+
+// =================================================
+
+function showGetBalance() {
+  nervos.appchain.getAccounts((err, res) => {
+    var output = "";
+    if (!err) {
+
+      for (i=0; i< res.length; i++){
+        var account = res[i];
+        nervos.appchain.getBalance(account, (err2, res2) => {
+          if (!err2) {
+            output += "Account= "+ account +", balance= " + res2 + " (wei), " + "<br />";
+
+          } else {
+            output = "Error2";
+          }
+          document.getElementById('balance').innerHTML = "[nervos.appchain.getBalance] Balance of all accounts [ref 2] = <br />" + output + "<br />";
+        })
+      }
+
+    } else {
+      output = "Error1";
+    }
+    document.getElementById('balance').innerHTML = "[nervos.appchain.getBalance] Balance of all accounts [ref 1] = <br />" + output + "<br />";
+  })
+}
+
+// =================================================
+
+function showCodeAtAdddress() {
+  var addressHexString = document.getElementById('addressCode').value;
+
+  if (addressHexString != null && addressHexString.length > 0) {
+    nervos.appchain.getCode(addressHexString, (err, res) => {
+      var output = "";
+      if (!err) {
+        output = res;
+      } else {
+        output = "Error";
+      }
+      document.getElementById('code').innerHTML = "Code = <br />" + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function showBlockInfo() {
+  var blockHashOrNumber = document.getElementById('blockHashOrNumber').value;
+
+  if (blockHashOrNumber != null && blockHashOrNumber.length > 0) {
+    nervos.appchain.getBlockByNumber(blockHashOrNumber, (err, res) => {
+      var output = "";
+      if (!err) {
+        output += parseResultObject(res);
+      } else {
+        output = "Error";
+      }
+      document.getElementById('blockinfo').innerHTML = "Block Info = <br />" + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function showTransactions() {
+  var transactionHash = document.getElementById('transactionHash').value;
+
+  if (transactionHash != null && transactionHash.length > 0) {
+    nervos.appchain.getTransaction(transactionHash, (err, res) => {
+      var output = "";
+      if (!err) {
+        output += parseResultObject(res);
+      } else {
+        output = "Error";
+      }
+      document.getElementById('transactions').innerHTML = "Transactions= <br />" + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function showTransactionReceipt() {
+  var transactionHash = document.getElementById('transactionHash2').value;
+
+  if (transactionHash != null && transactionHash.length > 0) {
+    nervos.appchain.getTransactionReceipt(transactionHash, (err, res) => {
+      var output = "";
+      if (!err) {
+        output += parseResultObject(res);
+      } else {
+        output = "Error";
+      }
+      document.getElementById('transactionReceipt').innerHTML = "Transaction receipt= <br />" + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function showTransactionsFromAdddress() {
+  var address = document.getElementById('address').value;
+
+  if (address != null && address.length > 0) {
+    nervos.appchain.getTransactionCount(address, (err, res) => {
+      var output = "";
+      if (!err) {
+        output += res;
+      } else {
+        output = "Error";
+      }
+      document.getElementById('transactions2').innerHTML = "Transaction count= " + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function sendTransaction() {
+  var fromAccount = document.getElementById('fromAccount').value;
+  var toAccount = document.getElementById('toAccount').value;
+  var amount = document.getElementById('amount').value;
+
+  var tx = {
+    from: fromAccount,
+    to: toAccount,
+    nonce: "186a0",
+    quota: 1000000,
+    validUntilBlock: 10000,
+    value: amount || "8ac7230489e80000",
+    chainId: 1,
+    version: 0
+  }
+
+  nervos.appchain.sendTransaction(tx, (err, res) => {
+    var output = "";
+    if (!err) {
+      output += res;
+    } else {
+      output = "Error";
+    }
+    document.getElementById('transactionResponse').innerHTML = "Transaction response= " + output + "<br />";
+  })
+}
+
+// =================================================
+
+function sendContractTransaction() {
+  var fromAccount = document.getElementById('fromAccount2').value;
+  var byteCode = document.getElementById('byteCode').value;
+
+  if (fromAccount != null && fromAccount.length > 0 &&
+      byteCode != null && byteCode.length > 0
+  ) {
+    var tx = {
+      from: fromAccount,
+      nonce: "186a0",
+      quota: 1000000,
+      data:byteCode.trim(),
+      validUntilBlock: "3e8",
+      value: "8ac7230489e80000",
+      chainId: 1,
+      version: 0
+    }
+
+    nervos.appchain.sendTransaction(tx, (err, res) => {
+      var output = "";
+      if (!err) {
+        output += res;
+      } else {
+        output = "Error";
+      }
+      document.getElementById('transactionResponse2').innerHTML = "Contract transaction response= " + output + "<br />";
+    })
+  }
+}
+
+// =================================================
+
+function signData() {
+  var fromAccount = document.getElementById('fromAccount3').value;
+  var dataToSign = document.getElementById('dataToSign').value;
+
+  if (fromAccount != null && fromAccount.length > 0 &&
+      dataToSign != null && dataToSign.length > 0
+  ) {
+    var encryptedMessage = nervos.utils.sha3(dataToSign);
+
+    nervos.appchain.sign(encryptedMessage, fromAccount, (err, res) => {
+      var output = "";
+      var rValue = "";
+      var sValue = "";
+      var vValue = "";
+
+      console.log("sign result: ", res)
+
+      if (!err) {
+        output += res;
+        // var r = res.slice(0, 66);
+        // var s = '0x' + res.slice(66, 130);
+        // var v = '0x' + res.slice(130, 132)
+        // v = nervos.utils.toDecimal(v)
+
+        // // Using ethereumjs-util.js
+        // var msg = EthJS.Util.toBuffer(encryptedMessage);
+        // var pub = EthJS.Util.ecrecover(msg, v, r, s);
+        // var addrBuf = EthJS.Util.pubToAddress(pub);
+        // var addr    = EthJS.Util.bufferToHex(addrBuf);
+
+      } else {
+        output = "Error";
+      }
+      document.getElementById('signResponse').innerHTML = "<br /> sig= " + output + "<br /><br />";
+      // document.getElementById('rValue').innerHTML = "r = sig.slice(0, 66) = " + r + "<br />";
+      // document.getElementById('sValue').innerHTML = "s = '0x' + sig.slice(66, 130) = " + s + "<br />";
+      // document.getElementById('vValue').innerHTML = "v = '0x' + sig.slice(130, 132) <br />v = nervos.utils.toDecimal(v) = " + v + "<br />";
+      // document.getElementById('pubKey').innerHTML = "pubKey = ecrecover(msg, v, r, s) = " + addr + "<br />";
+    })
+  }
+}
+
+function sha3() {
+  var dataToHash = document.getElementById('dataToHash').value;
+  var encoding = document.getElementById('sha3Encoding').value;
+
+  var output="";
+  if (dataToHash != null && dataToHash.length > 0) {
+    if(encoding == "hex") {
+      output = nervos.utils.sha3(dataToHash, {encoding: 'hex'});
+    } else {
+      output = nervos.utils.sha3(dataToHash);
+    }
+
+    document.getElementById('sha3Response').innerHTML = "<br /> sha3= " + output + "<br /><br />";
+  }
+}
+
+function toHex() {
+  var dataToHex = document.getElementById('dataToHex').value;
+  var output="";
+  if (dataToHex != null && dataToHex.length > 0) {
+    output = nervos.utils.toHex(dataToHex);
+    document.getElementById('toHexResponse').innerHTML = "<br /> toHex= " + output + "<br /><br />";
+  }
+}
+
+function hexToASCII() {
+  var hexString = document.getElementById('hexString').value;
+  var output="";
+  if (hexString != null && hexString.length > 0) {
+    output = nervos.utils.toAscii(hexString);
+    document.getElementById('toASCIIResponse').innerHTML = "<br /> toASCII= " + output + "<br /><br />";
+  }
+}
+
+function fromASCII() {
+  var asciiString = document.getElementById('asciiString').value;
+  var numberOfBytes = document.getElementById('numberOfBytes').value;
+
+  var output="";
+  if (asciiString != null && asciiString.length > 0 && !isNaN(numberOfBytes)) {
+    var padding = parseInt(numberOfBytes);
+
+    if(padding > 0) {
+      output = nervos.utils.fromAscii(asciiString, padding);
+    } else {
+      output = nervos.utils.fromAscii(asciiString);
+    }
+
+    document.getElementById('fromASCIIResponse').innerHTML = "<br /> hex string= " + output + "<br /><br />";
+  }
+}
+
+function toDecimal() {
+  var hexToNumber = document.getElementById('hexToNumber').value;
+  var output="";
+  if (hexToNumber != null && hexToNumber.length > 0) {
+    output = nervos.utils.toDecimal(hexToNumber);
+    document.getElementById('toDecimalResponse').innerHTML = "<br /> decimal= " + output + "<br /><br />";
+  }
+}
+
+function fromDecimal() {
+  var numberToHex = document.getElementById('numberToHex').value;
+  var output="";
+  if (numberToHex != null && numberToHex.length > 0) {
+    output = nervos.utils.fromDecimal(numberToHex);
+    document.getElementById('fromDecimalResponse').innerHTML = "<br /> hex= " + output + "<br /><br />";
+  }
+}
+
+function fromWei() {
+  var numberOfWei = document.getElementById('numberOfWei').value;
+  var etherUnit = document.getElementById('etherUnit').value;
+
+  var output="";
+  if (numberOfWei != null && numberOfWei.length > 0 && !isNaN(numberOfWei)) {
+    output = nervos.utils.fromWei(numberOfWei,etherUnit);
+    document.getElementById('fromWeiResponse').innerHTML = "<br /> "+etherUnit+"= " + output + "<br /><br />";
+  }
+}
+
+function toWei() {
+  var numberOfEthereumUnit = document.getElementById('numberOfEthereumUnit').value;
+  var etherUnit = document.getElementById('etherUnit2').value;
+
+  var output="";
+  if (numberOfEthereumUnit != null && numberOfEthereumUnit.length > 0 && !isNaN(numberOfEthereumUnit)) {
+    output = nervos.utils.toWei(numberOfEthereumUnit,etherUnit);
+    document.getElementById('toWeiResponse').innerHTML = "<br /> wei= " + output + "<br /><br />";
+  }
+}
+
+function isAddress() {
+  var hexAddress = document.getElementById('hexAddress').value;
+  var output="";
+  if (hexAddress != null && hexAddress.length > 0) {
+    output = nervos.utils.isAddress(hexAddress);
+    document.getElementById('isAddressResponse').innerHTML = "<br /> Is an address = " + output + "<br /><br />";
+  }
+}
+
+function setDefaultAccount(){
+  var defaultAccount = document.getElementById('defaultAccount').value;
+  if (defaultAccount != null && nervos.utils.isAddress(defaultAccount)) {
+    nervos.appchain.defaultAccount = defaultAccount;
+    document.getElementById('displayDefaultAccount').innerHTML = "Default account is now: " +nervos.appchain.defaultAccount;
+  }
+}
+
+// =================================================
+// Helper Functions
+// =================================================
+function parseResultObject(res){
+  var output = "";
+
+  for (var key in res) {
+    if (res.hasOwnProperty(key)) {
+
+      if( Object.prototype.toString.call( res[key] ) === '[object Array]' ) {
+        var arrObj = res[key];
+
+        if(arrObj.length == 0) {
+          output += key + " -> []<br />";
+        } else {
+
+          for(var i=0; i < arrObj.length; i++){
+            for (var key2 in arrObj[i]) {
+              if (arrObj[i].hasOwnProperty(key2)) {
+                output += key + "["+i+"]." + key2 + "-> " + arrObj[i][key2] + "<br />";
+              }
+            }
+          }
+
+        }
+      } else {
+        output += key + " -> " + res[key] + "<br />";
+      }
+    }
+  }
+  return output;
+}
+</script>
+</head>
+<body>
+
+<h1>Using nervos API with Neuron</h1>
+This web page shows examples using nervos methods together with Neuron.
+<br /><br />
+
+Information about nervos API: <a href="https://github.com/cryptape/nervos.js" target="_blank">https://github.com/cryptape/nervos.js</a><br />
+Explore CITA Testnet blockchain: <a href="https://microscope.cryptape.com/#/" target="_blank">https://microscope.cryptape.com/#/</a><br />
+
+<h2>How to use</h2>
+<ul>
+<li>Install Neuron wallet APP: <a href="https://github.com/cryptape/neuron-android/releases" target="_blank">https://github.com/cryptape/neuron-android/releases</a></li>
+<li>Input your nervos-api web address to first tab page of Neuron APP</li>
+<li>Click any button of nervos-api page and test the api you want</li>
+</ul>
+
+
+<h2>Examples</h2>
+
+<div id="network"></div>
+<div id="api"></div>
+<div id="ethereum"></div>
+<div id="connection"></div>
+<div id="listening"></div>
+<div id="peer"></div>
+<div id="metaData"></div>
+<div id="accounts"></div>
+<div id="blocknumber"></div>
+<div id="balance"></div>
+
+<!-- ================================================= -->
+<hr />
+
+[nervos.appchain.defaultAccount] This default account is used for the following methods:<br />
+- nervos.appchain.sendTransaction()<br />
+- nervos.appchain.call()<br />
+Note: The defaultAccount optionally can be overwritten by specifying the from property.
+<br />
+Default account (rinkeby example):
+<input type="text" id="defaultAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+<button onclick="setDefaultAccount()">Set</button>
+<br /><br />
+<div id="displayDefaultAccount"></div>
+<hr />
+
+<!-- ================================================= -->
+<hr />
+
+[nervos.utils.sha3] The Keccak-256 SHA3 of the given data<br />
+Data to be hashed:<br />
+<textarea id="dataToHash" rows="10" cols="80">Some string to be hashed</textarea><br />
+Encoding:
+<select id="sha3Encoding">
+  <option value="no" selected="selected">no encoding</option>
+  <option value="hex">hex encoding</option>
+</select>
+
+<br /><br />
+<button onclick="sha3()">Hash</button>
+<br /><br />
+<div id="sha3Response"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.toHex] Converts any value into HEX<br />
+Data to be converted into hex:<br />
+<textarea id="dataToHex" rows="10" cols="80">{test: 'test'}</textarea><br />
+<button onclick="toHex()">Convert</button>
+<br /><br />
+<div id="toHexResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.toAscii] Converts a HEX string into a ASCII string<br />
+Hex string:<br />
+<textarea id="hexString" rows="10" cols="80">0x657468657265756d000000000000000000000000000000000000000000000000</textarea><br />
+<button onclick="hexToASCII()">Convert</button>
+<br /><br />
+<div id="toASCIIResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.fromAscii] Converts any ASCII string to a HEX string.<br />
+ASCII string:<br />
+<textarea id="asciiString" rows="10" cols="80">ethereum</textarea>
+<br /><br />
+The number of bytes the returned HEX string should have (No paddding if value = 0). This does not work!! Bug maybe?<br />
+<input type="text" id="numberOfBytes" size="20" value="0">
+<br /><br />
+<button onclick="fromASCII()">Convert</button>
+<br /><br />
+<div id="fromASCIIResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.toDecimal] Converts a HEX string to its number representation.<br />
+An HEX string to be converted to a number:<br />
+<textarea id="hexToNumber" rows="10" cols="80">0x15</textarea><br />
+<button onclick="toDecimal()">Convert</button>
+<br /><br />
+<div id="toDecimalResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.fromDecimal] Converts a number or number string to its HEX representation.<br />
+A number to be converted to a HEX string:<br />
+<textarea id="numberToHex" rows="10" cols="80">21</textarea><br />
+<button onclick="fromDecimal()">Convert</button>
+<br /><br />
+<div id="fromDecimalResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.fromWei] Converts a number of wei into selected ethereum unit:<br />
+Wei (in dec or hex):<br />
+<textarea id="numberOfWei" rows="10" cols="80">21000000000000</textarea><br />
+Unit:
+<select id="etherUnit">
+  <option value="kwei">kwei/ada</option>
+  <option value="mwei">mwei/babbage</option>
+  <option value="gwei">gwei/shannon</option>
+  <option value="szabo">szabo</option>
+  <option value="finney">finney</option>
+  <option value="ether" selected="selected">ether</option>
+  <option value="kether">kether</option>
+  <option value="mether">mether</option>
+  <option value="gether">gether</option>
+  <option value="tether">tether</option>
+</select>
+
+<br /><br />
+<button onclick="fromWei()">Convert</button>
+<br /><br />
+<div id="fromWeiResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.toWei] Converts an ethereum unit into wei:<br />
+Number of Ethereum units (in dec or hex):<br />
+<textarea id="numberOfEthereumUnit" rows="10" cols="80">1</textarea><br />
+Unit:
+<select id="etherUnit2">
+  <option value="kwei">kwei/ada</option>
+  <option value="mwei">mwei/babbage</option>
+  <option value="gwei">gwei/shannon</option>
+  <option value="szabo">szabo</option>
+  <option value="finney">finney</option>
+  <option value="ether" selected="selected">ether</option>
+  <option value="kether">kether</option>
+  <option value="mether">mether</option>
+  <option value="gether">gether</option>
+  <option value="tether">tether</option>
+</select>
+
+<br /><br />
+<button onclick="toWei()">Convert</button>
+<br /><br />
+<div id="toWeiResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.utils.isAddress] Checks if the given string is an address.<br />
+An address (HEX string):<br />
+<textarea id="hexAddress" rows="10" cols="80">0x8888f1f195afa192cfee860698584c030f4c9db1</textarea><br />
+<button onclick="isAddress()">Check</button>
+<br /><br />
+<div id="isAddressResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+[nervos.appchain.getCode] Get the code at the specified contract address<br />
+Contract Address (rinkeby example):
+<input type="text" id="addressCode" size="100" value="0x31a6e88ebf249b4561ee864408df9577fe25905b">
+<button onclick="showCodeAtAdddress()">Get</button>
+<br /><br />
+To find the contract address deployed from an address, goto <a href="https://rinkeby.etherscan.io" target="_blank">https://rinkeby.etherscan.io</a> enter the address and search for the transaction which created the contract.<br />
+In the transaction details you will find the contract address.
+<br /><br />
+<div id="code"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.getBlockByNumber] Get the block information at the specified block hash or block number<br />
+Block hash or block number (rinkeby example):
+<input type="text" id="blockHashOrNumber" size="100" value="0x128000">
+<button onclick="showBlockInfo()">Get</button>
+<br /><br />
+<div id="blockinfo"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.getTransaction] Get transactions for given transaction hash<br />
+Transaction hash (rinkeby example):
+<input type="text" id="transactionHash" size="100" value="0x26522a83a491906115c5ec2bec8de5b6fc06a61717a72464ef79f91881101333">
+<button onclick="showTransactions()">Get</button>
+<br /><br />
+<div id="transactions"></div>
+<hr />
+
+
+<!-- ================================================= -->
+
+[nervos.appchain.getTransactionReceipt] Get transaction receipt for given transaction hash
+<br /><br />
+Use this method to get the contract address.<br />
+When a contract is created using method nervos.appchain.sendTransaction a transaction hash is returned.<br />
+This transaction hash can be used as input for nervos.appchain.getTransactionReceipt.
+<br /><br />
+Note:<br />
+If you got null instead of a receipt the transaction has not been included in a block yet. <br />
+Wait for a moment and check if a miner has included the transaction in a block and retry it.
+<br /><br />
+Transaction hash (rinkeby example):
+<input type="text" id="transactionHash2" size="100" value="0x29d485c1513530cfacf3343fe9b6fea93c9e48a8f66c11858cfd517cf7bc0c6a">
+<button onclick="showTransactionReceipt()">Get</button>
+<br /><br />
+<div id="transactionReceipt"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.getTransactionCount] Get the number of transaction send for specified address<br />
+Address (rinkeby example):
+<input type="text" id="address" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+<button onclick="showTransactionsFromAdddress()">Get</button>
+<br /><br />
+<div id="transactions2"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.sendTransaction] Send a transaction (ether transfer)<br />
+From account (rinkeby example):
+<input type="text" id="fromAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+<br /><br />
+To account:
+<input type="text" id="toAccount" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+<br /><br />
+Amount (Ether):
+<input type="text" id="amount" size="100" value="10">
+<br /><br />
+<!--
+Gas limit (gas):
+<input type="text" id="gasLimit" size="100" value="21000">
+<br /><br />
+
+Gas price (Wei)
+<input type="text" id="gasPrice" size="100" value="20000000000">
+-->
+<button onclick="sendTransaction()">Send</button>
+<br /><br />
+<div id="transactionResponse"></div>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.sendTransaction] Send a transaction (contract creation)<br />
+From account (rinkeby example):
+<input type="text" id="fromAccount2" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+<br /><br />
+Bytecode:<br />
+<textarea id="byteCode" rows="20" cols="80">
+  6060604052341561000f57600080fd5b5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b5b61010c806100616000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b514603d575b600080fd5b3415604757600080fd5b604d604f565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141560dd576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b5600a165627a7a72305820cadc222fb5cdf67c7aa4fa651568819877bb5258488d9678c11c9c599181806b0029
+</textarea>
+<br /><br />
+<button onclick="sendContractTransaction()"> Send </button>
+<br /><br />
+<div id="transactionResponse2"></div>
+<br />
+Note: <br />
+The Bytecode value above was created as follow:
+<ul>
+  <li>
+    Greeter contract copied from: <a href="https://www.ethereum.org/greeter" target="_blank">https://www.ethereum.org/greeter</a>.
+    <br /><br />
+    <textarea rows="20" cols="80">
+    pragma solidity ^0.4.0;
+
+    contract mortal {
+      /* Define variable owner of the type address*/
+      address owner;
+
+      /* this function is executed at initialization and sets the owner of the contract */
+      function mortal() { owner = msg.sender; }
+
+      /* Function to recover the funds on the contract */
+      function kill() { if (msg.sender == owner) selfdestruct(owner); }
+    }
+
+    contract greeter is mortal {
+      /* define variable greeting of the type string */
+      string greeting;
+
+      /* this runs when the contract is executed */
+      function greeter(string _greeting) public {
+      greeting = _greeting;
+      }
+
+      /* main function */
+      function greet() constant returns (string) {
+      return greeting;
+      }
+    }
+    </textarea>
+
+    <br /><br />
+  </li>
+  <li>
+    Load this code into the Remix Solidity IDE <a href="http://remix.ethereum.org" target="_blank">http://remix.ethereum.org</a>
+    or press <a href="http://remix.ethereum.org/#gist=39436b3073ac5f90ed9d047ca547cd6c&amp;version=soljson-v0.4.13+commit.fb4cb1a.js" target="_blank">this link</a>
+    and it will be done automatically for you (Use Chrome browser).
+  </li>
+  <li>
+    Compile the code in the Remix Solidity IDE.
+  </li>
+  <li>
+    Select the Contract tab and click the link "Contract details (bytecode, interface etc.)".
+  </li>
+  <li>
+    Copy the Remix Bytecode value and paste it into the Bytecode field above.
+  </li>
+  <li>
+    I already copied the Greeter interface here below, because you will need it in the nervos.appchain.call example:
+    <br /><br />
+    <textarea rows="10" cols="80">[{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"type":"constructor"}]</textarea>
+  </li>
+
+</ul>
+<hr />
+
+<!-- ================================================= -->
+
+[nervos.appchain.sign] Sign data<br />
+From a specific account (rinkeby example):
+<input type="text" id="fromAccount3" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+<br /><br />
+Data to sign:<br />
+<textarea id="dataToSign" rows="20" cols="80">Hello World</textarea>
+<br /><br />
+<button onclick="signData()">Sign</button>
+<br /><br />
+<div id="signResponse"></div>
+<div id="rValue"></div>
+<div id="sValue"></div>
+<div id="vValue"></div>
+<div id="pubKey"></div>
+<br />
+<hr />
+
+</body>
+</html>
