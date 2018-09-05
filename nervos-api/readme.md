@@ -1,5 +1,3 @@
-# Neuron-API page
+# Nervos-api page
 
-This is a work-in-progress. The API listed on the page are not strictly tested.
-
-You can use this as a reference for now. We will update this project very soon. 
+This project show almost api method of nervos.js, you can study nervos.js SDK intuitively.
