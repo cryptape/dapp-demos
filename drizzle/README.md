@@ -5,9 +5,10 @@ This demo use drizzle-truffle-box as an example to show you [AppChain-Truffle-Mi
 # How to run this demo
 
 ## 1. Install Truffle globally
-    ```javascript
-    npm install -g truffle
-    ```
+
+```javascript
+npm install -g truffle
+```
 
 ## 2. Download repo
 Download this repo.
