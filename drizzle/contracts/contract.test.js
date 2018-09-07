@@ -1,7 +1,6 @@
-//初始化 nervos
 const Nervos = require('@nervos/chain').default
 const nervos = Nervos('http://121.196.200.225:1337')
-
+const fs = require('fs')
 const log = console.log.bind(console)
 
 const transaction = {
@@ -15,19 +14,14 @@ const transaction = {
     value: '0x0'
 };
 
-// 获取账户地址
 const {address} = nervos.appchain.accounts.privateKeyToAccount(
     transaction.privateKey
 )
 
-const fs = require('fs')
-
-// 读取 SimpleStorage.json 文件
 const simpleStorage = fs.readFileSync('../build/contracts/SimpleStorage.json', {encoding: 'utf-8'})
 const simpleStorageArtifact = JSON.parse(simpleStorage)
 const contract_address = simpleStorageArtifact.networks.appchain1.address
 
-//实例化合约
 const simpleContractInstance = new nervos.appchain.Contract(simpleStorageArtifact.abi, contract_address)
 
 const testSimpleStorage = () => {
@@ -57,8 +51,34 @@ const testSimpleStorage = () => {
     })
 }
 
+const complexStorage = fs.readFileSync('../build/contracts/ComplexStorage.json', {encoding: 'utf-8'})
+const complexStorageArtifact = JSON.parse(complexStorage)
+const complex_contract_address = complexStorageArtifact.networks.appchain1.address
+
+const complexContractInstance = new nervos.appchain.Contract(complexStorageArtifact.abi, complex_contract_address)
+
+const testComplexStorage = () => {
+    complexContractInstance.methods.string1().call().then((string1) => {
+        log('###### Complex Storage Contract Test Begin ######\n')
+        log('string1:', `${string1} \n`)
+        return complexContractInstance.methods.string2().call()
+    }).then((string2) => {
+        log('string2:', `${string2} \n`)
+        return complexContractInstance.methods.string3().call()
+    }).then((string3) => {
+        log('string3:', `${string3} \n`)
+        return complexContractInstance.methods.storeduint1().call()
+    }).then((storeduint1) => {
+        log('storeduint1:', `${storeduint1} \n`)
+        log('###### Complex Storage Contract Test End ######\n')
+    }).catch((err) => {
+        log(err.message)
+    })
+}
+
 const __test = () => {
     testSimpleStorage()
+    testComplexStorage()
 }
 
 __test()

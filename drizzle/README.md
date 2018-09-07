@@ -92,5 +92,15 @@ Stored Data after set: 40
 
 ###### Simple Storage Contract Test End ######
 
+###### Complex Storage Contract Test Begin ######
 
+string1: 0x74657374310000000000000000000000
+
+string2: 0x7465737431323336000000000000000000000000000000000000000000000000
+
+string3: lets string something
+
+storeduint1: 15
+
+###### Complex Storage Contract Test End ######
 ```
