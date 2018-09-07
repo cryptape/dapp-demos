@@ -25,7 +25,7 @@ const contract_address = simpleStorageArtifact.networks.appchain1.address
 const simpleContractInstance = new nervos.appchain.Contract(simpleStorageArtifact.abi, contract_address)
 
 const testSimpleStorage = () => {
-    simpleContractInstance.methods.storedData().call().then((storedData) => {
+    return simpleContractInstance.methods.storedData().call().then((storedData) => {
         log('###### Simple Storage Contract Test Begin ######\n')
         log('Stored Data before set:', `${storedData} \n`)
         return nervos.appchain.getBlockNumber()
@@ -58,7 +58,7 @@ const complex_contract_address = complexStorageArtifact.networks.appchain1.addre
 const complexContractInstance = new nervos.appchain.Contract(complexStorageArtifact.abi, complex_contract_address)
 
 const testComplexStorage = () => {
-    complexContractInstance.methods.string1().call().then((string1) => {
+    return complexContractInstance.methods.string1().call().then((string1) => {
         log('###### Complex Storage Contract Test Begin ######\n')
         log('string1:', `${string1} \n`)
         return complexContractInstance.methods.string2().call()
@@ -77,8 +77,9 @@ const testComplexStorage = () => {
 }
 
 const __test = () => {
-    testSimpleStorage()
-    testComplexStorage()
+    testSimpleStorage().then(() => {
+        testComplexStorage()
+    })
 }
 
 __test()
