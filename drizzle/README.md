@@ -73,4 +73,24 @@ Saving artifacts...
 
 ## 6. Test contract
 
-TBD.
+To test whether contracts already deployed, you can change directory to contracts then run contract.test.js.
+
+```shell
+cd contracts
+node contract.test.js
+```
+In the shell will display the test result.
+
+```shell
+###### Simple Storage Contract Test Begin ######
+
+Stored Data before set: 0
+
+Set stored date to 40
+
+Stored Data after set: 40
+
+###### Simple Storage Contract Test End ######
+
+
+```

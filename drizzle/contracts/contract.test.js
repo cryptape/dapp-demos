@@ -31,13 +31,15 @@ const contract_address = simpleStorageArtifact.networks.appchain1.address
 const simpleContractInstance = new nervos.appchain.Contract(simpleStorageArtifact.abi, contract_address)
 
 simpleContractInstance.methods.storedData().call().then((storedData) => {
-    console.log('Stored Data before set:', storedData)
+    log('###### Simple Storage Contract Test Begin ######\n')
+    log('Stored Data before set:', `${storedData} \n`)
     return nervos.appchain.getBlockNumber()
 }).then((blockNumber) => {
     const num = Number(blockNumber)
     transaction.validUntilBlock = num + 88
 }).then(() => {
-    return simpleContractInstance.methods.set(20).send(transaction)
+    log(`Set stored date to 40 \n`)
+    return simpleContractInstance.methods.set(40).send(transaction)
 }).then((tx) => {
     return nervos.listeners.listenToTransactionReceipt(tx.hash)
 }).then((receipt) => {
@@ -47,7 +49,8 @@ simpleContractInstance.methods.storedData().call().then((storedData) => {
         throw new Error(receipt.errorMessage)
     }
 }).then((storedData) => {
-    console.log('Stored Data after set:', storedData)
+    log('Stored Data after set:', `${storedData} \n`)
+    log('###### Simple Storage Contract Test End ###### \n')
 }).catch((err) => {
-    console.log(err.message)
+    log(err.message)
 })
