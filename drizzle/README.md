@@ -86,7 +86,7 @@ In the shell will display the test result.
 
 Stored Data before set: 0
 
-Set stored date to 40
+Set stored date to 40......
 
 Stored Data after set: 40
 

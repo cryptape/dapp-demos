@@ -38,7 +38,7 @@ simpleContractInstance.methods.storedData().call().then((storedData) => {
     const num = Number(blockNumber)
     transaction.validUntilBlock = num + 88
 }).then(() => {
-    log(`Set stored date to 40 \n`)
+    log(`Set stored date to 40...... \n`)
     return simpleContractInstance.methods.set(40).send(transaction)
 }).then((tx) => {
     return nervos.listeners.listenToTransactionReceipt(tx.hash)
