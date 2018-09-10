@@ -1,5 +1,7 @@
 # Demo3: Drizzle Truffle Box
 
+[中文版](doc/zh/READNE_zh.md)
+
 This demo use drizzle-truffle-box as an example to show you [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) can deploy multiple contracts.
 
 # How to run this demo
