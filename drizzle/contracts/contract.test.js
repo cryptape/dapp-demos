@@ -14,15 +14,16 @@ const transaction = {
     value: '0x0'
 };
 
-const {address} = nervos.appchain.accounts.privateKeyToAccount(
-    transaction.privateKey
-)
+const createInstance = (jsonFileName) => {
+    const storage = fs.readFileSync(`../build/contracts/${jsonFileName}.json`, {encoding: 'utf-8'})
+    const artifact = JSON.parse(storage)
+    const contractAddress = artifact.networks.appchain1.address
+    const instance = new nervos.appchain.Contract(artifact.abi, contractAddress)
+    return instance
+}
 
-const simpleStorage = fs.readFileSync('../build/contracts/SimpleStorage.json', {encoding: 'utf-8'})
-const simpleStorageArtifact = JSON.parse(simpleStorage)
-const contract_address = simpleStorageArtifact.networks.appchain1.address
-
-const simpleContractInstance = new nervos.appchain.Contract(simpleStorageArtifact.abi, contract_address)
+//Test code for SimpleStorage.sol
+const simpleContractInstance = createInstance('SimpleStorage')
 
 const testSimpleStorage = () => {
     return simpleContractInstance.methods.storedData().call().then((storedData) => {
@@ -51,11 +52,42 @@ const testSimpleStorage = () => {
     })
 }
 
-const complexStorage = fs.readFileSync('../build/contracts/ComplexStorage.json', {encoding: 'utf-8'})
-const complexStorageArtifact = JSON.parse(complexStorage)
-const complex_contract_address = complexStorageArtifact.networks.appchain1.address
+//Test code for TutorialToken.sol
+// account 1
+const account1 = nervos.appchain.accounts.privateKeyToAccount(transaction.privateKey).address
+// fake account 2
+const account2 = nervos.appchain.accounts.privateKeyToAccount('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef').address
+const tutorialTokenInstance = createInstance('TutorialToken')
 
-const complexContractInstance = new nervos.appchain.Contract(complexStorageArtifact.abi, complex_contract_address)
+const testTutorialToken = () => {
+    return tutorialTokenInstance.methods.balanceOf(account1).call().then((balance) => {
+        log('###### Tutoral Token Test Begin ######\n')
+        log('Balance of account1 before transfer:', `${balance} \n`)
+        return nervos.appchain.getBlockNumber()
+    }).then((blockNumber) => {
+        const num = Number(blockNumber)
+        transaction.validUntilBlock = num + 88
+    }).then(() => {
+        log(`Transfer 2000 from account1 to account2...... \n`)
+        return tutorialTokenInstance.methods.transfer(account2, 2000).send(transaction)
+    }).then((tx) => {
+        return nervos.listeners.listenToTransactionReceipt(tx.hash)
+    }).then((receipt) => {
+        if(receipt.errorMessage === null) {
+            return tutorialTokenInstance.methods.balanceOf(account1).call()
+        } else {
+            throw new Error(receipt.errorMessage)
+        }
+    }).then((balance) => {
+        log('Balance of account1 after transfer:', `${balance} \n`)
+        log('###### Tutoral Token Test End ###### \n')
+    }).catch((err) => {
+        log(err.message)
+    })
+}
+
+//Test code for ComplexStorage.sol
+const complexContractInstance = createInstance('ComplexStorage')
 
 const testComplexStorage = () => {
     return complexContractInstance.methods.string1().call().then((string1) => {
@@ -77,8 +109,13 @@ const testComplexStorage = () => {
 }
 
 const __test = () => {
+
     testSimpleStorage().then(() => {
+        return testTutorialToken()
+    }).then(() => {
         testComplexStorage()
+    }).catch((err) => {
+        log(err.message)
     })
 }
 

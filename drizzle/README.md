@@ -94,6 +94,16 @@ Stored Data after set: 40
 
 ###### Simple Storage Contract Test End ######
 
+###### Tutoral Token Test Begin ######
+
+Balance of account1 before transfer: 12000
+
+Transfer 2000 from account1 to account2......
+
+Balance of account1 after transfer: 10000
+
+###### Tutoral Token Test End ######
+
 ###### Complex Storage Contract Test Begin ######
 
 string1: 0x74657374310000000000000000000000
