@@ -14,6 +14,7 @@ const transaction = {
     value: '0x0'
 };
 
+
 const createInstance = (jsonFileName) => {
     const storage = fs.readFileSync(`../build/contracts/${jsonFileName}.json`, {encoding: 'utf-8'})
     const artifact = JSON.parse(storage)
@@ -22,7 +23,7 @@ const createInstance = (jsonFileName) => {
     return instance
 }
 
-//Test code for SimpleStorage.sol
+//Test case for SimpleStorage.sol
 const simpleContractInstance = createInstance('SimpleStorage')
 
 const testSimpleStorage = () => {
@@ -52,7 +53,8 @@ const testSimpleStorage = () => {
     })
 }
 
-//Test code for TutorialToken.sol
+
+//Test case for TutorialToken.sol
 // account 1
 const account1 = nervos.appchain.accounts.privateKeyToAccount(transaction.privateKey).address
 // fake account 2
@@ -86,7 +88,7 @@ const testTutorialToken = () => {
     })
 }
 
-//Test code for ComplexStorage.sol
+//Test case for ComplexStorage.sol
 const complexContractInstance = createInstance('ComplexStorage')
 
 const testComplexStorage = () => {
@@ -109,7 +111,6 @@ const testComplexStorage = () => {
 }
 
 const __test = () => {
-
     testSimpleStorage().then(() => {
         return testTutorialToken()
     }).then(() => {
