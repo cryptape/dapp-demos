@@ -1,4 +1,4 @@
 window.config = {
-    chain: '', // your chain like 'http://localhost:1337'
-    privateKey: '', // your private key
+    chain: 'http://121.196.200.225:1337',
+    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',  // your private key
 }
