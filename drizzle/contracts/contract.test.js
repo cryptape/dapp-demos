@@ -1,5 +1,7 @@
+const config = require('../truffle')
+const host = `http://${config.networks.development.host}:${config.networks.development.port}`
 const Nervos = require('@nervos/chain').default
-const nervos = Nervos('http://121.196.200.225:1337')
+const nervos = Nervos(host)
 const fs = require('fs')
 const transaction = require('./transaction.js')
 const log = console.log.bind(console)
@@ -12,7 +14,7 @@ const createInstance = (jsonFileName) => {
     return instance
 }
 
-//Test code for SimpleStorage.sol
+//Test case for SimpleStorage.sol
 const simpleContractInstance = createInstance('SimpleStorage')
 
 const testSimpleStorage = () => {
@@ -42,10 +44,11 @@ const testSimpleStorage = () => {
     })
 }
 
-//Test code for TutorialToken.sol
+//Test case for TutorialToken.sol
 // account 1
 const account1 = nervos.appchain.accounts.privateKeyToAccount(transaction.privateKey).address
 // fake account 2
+// '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef' is a fake address
 const account2 = nervos.appchain.accounts.privateKeyToAccount('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef').address
 const tutorialTokenInstance = createInstance('TutorialToken')
 
@@ -76,7 +79,7 @@ const testTutorialToken = () => {
     })
 }
 
-//Test code for ComplexStorage.sol
+//Test case for ComplexStorage.sol
 const complexContractInstance = createInstance('ComplexStorage')
 
 const testComplexStorage = () => {

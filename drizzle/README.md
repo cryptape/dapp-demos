@@ -30,14 +30,34 @@ cd drizzle
 ```shell
 yarn install
 ```
+## 4. Configuration
 
-## 4. Compile the smart contracts
+To get host, port and private key，please refer [Nervos-AppChain-Docs](https://github.com/cryptape/nervos-appchain-docs)。
+
+### truffle.js
+```JavaScript
+// truffle.js
+
+module.exports = {
+    networks: {
+      development: {
+        host: '', // your host
+        port: , // your port
+        network_id: 'appchain',
+        privateKey: '', // your private key
+        quota: 99999999,
+      },
+    },
+  }
+```
+
+## 5. Compile the smart contracts
 
 ```shell
 truffle compile
 ```
 
-## 5. Deploy the contract
+## 6. Deploy the contract
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
 ```shell
@@ -73,7 +93,7 @@ store abi success
 Saving artifacts...
 ```
 
-## 6. Test contract
+## 7. Test contract
 
 To test whether contracts already deployed, you can change directory to contracts then run contract.test.js.
 
