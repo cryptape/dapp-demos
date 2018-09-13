@@ -139,23 +139,25 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 ```html
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bundle.js"></script>
+<script src="js/config.js"></script>
 <script src="js/app.js"></script>
 ```
 
 ```
 + bundle.js
++ config.js
 - web3.min.js
 - truffle-contract.js
 ```
 [bundle.js](src/js/bundle.js) is a JavaScript file for browser to use nervos.js.
-
+[config.js](src/js/config.js) is a JavaScript file to confige your chain and private key.
 ## src/app.js
 
 
 ### Instantiating nervos.js
 
 ```js
-var nervos = NervosWeb3('http://121.196.200.225:1337')
+const nervos = NervosWeb3(config.chain)
 ```
 
 The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
@@ -188,7 +190,7 @@ We can use App.contracts.Adoption.methods.methodName, to call the method in depl
 ```js
 const transaction = {
     from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    privateKey: config.privateKey,
     nonce: 999999,
     quota: 1000000,
     data: App.contracts.bytecode,

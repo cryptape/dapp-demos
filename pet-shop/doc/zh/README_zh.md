@@ -144,18 +144,19 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 ```
 + bundle.js
++ config.js
 - web3.min.js
 - truffle-contract.js
 ```
 [bundle.js](src/js/bundle.js) 是一个将 nervos.js 引入浏览器的 JavaScript 文件。
-
+[config.js](src/js/config.js) 是一个配置私钥以及链的 JavaScript 文件。
 ## src/app.js
 
 
 ### 实例化 nervos.js
 
 ```js
-var nervos = NervosWeb3('http://121.196.200.225:1337')
+const nervos = NervosWeb3(config.chain)
 ```
 nervos.js 库用于和AppChain交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
 
@@ -187,7 +188,7 @@ getAdopters 是合约中的方法名。
 ```js
 const transaction = {
     from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    privateKey: config.privateKey,
     nonce: 999999,
     quota: 1000000,
     data: App.contracts.bytecode,

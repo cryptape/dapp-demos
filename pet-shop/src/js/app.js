@@ -1,7 +1,6 @@
-var nervos = NervosWeb3('http://121.196.200.225:1337')
+const nervos = NervosWeb3(config.chain)
 App = {
     contracts: {},
-    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
 
     init: () => {
         // Load pets.
@@ -65,7 +64,7 @@ App = {
 
         const transaction = {
             from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-            privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+            privateKey: config.privateKey,
             nonce: 999999,
             quota: 1000000,
             data: App.contracts.bytecode,
