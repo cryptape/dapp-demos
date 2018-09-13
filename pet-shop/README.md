@@ -83,6 +83,7 @@ yarn install
 
 ## 3. Configuration
 
+
 Create src/js/config.js and truffle.js.
 
 ```shell
