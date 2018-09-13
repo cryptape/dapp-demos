@@ -1,18 +1,8 @@
 const Nervos = require('@nervos/chain').default
 const nervos = Nervos('http://121.196.200.225:1337')
 const fs = require('fs')
+const transaction = require('./transaction.js')
 const log = console.log.bind(console)
-
-const transaction = {
-    from: '0XB4061FA8E18654A7D51FEF3866D45BB1DC688717',
-    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-    nonce: 999999,
-    quota: 99999999,
-    chainId: 1,
-    version: 0,
-    validUntilBlock: 999999,
-    value: '0x0'
-};
 
 const createInstance = (jsonFileName) => {
     const storage = fs.readFileSync(`../build/contracts/${jsonFileName}.json`, {encoding: 'utf-8'})
