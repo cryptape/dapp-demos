@@ -120,6 +120,7 @@ truffle compile
 You will get a new folder named build.
 
 ## 5. Deploy the contract
+
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
 ```shell
