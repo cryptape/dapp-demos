@@ -83,32 +83,14 @@ yarn install
 
 ## 3. Configuration
 
-To get host, port and private key，please refer [Nervos-AppChain-Docs](https://github.com/cryptape/nervos-appchain-docs)。
+Create src/js/config.js and truffle.js.
 
-### truffle.js
-```JavaScript
-// truffle.js
-
-module.exports = {
-    networks: {
-      development: {
-        host: '', // your host
-        port: , // your port
-        network_id: 'appchain',
-        privateKey: '', // your private key
-      },
-    },
-  }
+```shell
+cp src/js/config.js.example src/js/config.js
 ```
 
-### src/js/config.js
-```JavaScript
-//config.js
-
-window.config = {
-    chain: '', // your chain
-    privateKey: '', // your private key
-}
+```shell
+cp truffle.js.example truffle.js
 ```
 
 ## 4. Compile the contract

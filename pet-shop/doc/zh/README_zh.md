@@ -82,32 +82,14 @@ yarn install
 
 ## 3. 配置参数
 
-链地址以及私钥的获取，请参考 [AppChain 官方文档](https://github.com/cryptape/nervos-appchain-docs)。
+创建 src/js/config.js and truffle.js.
 
-### truffle.js
-```JavaScript
-// truffle.js
-
-module.exports = {
-    networks: {
-      development: {
-        host: '', // 配置主机地址
-        port: , // 配置端口
-        network_id: 'appchain', // 字符串占位
-        privateKey: '', // 配置私钥
-      },
-    },
-  }
+```shell
+cp src/js/config.js.example src/js/config.js
 ```
 
-### src/js/config.js
-```JavaScript
-//config.js
-
-window.config = {
-    chain: '', // 完整的链地址
-    privateKey: '', // 配置私钥
-}
+```shell
+cp truffle.js.example truffle.js
 ```
 
 ## 4. 编译合约
