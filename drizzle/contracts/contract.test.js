@@ -102,7 +102,6 @@ const testComplexStorage = () => {
 }
 
 const __test = () => {
-
     testSimpleStorage().then(() => {
         return testTutorialToken()
     }).then(() => {
