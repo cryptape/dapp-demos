@@ -1,0 +1,4 @@
+window.config = {
+    chain: '', // your chain like 'http://localhost:1337'
+    privateKey: '', // your private key
+}
