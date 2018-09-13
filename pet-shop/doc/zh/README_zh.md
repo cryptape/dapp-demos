@@ -79,7 +79,37 @@ cd pet-shop
 ```shell
 yarn install
 ```
-## 3. 编译合约
+## 3. 配置参数
+
+链地址以及私钥的获取，请参考 [AppChain 官方文档](https://github.com/cryptape/nervos-appchain-docs)。
+
+### truffle.js
+```JavaScript
+// truffle.js
+
+module.exports = {
+    networks: {
+      development: {
+        host: '', // 配置主机地址
+        port: , // 配置端口
+        network_id: 'appchain', // 字符串占位
+        privateKey: '', // 配置私钥
+      },
+    },
+  }
+```
+
+### src/js/config.js
+```JavaScript
+//config.js
+
+window.config = {
+    chain: '', // 完整的链地址
+    privateKey: '', // 配置私钥
+}
+```
+
+## 4. 编译合约
 
 ```shell
 truffle compile
@@ -87,7 +117,7 @@ truffle compile
 
 项目文件夹中将会生成一个新的文件夹 build。
 
-## 4. 部署合约
+## 5. 部署合约
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
@@ -113,7 +143,7 @@ store abi success
 Saving artifacts...
 ```
 
-## 5. 运行服务器
+## 6. 运行服务器
 
 ```shell
 npm run dev
@@ -149,6 +179,7 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 - truffle-contract.js
 ```
 [bundle.js](src/js/bundle.js) 是一个将 nervos.js 引入浏览器的 JavaScript 文件。
+
 [config.js](src/js/config.js) 是一个配置私钥以及链的 JavaScript 文件。
 ## src/app.js
 
