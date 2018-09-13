@@ -30,25 +30,13 @@ cd drizzle
 ```shell
 yarn install
 ```
+
 ## 4. Configuration
 
-To get host, port and private key，please refer [Nervos-AppChain-Docs](https://github.com/cryptape/nervos-appchain-docs)。
+Create truffle.js.
 
-### truffle.js
-```JavaScript
-// truffle.js
-
-module.exports = {
-    networks: {
-      development: {
-        host: '', // your host
-        port: , // your port
-        network_id: 'appchain',
-        privateKey: '', // your private key
-        quota: 99999999,
-      },
-    },
-  }
+```shell
+cp truffle.js.example truffle.js
 ```
 
 ## 5. Compile the smart contracts
