@@ -30,13 +30,34 @@ cd drizzle
 yarn install
 ```
 
-## 4. 编译合约
+## 4. 配置参数
+
+链地址以及私钥的获取，请参考 [AppChain 官方文档](https://github.com/cryptape/nervos-appchain-docs)。
+
+### truffle.js
+```JavaScript
+// truffle.js
+
+module.exports = {
+    networks: {
+      development: {
+        host: '', // 配置主机地址
+        port: , // 配置端口
+        network_id: 'appchain', // 字符串占位
+        privateKey: '', // 配置私钥
+        quota: 99999999,
+      },
+    },
+  }
+```
+
+## 5. 编译合约
 
 ```shell
 truffle compile
 ```
 
-## 5. 部署合约
+## 6. 部署合约
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
@@ -72,7 +93,7 @@ store abi success
 Saving artifacts...
 ```
 
-## 6. 测试合约
+## 7. 测试合约
 
 为了验证所有合约已经成功部署，将文件目录切换至 contracts，并运行 contract.test.js。
 
