@@ -80,7 +80,38 @@ Finish the [setting-up](https://truffleframework.com/tutorials/pet-shop#setting-
 ```shell
 yarn install
 ```
-## 3. Compile the contract
+
+## 3. Configuration
+
+To get host, port and private key，please refer [Nervos-AppChain-Docs](https://github.com/cryptape/nervos-appchain-docs)。
+
+### truffle.js
+```JavaScript
+// truffle.js
+
+module.exports = {
+    networks: {
+      development: {
+        host: '', // your host
+        port: , // your port
+        network_id: 'appchain',
+        privateKey: '', // your private key
+      },
+    },
+  }
+```
+
+### src/js/config.js
+```JavaScript
+//config.js
+
+window.config = {
+    chain: '', // your chain
+    privateKey: '', // your private key
+}
+```
+
+## 4. Compile the contract
 
 ```shell
 truffle compile
@@ -88,7 +119,8 @@ truffle compile
 
 You will get a new folder named build.
 
-## 4. Deploy the contract
+## 5. Deploy the contract
+
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
 ```shell
@@ -114,7 +146,7 @@ store abi success
 Saving artifacts...
 ```
 
-## 5. Run the server
+## 6. Run the server
 
 ```shell
 npm run dev
@@ -139,23 +171,26 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 ```html
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bundle.js"></script>
+<script src="js/config.js"></script>
 <script src="js/app.js"></script>
 ```
 
 ```
 + bundle.js
++ config.js
 - web3.min.js
 - truffle-contract.js
 ```
 [bundle.js](src/js/bundle.js) is a JavaScript file for browser to use nervos.js.
 
+[config.js](src/js/config.js) is a JavaScript file to confige your chain and private key.
 ## src/app.js
 
 
 ### Instantiating nervos.js
 
 ```js
-var nervos = NervosWeb3('http://121.196.200.225:1337')
+const nervos = NervosWeb3(config.chain)
 ```
 
 The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
@@ -188,7 +223,7 @@ We can use App.contracts.Adoption.methods.methodName, to call the method in depl
 ```js
 const transaction = {
     from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-    privateKey: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    privateKey: config.privateKey,
     nonce: 999999,
     quota: 1000000,
     data: App.contracts.bytecode,
