@@ -4,7 +4,7 @@
 
 > 注意：本教程是给有一定 web 应用开发经验以及对区块链，智能合约开发有所了解的开发者准备的。
 
-我们**强烈建议**先学习下[pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
+我们**强烈建议**先学习下[pet-shop-box 官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
 
 最终的 demo 文件夹结构如下：
 
@@ -65,6 +65,7 @@
 ```shell
 git clone https://github.com/cryptape/dapp-demos.git
 ```
+
 进入 pet-shop 文件夹。
 
 ```shell
@@ -107,6 +108,7 @@ truffle compile
 ```shell
 npm run migrate
 ```
+
 如果终端显示以下信息，代表已经成功部署合约。
 
 ```shell
@@ -129,10 +131,10 @@ Saving artifacts...
 
 ## 6. 运行服务器
 
-
 ```shell
 npm run dev
 ```
+
 如果一切顺利，你将会自动跳转到以下网页。
 
 ![homepage](../../src/pics/homepage.png)
@@ -142,12 +144,13 @@ npm run dev
 Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 就像第一行的 Melissa 那样。
 
 ---
+
 # 区别在哪
 
-从这部分开始，我们假设你已经阅读过 [pet-shop-box官方教程](https://truffleframework.com/tutorials/pet-shop)， 之后将会着重关注两个demo之间**不同的部分**。
+从这部分开始，我们假设你已经阅读过 [pet-shop-box 官方教程](https://truffleframework.com/tutorials/pet-shop)， 之后将会着重关注两个 demo 之间**不同的部分**。
 
 > 注意：这个 demo 使用 nervos.js 代替 web3.js 与 AppChain 进行交互。
-**可以在[这里](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)找到 nervos.js 的教程**
+> **可以在[这里](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)找到 nervos.js 的教程**
 
 ## src/index.html
 
@@ -170,13 +173,13 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 ## src/app.js
 
-
 ### 实例化 nervos.js
 
 ```js
 const nervos = NervosWeb3(config.chain)
 ```
-nervos.js 库用于和AppChain交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
+
+nervos.js 库用于和 AppChain 交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
 
 不再需要 initWeb3 了。
 
@@ -191,12 +194,17 @@ App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, cont
 ### 领养宠物并更新界面
 
 ```js
-App.contracts.Adoption.methods.getAdopters().call().then(() => {
+App.contracts.Adoption.methods
+  .getAdopters()
+  .call()
+  .then(() => {
     // 做些操作
-}).catch((err) => {
+  })
+  .catch(err => {
     console.log(err)
-})
+  })
 ```
+
 getAdopters 是合约中的方法名。
 
 我们可以使用 App.contracts.Adoption.methods.方法名 这种方式，来调用合约中的方法。
@@ -205,50 +213,104 @@ getAdopters 是合约中的方法名。
 
 ```js
 const transaction = {
-    from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-    privateKey: config.privateKey,
-    nonce: 999999,
-    quota: 1000000,
-    data: App.contracts.bytecode,
-    chainId: 1,
-    version: 0,
-    validUntilBlock: 999999,
-    value: '0x0'
+  from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
 }
 ```
+
 交易对象提供了一些与 AppChain 交互的配置参数。
 
 关于交易对象字段的详情, 可以参考 [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
 ```js
-nervos.appchain.getBlockNumber().then((res) => {
-    const num = Number(res)
-    transaction.validUntilBlock = num + 88
+nervos.appchain.getBlockNumber().then(res => {
+  const num = Number(res)
+  transaction.validUntilBlock = num + 88
 })
 ```
+
 查看目前的区块高度，并且更新 validUntilBlock 字段，若这笔交易在 validUntilBlock 高度之后还未被执行，则视为失败。
 
 ```js
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
+
 调用 adopt 方法并发送交易到 AppChain。
 
 ```js
 return nervos.listeners.listenToTransactionReceipt(result.hash)
 ```
+
 使用交易哈希，轮询获取交易回执。
 
 ```js
-((receipt) => {
-    if(receipt.errorMessage === null) {
-        console.log('Transaction Done!')
-        alert('Transaction Done!')
-        return App.markAdopted()
-    } else {
-        throw new Error(receipt.errorMessage)
-    }
-}).catch((err) => {
-    console.log(err.message)
+;(receipt => {
+  if (receipt.errorMessage === null) {
+    console.log('Transaction Done!')
+    alert('Transaction Done!')
+    return App.markAdopted()
+  } else {
+    throw new Error(receipt.errorMessage)
+  }
+}).catch(err => {
+  console.log(err.message)
 })
 ```
+
 回执获取之后，若果没有错误信息，则调用 markAdopted 方法，否则抛出错误。
+
+# 在 neuronWeb 下运行
+
+要让 demo 在 [neuronWeb]('https://github.com/cryptape/nervos.js/tree/develop/packages/neuron-web') 下运行, 只需在 `app.js` 中添加如下代码:
+
+```javascript
+window.addEventListener('neuronWebReady', () => {
+  window.console.log('neuron web ready')
+  window.addMessenger(nervos)
+})
+```
+
+此时, dapp 就可以通过 `nervos.appchain.getDefaultAccount` 获取 `neuronWeb` 中的默认账号, 因此可以省略交易模板中的 from 字段, 改由动态从 `neuronWeb` 中获取.
+
+```javascript
+const transaction = {
+  // from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
+}
+nervos.appchain.getDefaultAccount().then(defaultAccount => {
+  transaction.from = defaultAccount
+  return
+})
+```
+
+因为 `neuronWeb` 负责对交易签名, `privateKey` 也可以从交易模板中去除.
+
+```javascript
+const transaction = {
+  // from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  // privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
+}
+```
+
+以上便是运行在 `neuronWeb` 下的全部修改.

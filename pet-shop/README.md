@@ -61,11 +61,13 @@ The final project looks like
 # How to run this demo
 
 ## 1. Download repo
+
 Download this repo.
 
 ```shell
 git clone https://github.com/cryptape/dapp-demos.git
 ```
+
 Change directory to pet-shop.
 
 ```shell
@@ -82,7 +84,6 @@ yarn install
 ```
 
 ## 3. Configuration
-
 
 Create src/js/config.js and truffle.js.
 
@@ -109,6 +110,7 @@ You will get a new folder named build.
 ```shell
 npm run migrate
 ```
+
 If your terminal shows informations below means you successfully deployed the contract.
 
 ```shell
@@ -134,6 +136,7 @@ Saving artifacts...
 ```shell
 npm run dev
 ```
+
 If everything works well, you will automatically jump to a web page like this:
 
 ![homepage](src/pics/homepage.png)
@@ -143,6 +146,7 @@ After you click the Adopt button under any dog pic, browser will alert 'Waiting 
 The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
 
 ---
+
 # Where are the differences
 
 From here, we assume you already read the [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
@@ -164,11 +168,12 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 - web3.min.js
 - truffle-contract.js
 ```
+
 [bundle.js](src/js/bundle.js) is a JavaScript file for browser to use nervos.js.
 
 [config.js](src/js/config.js) is a JavaScript file to confige your chain and private key.
-## src/app.js
 
+## src/app.js
 
 ### Instantiating nervos.js
 
@@ -191,12 +196,17 @@ Create contract instance by using abi and deployed contract address.
 ### Getting The Adopted Pets and Updating The UI
 
 ```js
-App.contracts.Adoption.methods.getAdopters().call().then(() => {
+App.contracts.Adoption.methods
+  .getAdopters()
+  .call()
+  .then(() => {
     // do something
-}).catch((err) => {
+  })
+  .catch(err => {
     console.log(err)
-})
+  })
 ```
+
 getAdopters is a method name written in the contract.
 
 We can use App.contracts.Adoption.methods.methodName, to call the method in deployed contract.
@@ -205,25 +215,26 @@ We can use App.contracts.Adoption.methods.methodName, to call the method in depl
 
 ```js
 const transaction = {
-    from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-    privateKey: config.privateKey,
-    nonce: 999999,
-    quota: 1000000,
-    data: App.contracts.bytecode,
-    chainId: 1,
-    version: 0,
-    validUntilBlock: 999999,
-    value: '0x0'
+  from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
 }
 ```
+
 transaction object provide some configuration options to interact with AppChain.
 
 For more details about transaction object, please refer to [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
 ```js
-nervos.appchain.getBlockNumber().then((res) => {
-    const num = Number(res)
-    transaction.validUntilBlock = num + 88
+nervos.appchain.getBlockNumber().then(res => {
+  const num = Number(res)
+  transaction.validUntilBlock = num + 88
 })
 ```
 
@@ -232,24 +243,76 @@ Check the block height right now and update validUntilBlock, if transaction does
 ```js
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
+
 Call adopt method and send transaction to AppChain.
 
 ```js
 return nervos.listeners.listenToTransactionReceipt(result.hash)
 ```
+
 Polling to get transaction receipt by using transaction hash.
 
 ```js
-((receipt) => {
-    if(receipt.errorMessage === null) {
-        console.log('Transaction Done!')
-        alert('Transaction Done!')
-        return App.markAdopted()
-    } else {
-        throw new Error(receipt.errorMessage)
-    }
-}).catch((err) => {
-    console.log(err.message)
+;(receipt => {
+  if (receipt.errorMessage === null) {
+    console.log('Transaction Done!')
+    alert('Transaction Done!')
+    return App.markAdopted()
+  } else {
+    throw new Error(receipt.errorMessage)
+  }
+}).catch(err => {
+  console.log(err.message)
 })
 ```
+
 If receipt received and no error message appear, then call markAdopted method, or throw the error.
+
+# Run with NeuronWeb
+
+To run with [neuronWeb]('https://github.com/cryptape/nervos.js/tree/develop/packages/neuron-web'), simply add following code in `app.js`
+
+```javascript
+window.addEventListener('neuronWebReady', () => {
+  window.console.log('neuron web ready')
+  window.addMessenger(nervos)
+})
+```
+
+Then the dapp is able to access default account by `nervos.appchain.getDefaultAccount`, by that `from` can be omitted in transaction.
+
+```javascript
+const transaction = {
+  // from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
+}
+nervos.appchain.getDefaultAccount().then(defaultAccount => {
+  transaction.from = defaultAccount
+  return
+})
+```
+
+Since `neuronWeb` will sign the transaction, `privateKey` can be removed from the dapp.
+
+```javascript
+const transaction = {
+  // from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+  // privateKey: config.privateKey,
+  nonce: 999999,
+  quota: 1000000,
+  data: App.contracts.bytecode,
+  chainId: 1,
+  version: 0,
+  validUntilBlock: 999999,
+  value: '0x0',
+}
+```
+
+That's all adjustment to run with `neuronWeb`
