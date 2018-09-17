@@ -2,7 +2,7 @@
 
 [中文版](doc/zh/README_zh.md)
 
-This demo shows how to deploy the [pet-shop-box](https://github.com/truffle-box/pet-shop-box) on AppChain.
+This demo shows how to deploy the [pet-shop-box](https://github.com/truffle-box/pet-shop-box) on `AppChain`.
 
 > Notice: This tutorial is for the developers who is able to build webapps and has basic knowledge of Blockchain and Smart Contract.
 
@@ -85,7 +85,7 @@ yarn install
 
 ## 3. Configuration
 
-Create src/js/config.js and truffle.js.
+Create `src/js/config.js` and `truffle.js`.
 
 ```shell
 cp src/js/config.js.example src/js/config.js
@@ -105,7 +105,7 @@ You will get a new folder named build.
 
 ## 5. Deploy the contract
 
-> Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
+> Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from `truffle-box`.
 
 ```shell
 npm run migrate
@@ -151,7 +151,7 @@ The Adopt button will becomes disabled and the text will change to 'Success'. Me
 
 From here, we assume you already read the [pet-shop-box-tutorial](https://truffleframework.com/tutorials/pet-shop), cause we will **focus on different parts** between these two demos.
 
-> Notice: This demo use nervos.js instead of web3.js to interact with AppChain. **You can find nervos.js [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).**
+> Notice: This demo use `nervos.js` instead of `web3.js` to interact with `AppChain`. **You can find `nervos.js` [here](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain).**
 
 ## src/index.html
 
@@ -169,7 +169,7 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 - truffle-contract.js
 ```
 
-[bundle.js](src/js/bundle.js) is a JavaScript file for browser to use nervos.js.
+[bundle.js](src/js/bundle.js) is a JavaScript file for browser to use `nervos.js`.
 
 [config.js](src/js/config.js) is a JavaScript file to confige your chain and private key.
 
@@ -181,9 +181,9 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 const nervos = NervosWeb3(config.chain)
 ```
 
-The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
+`nervos.js` interacts with `AppChain`. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
 
-No more need for initWeb3.
+No more need for `initWeb3`.
 
 ### Instantiating the contract
 
@@ -191,7 +191,7 @@ No more need for initWeb3.
 App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, contract_address)
 ```
 
-Create contract instance by using abi and deployed contract address.
+Create contract instance by using `abi` and deployed `contract address`.
 
 ### Getting The Adopted Pets and Updating The UI
 
@@ -207,9 +207,9 @@ App.contracts.Adoption.methods
   })
 ```
 
-getAdopters is a method name written in the contract.
+`getAdopters` is a method name written in the contract.
 
-We can use App.contracts.Adoption.methods.methodName, to call the method in deployed contract.
+We can use `App.contracts.Adoption.methods.methodName`, to call the method in deployed contract.
 
 ### Handling the adopt() Function
 
@@ -227,9 +227,9 @@ const transaction = {
 }
 ```
 
-transaction object provide some configuration options to interact with AppChain.
+`transaction` object provide some configuration options to interact with `AppChain`.
 
-For more details about transaction object, please refer to [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
+For more details about `transaction` object, please refer to [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
 ```js
 nervos.appchain.getBlockNumber().then(res => {
@@ -238,19 +238,19 @@ nervos.appchain.getBlockNumber().then(res => {
 })
 ```
 
-Check the block height right now and update validUntilBlock, if transaction doesn't executed after validUntilBlock, then we can say transaction failed.
+Check the `block height` right now and update `validUntilBlock`, if transaction doesn't executed after `validUntilBlock`, then we can say `transaction` failed.
 
 ```js
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
 
-Call adopt method and send transaction to AppChain.
+Call `adopt` method and send `transaction` to `AppChain`.
 
 ```js
 return nervos.listeners.listenToTransactionReceipt(result.hash)
 ```
 
-Polling to get transaction receipt by using transaction hash.
+Polling to get `transaction receipt` by using `transaction hash`.
 
 ```js
 ;(receipt => {
@@ -266,7 +266,7 @@ Polling to get transaction receipt by using transaction hash.
 })
 ```
 
-If receipt received and no error message appear, then call markAdopted method, or throw the error.
+If `receipt` received and no error message appear, then call `markAdopted` method, or throw the error.
 
 # Run with NeuronWeb
 
@@ -315,4 +315,26 @@ const transaction = {
 }
 ```
 
-That's all adjustment to run with `neuronWeb`
+That's all adjustments to run with `neuronWeb`.
+
+## Steps
+
+### 1. Install neuronWeb chrome extension
+
+![step1](src/pics/neuron_step1.png)
+
+### 2. Switch wallet and enter private key
+
+![step2](src/pics/neuron_step2.png)
+
+You will back to the first page after enter the private key.
+
+The page will show transactions happened before.
+
+![step3](src/pics/neuron_step3.png)
+
+### 3. Make transaction
+
+Click `Adopt` button in pet shop page like you did before, a popup page shows transaction informations, then click `submit` wait for transaction done.
+
+![step4](src/pics/neuron_step4.png)

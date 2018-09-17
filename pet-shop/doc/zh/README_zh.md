@@ -1,10 +1,10 @@
 # Demo2: pet-shop
 
-这个 demo 展示如何将 truffle-box 的官方实例 [pet-shop-box](https://github.com/truffle-box/pet-shop-box) 部署到 AppChain 上。
+这个 demo 展示如何将 `truffle-box` 的官方实例 [ pet-shop-box](https://github.com/truffle-box/pet-shop-box) 部署到 `AppChain` 上。
 
 > 注意：本教程是给有一定 web 应用开发经验以及对区块链，智能合约开发有所了解的开发者准备的。
 
-我们**强烈建议**先学习下[pet-shop-box 官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
+我们**强烈建议**先学习下 [pet-shop-box 官方教程](https://truffleframework.com/tutorials/pet-shop)，这将有助于理解整个 demo。
 
 最终的 demo 文件夹结构如下：
 
@@ -83,7 +83,7 @@ yarn install
 
 ## 3. 配置参数
 
-创建 src/js/config.js and truffle.js.
+创建 `src/js/config.js` 和 `truffle.js`。
 
 ```shell
 cp src/js/config.js.example src/js/config.js
@@ -103,7 +103,7 @@ truffle compile
 
 ## 5. 部署合约
 
-> 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
+> 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 `truffle-box` 有所不同。
 
 ```shell
 npm run migrate
@@ -149,8 +149,8 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 从这部分开始，我们假设你已经阅读过 [pet-shop-box 官方教程](https://truffleframework.com/tutorials/pet-shop)， 之后将会着重关注两个 demo 之间**不同的部分**。
 
-> 注意：这个 demo 使用 nervos.js 代替 web3.js 与 AppChain 进行交互。
-> **可以在[这里](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)找到 nervos.js 的教程**
+> 注意：这个 demo 使用 `nervos.js` 代替 `web3.js` 与 `AppChain` 进行交互。
+> **可以在[这里](https://github.com/cryptape/nervos.js/tree/develop/packages/nervos-chain)找到 `nervos.js` 的教程。**
 
 ## src/index.html
 
@@ -167,7 +167,7 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 - truffle-contract.js
 ```
 
-[bundle.js](src/js/bundle.js) 是一个将 nervos.js 引入浏览器的 JavaScript 文件。
+[bundle.js](src/js/bundle.js) 是一个将 `nervos.js` 引入浏览器的 JavaScript 文件。
 
 [config.js](src/js/config.js) 是一个配置私钥以及链的 JavaScript 文件。
 
@@ -179,9 +179,9 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 const nervos = NervosWeb3(config.chain)
 ```
 
-nervos.js 库用于和 AppChain 交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
+`nervos.js` 库用于和 `AppChain` 交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
 
-不再需要 initWeb3 了。
+不再需要 `initWeb3` 了。
 
 ### 实例化合约
 
@@ -189,7 +189,7 @@ nervos.js 库用于和 AppChain 交互。它能够实现获取用户账号，发
 App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, contract_address)
 ```
 
-通过使用 abi 和已经部署成功的合约地址来初始化合约实例。
+通过使用 `abi` 和已经部署成功的 `contract address` 来初始化合约实例。
 
 ### 领养宠物并更新界面
 
@@ -205,9 +205,9 @@ App.contracts.Adoption.methods
   })
 ```
 
-getAdopters 是合约中的方法名。
+`getAdopters` 是合约中的方法名。
 
-我们可以使用 App.contracts.Adoption.methods.方法名 这种方式，来调用合约中的方法。
+我们可以使用 `App.contracts.Adoption.methods.methodName` 这种方式，来调用合约中的方法。
 
 ### 处理 adopt() 函数
 
@@ -225,9 +225,9 @@ const transaction = {
 }
 ```
 
-交易对象提供了一些与 AppChain 交互的配置参数。
+交易对象提供了一些与 `AppChain` 交互的配置参数。
 
-关于交易对象字段的详情, 可以参考 [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
+关于交易对象字段的详情, 可以参考 [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc)。
 
 ```js
 nervos.appchain.getBlockNumber().then(res => {
@@ -236,13 +236,13 @@ nervos.appchain.getBlockNumber().then(res => {
 })
 ```
 
-查看目前的区块高度，并且更新 validUntilBlock 字段，若这笔交易在 validUntilBlock 高度之后还未被执行，则视为失败。
+查看目前的区块高度，并且更新 `validUntilBlock` 字段，若这笔交易在 `validUntilBlock` 高度之后还未被执行，则视为失败。
 
 ```js
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
 
-调用 adopt 方法并发送交易到 AppChain。
+调用 `adopt` 方法并发送交易到 `AppChain`。
 
 ```js
 return nervos.listeners.listenToTransactionReceipt(result.hash)
@@ -264,7 +264,7 @@ return nervos.listeners.listenToTransactionReceipt(result.hash)
 })
 ```
 
-回执获取之后，若果没有错误信息，则调用 markAdopted 方法，否则抛出错误。
+回执获取之后，若果没有错误信息，则调用 `markAdopted` 方法，否则抛出错误。
 
 # 在 neuronWeb 下运行
 
@@ -277,7 +277,7 @@ window.addEventListener('neuronWebReady', () => {
 })
 ```
 
-此时, dapp 就可以通过 `nervos.appchain.getDefaultAccount` 获取 `neuronWeb` 中的默认账号, 因此可以省略交易模板中的 from 字段, 改由动态从 `neuronWeb` 中获取.
+此时, dapp 就可以通过 `nervos.appchain.getDefaultAccount` 获取 `neuronWeb` 中的默认账号, 因此可以省略交易模板中的 from 字段, 改由动态从 `neuronWeb` 中获取。
 
 ```javascript
 const transaction = {
@@ -297,7 +297,7 @@ nervos.appchain.getDefaultAccount().then(defaultAccount => {
 })
 ```
 
-因为 `neuronWeb` 负责对交易签名, `privateKey` 也可以从交易模板中去除.
+因为 `neuronWeb` 负责对交易签名, `privateKey` 也可以从交易模板中去除。
 
 ```javascript
 const transaction = {
@@ -313,4 +313,26 @@ const transaction = {
 }
 ```
 
-以上便是运行在 `neuronWeb` 下的全部修改.
+以上便是运行在 `neuronWeb` 下的全部修改。
+
+## 运行步骤
+
+### 1. 安装 neuronWeb 插件
+
+![step1](../../src/pics/neuron_step1.png)
+
+### 2. 选择钱包以及输入私钥
+
+![step2](../../src/pics/neuron_step2.png)
+
+输入私钥完成后将会回到上级页面。
+
+页面会显示当前账号之前进行过的交易信息。
+
+![step3](../../src/pics/neuron_step3.png)
+
+### 3. 发起交易
+
+点击页面上的 `Adopt` 按钮，弹窗将会显示交易信息，点击 `submit` 等待交易完成。
+
+![step4](../../src/pics/neuron_step4.png)
