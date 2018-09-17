@@ -1,4 +1,8 @@
 const nervos = NervosWeb3(config.chain)
+window.addEventListener("neuronWebReady", () => {
+    window.console.log('neuron web ready')
+    window.addMessenger(nervos)
+})
 App = {
     contracts: {},
 
@@ -63,8 +67,8 @@ App = {
         let petId = parseInt($(event.target).data('id'))
 
         const transaction = {
-            from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-            privateKey: config.privateKey,
+            // from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+            // privateKey: config.privateKey,
             nonce: 999999,
             quota: 1000000,
             data: App.contracts.bytecode,
@@ -73,8 +77,12 @@ App = {
             validUntilBlock: 999999,
             value: '0x0'
         }
-
-        nervos.appchain.getBlockNumber().then((res) => {
+        nervos.appchain.getDefaultAccount().then(defaultAccount => {
+            transaction.from = defaultAccount
+            return
+        }).then(
+            () => nervos.appchain.getBlockNumber()
+        ).then((res) => {
             const num = Number(res)
             transaction.validUntilBlock = num + 88
         }).then(() => {
@@ -84,7 +92,7 @@ App = {
             alert('Waiting for transaction result')
             return nervos.listeners.listenToTransactionReceipt(result.hash)
         }).then((receipt) => {
-            if(receipt.errorMessage === null) {
+            if (receipt.errorMessage === null) {
                 console.log('Transaction Done!')
                 alert('Transaction Done!')
                 return App.markAdopted()
