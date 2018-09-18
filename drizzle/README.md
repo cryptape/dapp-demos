@@ -55,7 +55,7 @@ truffle compile
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
 ```shell
-npm run migrate
+yarn migrate
 ```
 If your terminal shows informations below means you successfully deployed multiple contracts.
 
