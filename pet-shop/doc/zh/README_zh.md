@@ -80,6 +80,12 @@ cd pet-shop
 yarn install
 ```
 
+或者
+
+```shell
+npm install
+```
+
 ## 3. 配置参数
 
 创建 src/js/config.js and truffle.js.
@@ -105,7 +111,7 @@ truffle compile
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
-npm run migrate
+yarn migrate
 ```
 如果终端显示以下信息，代表已经成功部署合约。
 
