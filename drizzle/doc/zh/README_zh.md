@@ -30,6 +30,12 @@ cd drizzle
 yarn install
 ```
 
+或者
+
+```shell
+npm install
+```
+
 ## 4. 配置参数
 
 创建 truffle.js。

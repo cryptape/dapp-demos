@@ -80,6 +80,12 @@ cd pet-shop
 yarn install
 ```
 
+或者
+
+```shell
+npm install
+```
+
 ## 3. 配置参数
 
 创建 src/js/config.js and truffle.js.

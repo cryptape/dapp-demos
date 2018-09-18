@@ -81,6 +81,12 @@ Finish the [setting-up](https://truffleframework.com/tutorials/pet-shop#setting-
 yarn install
 ```
 
+or
+
+```shell
+npm install
+```
+
 ## 3. Configuration
 
 

@@ -31,6 +31,12 @@ cd drizzle
 yarn install
 ```
 
+or
+
+```shell
+npm install
+```
+
 ## 4. Configuration
 
 Create truffle.js.
