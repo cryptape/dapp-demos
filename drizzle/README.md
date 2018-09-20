@@ -51,6 +51,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+on winodws:
+
+```shell
+truffle.cmd compile
+```
+
 ## 6. Deploy the contract
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from truffle-box.
 
