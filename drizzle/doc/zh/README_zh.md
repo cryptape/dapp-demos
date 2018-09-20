@@ -50,6 +50,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+windows 下执行：
+
+```shell
+truffle.cmd compile
+```
+
 ## 6. 部署合约
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
