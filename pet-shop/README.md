@@ -60,6 +60,17 @@ The final project looks like
 
 # How to run this demo
 
+## 0. Setting up the development environment
+There are a few technical requirements before we start. Please install the following:
+
+Node.js v6+ LTS and npm (comes with Node)
+
+Once we have those installed, we only need one command to install Truffle:
+
+```shell
+npm install -g truffle
+```
+
 ## 1. Download repo
 Download this repo.
 
@@ -72,8 +83,6 @@ Change directory to pet-shop.
 cd dapp-demos
 cd pet-shop
 ```
-
-Finish the [setting-up](https://truffleframework.com/tutorials/pet-shop#setting-up-the-development-environment).
 
 ## 2. Install all dependencies
 
