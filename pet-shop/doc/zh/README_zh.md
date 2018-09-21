@@ -57,6 +57,14 @@
 ```
 
 # 如何让 demo 跑起来
+## 0. 环境的安装
+请预先安装好Node.js v6+ LTS 以及 npm
+
+之后全局安装 Truffle:
+
+```shell
+npm install -g truffle
+```
 
 ## 1. 下载仓库
 
