@@ -4,6 +4,6 @@
   "private": true,
   "homepage": "nervos-api",
   "dependencies": {
-    "@nervos/chain": "^0.17.10"
+    "@nervos/chain": "^0.17.22"
   }
 }

@@ -24,6 +24,9 @@ nervos.js version used: 1.0
 
 window.addEventListener('load', function() {
 
+  console.log(typeof nervos !== 'undefined')
+  console.log(nervos)
+
   // Checking if nervos has been injected by the neuron 
   if (typeof nervos !== 'undefined') {
     nervos = Nervos(nervos.currentProvider);
@@ -243,7 +246,9 @@ function sendTransaction() {
     version: 0
   }
 
-  nervos.appchain.sendTransaction(tx, (err, res) => {
+  nervos.appchain.sendTransaction(tx, function(err, res) {
+    console.log("sendTransaction response: " + JSON.stringify(res))
+    console.log("sendTransaction error: " + JSON.stringify(err))
     var output = "";
     if (!err) {
       output += res;
@@ -714,15 +719,15 @@ Address (rinkeby example):
 
 <!-- ================================================= -->
 
-[nervos.appchain.sendTransaction] Send a transaction (ether transfer)<br />
+[nervos.appchain.sendTransaction] Send a transaction (quota transfer)<br />
 From account (rinkeby example):
 <input type="text" id="fromAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
 <br /><br />
 To account:
 <input type="text" id="toAccount" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
 <br /><br />
-Amount (Ether):
-<input type="text" id="amount" size="100" value="10">
+Amount (quota):
+<input type="text" id="amount" size="100" value="0x3B9ACA00">
 <br /><br />
 <!--
 Gas limit (gas):
