@@ -115,7 +115,7 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
-on winodws:
+on windows:
 
 ```shell
 truffle.cmd compile
