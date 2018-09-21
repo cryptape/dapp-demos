@@ -28,7 +28,7 @@ Original Information:
   <link rel="stylesheet" href="./style/main.css">
   <link ref="manifest" href="/manifest.json">
 
-  <title>nervos.js API</title>
+  <title>Nervos API</title>
   <script type="text/javascript" src="./node_modules/@nervos/chain/lib/bundle.js"></script>
   <!-- for ecrecover -->
   <script type="text/javascript" src="./ethereumjs-util.js"></script>
@@ -66,7 +66,7 @@ function startApp(){
 
 function showAPIVersion() {
   // No async method available
-  document.getElementById('api').innerHTML = "[nervos.version] The appchain js version = " + nervos.version + "<br />";
+  document.getElementById('api').innerHTML = "[nervos.version] The nervos.js version = " + nervos.version + "<br />";
 }
 
 // =================================================
@@ -80,7 +80,7 @@ function showPeerCount() {
     } else {
       output = "Error";
     }
-    document.getElementById('peer').innerHTML = "[nervos.appchain.getPeerCount] The number of peers currently connected to the client = " + output + "<br />";
+    document.getElementById('peer').innerHTML = "[nervos.appchain.getPeerCount] The number of peers currently connected to the node = " + output + "<br />";
   })
 }
 
@@ -91,13 +91,14 @@ function showMetaData() {
     var output = "";
 
     if (!err) {
-      output = JSON.stringify(res);
+      output = JSON.stringify(res, undefined, 4);
     } else {
       output = "Error";
     }
 
-    document.getElementById('metaData').innerHTML = "[nervos.appchain.getMetaData] The default block = " + output + "<br />";
+    document.getElementById('metaData').innerHTML = "[nervos.appchain.getMetaData] The metadata of the Testnet = <br /> <pre>" + output + "</pre>";
   })
+  
   
 }
 
@@ -106,9 +107,9 @@ function showMetaData() {
 function showAccounts() {
   nervos.appchain.getAccounts((err, res) => {
     if (err) {
-      document.getElementById('accounts').innerHTML = "[neuron.getAccounts] Accounts = <br />" + err.message + "<br />";
+      document.getElementById('accounts').innerHTML = "[neuron.getAccounts] The default account = " + err.message + "<br />";
     } else {
-      document.getElementById('accounts').innerHTML = "[neuron.getAccounts] Accounts = <br />" + res.map(account => account + '<br />') + "<br />";
+      document.getElementById('accounts').innerHTML = "[neuron.getAccounts] The default account = " + res.map(account => account + '<br />');
     }
   })
 }
@@ -139,7 +140,7 @@ function showGetBalance() {
         var account = res[i];
         nervos.appchain.getBalance(account, (err2, res2) => {
           if (!err2) {
-            output += "Account= "+ account +", balance= " + res2 + " (wei), " + "<br />";
+            output += "Account= "+ account +", </br>balance= " + res2 + " (quota); " + "<br />";
 
           } else {
             output = "Error2";
@@ -262,6 +263,14 @@ function sendTransaction() {
     chainId: 1,
     version: 0
   }
+
+//   nervos.appchain.sendTransaction(tx).then(function fn(res) {
+//     console.log("tx");
+//     document.getElementById('transactionResponse').innerHTML = "Transaction response= " + res + "<br />";
+//   }).catch(console.error)
+
+    // nervos.appchain.sendTransaction(tx).then(console.log).catch(console.error)
+  
 
   nervos.appchain.sendTransaction(tx, (err, res) => {
     var output = "";
@@ -496,18 +505,23 @@ function parseResultObject(res){
 
 <body>
 
-  <h1>Using nervos API with Neuron</h1>
-  This web page shows examples using nervos methods together with Neuron.
+  <h1>Nervos API</h1>
+  This web page shows examples using <a href="https://github.com/cryptape/nervos.js" target="_blank">nervos.js</a> methods.
   <br /><br />
 
-  Information about nervos API: <a href="https://github.com/cryptape/nervos.js" target="_blank">https://github.com/cryptape/nervos.js</a><br />
-  Explore CITA Testnet blockchain: <a href="https://microscope.cryptape.com/#/" target="_blank">https://microscope.cryptape.com/#/</a><br />
+
+  This demo is connected to <a href="https://docs.nervos.org/nervos-appchain-docs/#/quick-start/deploy-appchain?id=%E6%B5%8B%E8%AF%95%E9%93%BE" target="_blank">Nervos AppChain Testnet</a> (http://121.196.200.225:1337) by default.<br />
+  Explore the Testnet using Microscope: <a href="https://microscope.cryptape.com/#/" target="_blank">https://microscope.cryptape.com/#/</a><br />
+
+  <br />
+
+  This page is optimized for viewing on mobile client.
 
   <h2>How to use</h2>
   <ul>
-    <li>Install Neuron wallet APP: <a href="https://github.com/cryptape/neuron-android/releases" target="_blank">https://github.com/cryptape/neuron-android/releases</a></li>
-    <li>Input your nervos-api web address to first tab page of Neuron APP</li>
-    <li>Click any button of nervos-api page and test the api you want</li>
+      <li>View it on <a href="https://github.com/cryptape/neuron-android/releases" target="_blank">Neuron wallet APP</a> or Chrome Extension <a href="https://github.com/cryptape/nervos.js/tree/develop/packages/neuron-web" target="_blank"> NeuronWeb </a> </li>
+
+    <li>Click around on this page to test the SDK methods you want</li>
   </ul>
 
 
@@ -532,7 +546,7 @@ function parseResultObject(res){
   - nervos.appchain.call()<br />
   Note: The defaultAccount optionally can be overwritten by specifying the from property.
   <br />
-  Default account (rinkeby example):
+  Default account (Testnet example):
   <input type="text" id="defaultAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
   <button onclick="setDefaultAccount()">Set</button>
   <br /><br />
@@ -673,13 +687,13 @@ function parseResultObject(res){
 
   <!-- ================================================= -->
   [nervos.appchain.getCode] Get the code at the specified contract address<br />
-  Contract Address (rinkeby example):
+  Contract Address (Testnet example):
   <input type="text" id="addressCode" size="100" value="0x31a6e88ebf249b4561ee864408df9577fe25905b">
   <button onclick="showCodeAtAdddress()">Get</button>
   <br /><br />
-  To find the contract address deployed from an address, goto <a href="https://rinkeby.etherscan.io" target="_blank">https://rinkeby.etherscan.io</a>
+  To find the contract address deployed from an address, goto <a href="https://microscope.cryptape.com" target="_blank">https://microscope.cryptape.com</a>
   enter the address and search for the transaction which created the contract.<br />
-  In the transaction details you will find the contract address.
+  <!-- In the transaction details you will find the contract address. -->
   <br /><br />
   <div id="code"></div>
   <hr />
@@ -687,7 +701,7 @@ function parseResultObject(res){
   <!-- ================================================= -->
 
   [nervos.appchain.getBlockByNumber] Get the block information at the specified block hash or block number<br />
-  Block hash or block number (rinkeby example):
+  Block hash or block number (Testnet example):
   <input type="text" id="blockHashOrNumber" size="100" value="0x128000">
   <button onclick="showBlockInfo()">Get</button>
   <br /><br />
@@ -697,7 +711,7 @@ function parseResultObject(res){
   <!-- ================================================= -->
 
   [nervos.appchain.getTransaction] Get transactions for given transaction hash<br />
-  Transaction hash (rinkeby example):
+  Transaction hash (Testnet example):
   <input type="text" id="transactionHash" size="100" value="0x26522a83a491906115c5ec2bec8de5b6fc06a61717a72464ef79f91881101333">
   <button onclick="showTransactions()">Get</button>
   <br /><br />
@@ -717,7 +731,7 @@ function parseResultObject(res){
   If you got null instead of a receipt the transaction has not been included in a block yet. <br />
   Wait for a moment and check if a miner has included the transaction in a block and retry it.
   <br /><br />
-  Transaction hash (rinkeby example):
+  Transaction hash (Testnet example):
   <input type="text" id="transactionHash2" size="100" value="0x29d485c1513530cfacf3343fe9b6fea93c9e48a8f66c11858cfd517cf7bc0c6a">
   <button onclick="showTransactionReceipt()">Get</button>
   <br /><br />
@@ -727,7 +741,7 @@ function parseResultObject(res){
   <!-- ================================================= -->
 
   [nervos.appchain.getTransactionCount] Get the number of transaction send for specified address<br />
-  Address (rinkeby example):
+  Address (Testnet example):
   <input type="text" id="address" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
   <button onclick="showTransactionsFromAdddress()">Get</button>
   <br /><br />
@@ -736,14 +750,14 @@ function parseResultObject(res){
 
   <!-- ================================================= -->
 
-  [nervos.appchain.sendTransaction] Send a transaction (ether transfer)<br />
-  From account (rinkeby example):
+  [nervos.appchain.sendTransaction] Send a transaction (Test Token transfer)<br />
+  From account (Testnet example):
   <input type="text" id="fromAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
   <br /><br />
   To account:
   <input type="text" id="toAccount" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
   <br /><br />
-  Amount (Ether):
+  Amount (quota):
   <input type="text" id="amount" size="100" value="10">
   <br /><br />
   <!--
@@ -762,7 +776,7 @@ Gas price (Wei)
   <!-- ================================================= -->
 
   [nervos.appchain.sendTransaction] Send a transaction (contract creation)<br />
-  From account (rinkeby example):
+  From account (Testnet example):
   <input type="text" id="fromAccount2" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
   <br /><br />
   Bytecode:<br />
@@ -839,7 +853,7 @@ Gas price (Wei)
   <!-- ================================================= -->
 
   [nervos.appchain.sign] Sign data<br />
-  From a specific account (rinkeby example):
+  From a specific account (Testnet example):
   <input type="text" id="fromAccount3" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
   <br /><br />
   Data to sign:<br />
