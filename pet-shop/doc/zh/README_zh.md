@@ -58,6 +58,16 @@
 
 # 如何让 demo 跑起来
 
+## 0. 环境的安装
+
+请预先安装好Node.js v6+ LTS 以及 npm。
+
+之后全局安装 Truffle:
+
+```shell
+npm install -g truffle
+```
+
 ## 1. 下载仓库
 
 下载仓库。
@@ -71,8 +81,6 @@ git clone https://github.com/cryptape/dapp-demos.git
 cd dapp-demos
 cd pet-shop
 ```
-
-完成[初始化配置](https://truffleframework.com/tutorials/pet-shop#setting-up-the-development-environment)。
 
 ## 2. 安装依赖
 
