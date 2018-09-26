@@ -110,6 +110,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+on windows
+
+```shell
+truffle.cmd compile
+```
+
 You will get a new folder named build.
 
 ## 5. Deploy the contract

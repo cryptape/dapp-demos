@@ -106,6 +106,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+on windows
+
+```shell
+truffle.cmd compile
+```
+
 项目文件夹中将会生成一个新的文件夹 build。
 
 ## 5. 部署合约
