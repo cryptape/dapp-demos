@@ -139,14 +139,13 @@ Using network 'development'.
 
 Running migration: 1_initial_migration.js
   Deploying Migrations...
-store abi success
-  Migrations: 0xEAa463CB5ed86064CCFE52e468472f88b7eEE24B // this may be different
+transaction hash of deploy contract:  0x56f27731efade5fac51e23605b06513510f1c8f53e3f36bbee5149a26dfda50d
+  Migrations: 0x504eC264957F85Ea36A01b91007Ff3C0617e5108  // contract address may be different
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
   Deploying Adoption...
-
-store abi success
-  Adoption: 0xB48af013Cec674C37e2B4D623c6298efe30C7581 // this may be different
+transaction hash of deploy contract:  0xe14977012f53943be1b8fd012aacf99cb7f3d9d17a47c26e52f88cd9fbfd00c8
+  Adoption: 0x506707DF342f354c7A93B1a7A71431A1Dd2B8EE8  // contract address may be different
 Saving artifacts...
 ```
 
@@ -194,7 +193,7 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 ### Instantiating nervos.js
 
 ```js
-const nervos = NervosWeb3(config.chain)
+const nervos = Nervos(config.chain)
 ```
 
 The Nervos JavaScript library interacts with AppChain. It can retrieve user accounts, send transactions, interact with smart contracts, and more.

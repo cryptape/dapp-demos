@@ -136,14 +136,13 @@ Using network 'development'.
 
 Running migration: 1_initial_migration.js
   Deploying Migrations...
-store abi success
-  Migrations: 0xEAa463CB5ed86064CCFE52e468472f88b7eEE24B // 数值可能有所不同
+transaction hash of deploy contract:  0x56f27731efade5fac51e23605b06513510f1c8f53e3f36bbee5149a26dfda50d
+  Migrations: 0x504eC264957F85Ea36A01b91007Ff3C0617e5108  // contract address may be different
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
   Deploying Adoption...
-
-store abi success
-  Adoption: 0xB48af013Cec674C37e2B4D623c6298efe30C7581 // 数值可能有所不同
+transaction hash of deploy contract:  0xe14977012f53943be1b8fd012aacf99cb7f3d9d17a47c26e52f88cd9fbfd00c8
+  Adoption: 0x506707DF342f354c7A93B1a7A71431A1Dd2B8EE8  // contract address may be different
 Saving artifacts...
 ```
 
@@ -194,7 +193,7 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 ### 实例化 nervos.js
 
 ```js
-const nervos = NervosWeb3(config.chain)
+const nervos = Nervos(config.chain)
 ```
 nervos.js 库用于和AppChain交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
 
