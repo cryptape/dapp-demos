@@ -106,6 +106,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+on windows
+
+```shell
+truffle.cmd compile
+```
+
 项目文件夹中将会生成一个新的文件夹 build。
 
 ## 5. 部署合约
@@ -137,6 +143,10 @@ Saving artifacts...
 
 ## 6. 运行服务器
 
+### 开发模式
+
+将 pet-shop 部署到本地服务器。
+
 ```shell
 npm run dev
 ```
@@ -148,6 +158,64 @@ npm run dev
 当你点击任何宠物狗图片下的 Adopt 按钮之后，浏览器会提示 'Waiting for transaction result'，点击确认按钮之后，新的提示会告知你 'Transaction Done!'。
 
 Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 就像第一行的 Melissa 那样。
+
+### 生产模式
+
+>注意：远程服务器的地址需要在 `./src/manifest.json` ，`truffle.js` 以及 `./src/js/config.js`中预先配置。
+
+将 pet-shop 部署到远程服务器。
+
+### 1. 移动编译后的合约文件
+
+```shell
+mv ./build/contracts/Adoption.json ./src/     // 将编译后的合约移动到 src 目录
+```
+
+### 2. 修改 src/js/app.js 文件中 Adoption.json 的路径
+
+```shell
+cd src/js
+```
+
+将 `app.js` 文件中 `initContract` 方法中的 'Adoption.json' 改成 '../Adoption.json'
+
+```JavaScript
+// app.js
+initContract: () => {
+    // $.getJSON('Adoption.json', (data) => {
+    $.getJSON('../Adoption.json', (data) => {
+        const AdoptionArtifact = data;
+```
+
+### 3. 打包并重命名 `src` 文件夹
+
+```shell
+pet-shop > mv src pet-shop   // 将 src 文件夹重命名为 pet-shop
+pet-shop > tar -zcvf pet-shop.tar.gz pet-shop  // 打包 pet-shop
+```
+
+### 4. 将 pet-shop.tar.gz 上传到服务器
+
+```shell
+scp pet-shop.tar.gz user@remote:/tmp  //用自己的服务器地址替换这个地址
+```
+
+### 5. 连接上服务器
+
+```shell
+ssh user@remote //用自己的服务器地址替换这个地址
+```
+
+### 6. 将 pet-shop 解压到相应的位置
+
+```shell
+cd /tmp
+mv pet-shop.tar.gz /var/www
+cd /var/www
+tar -zxvf pet-shop.tar.gz  // pet-shop 解压完毕
+```
+
+### 7. 起一个静态文件服务器，例如 [NGINX](https://www.nginx.com/) 来 serve pet-shop 目录
 
 ---
 

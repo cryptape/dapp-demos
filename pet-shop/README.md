@@ -110,6 +110,12 @@ cp truffle.js.example truffle.js
 truffle compile
 ```
 
+on windows
+
+```shell
+truffle.cmd compile
+```
+
 You will get a new folder named build.
 
 ## 5. Deploy the contract
@@ -141,6 +147,10 @@ Saving artifacts...
 
 ## 6. Run the server
 
+### Dev mode
+
+Deploy pet-shop on local server.
+
 ```shell
 npm run dev
 ```
@@ -152,6 +162,65 @@ If everything works well, you will automatically jump to a web page like this:
 After you click the Adopt button under any dog pic, browser will alert 'Waiting for transaction result', after click the confirm button another alert will tell you 'Transaction Done!'.
 
 The Adopt button will becomes disabled and the text will change to 'Success'. Melissa in the first row is an example.
+
+### Product mode
+
+>Notice: You should config your server address in `./src/manifest.json` , `./src/js/config.js` and `truffle.js` first.
+
+Deploy your pet-shop to your server.
+
+### 1. Move your compiled contract to src folder
+
+```shell
+mv ./build/contracts/Adoption.json ./src/     
+```
+
+### 2. Modify Adoption.json's path in src/js/app.js
+
+```shell
+cd src/js
+```
+
+Modify 'Adoption.json' to '../Adoption.json' in `initContract` method in `app.js`
+
+```JavaScript
+// app.js
+initContract: () => {
+    // $.getJSON('Adoption.json', (data) => {
+    $.getJSON('../Adoption.json', (data) => {
+        const AdoptionArtifact = data;
+```
+
+
+### 3. Pack and rename `src` folder
+
+```shell
+pet-shop > mv src pet-shop   // rename `src` folder name to `pet-shop`
+pet-shop > tar -zcvf pet-shop.tar.gz pet-shop  // pack `pet-shop`
+```
+
+### 4. Upload pet-shop.tar.gz to server
+
+```shell
+scp pet-shop.tar.gz user@remote:/tmp  //use your own server address
+```
+
+### 5. Login your server
+
+```shell
+ssh user@remote //use your own server address
+```
+
+### 6. Unpack pet-shop
+
+```shell
+cd /tmp
+mv pet-shop.tar.gz /var/www
+cd /var/www
+tar -zxvf pet-shop.tar.gz  // Unpack pet-shop
+```
+
+### 7. Use a static files server, e.g. [NGINX](https://www.nginx.com/) to serve the pet-shop directory
 
 ---
 
