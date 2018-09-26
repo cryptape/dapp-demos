@@ -166,7 +166,7 @@ Deploy your pet-shop to your server.
 ### 1. Move your compiled contract to src folder
 
 ```shell
-mv ./build/contract/Adoption.json ./src/     
+mv ./build/contracts/Adoption.json ./src/     
 ```
 
 ### 2. Modified Adoption.json's path in src/js/app.js

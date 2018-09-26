@@ -162,7 +162,7 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 ### 1. 移动编译后的合约文件
 
 ```shell
-mv ./build/contract/Adoption.json ./src/     // 将编译后的合约移动到 src 目录
+mv ./build/contracts/Adoption.json ./src/     // 将编译后的合约移动到 src 目录
 ```
 
 ### 2. 修改 src/js/app.js 文件中 Adoption.json 的路径
