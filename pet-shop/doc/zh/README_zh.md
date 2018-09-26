@@ -161,7 +161,7 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 ### 生产模式
 
->注意：远程服务器的地址需要在 `./src/manifest.json` ，`truffle.js` 以及 `./src/js/config.js`中预先配置。
+>注意：远程服务器的地址需要在 `truffle.js` 以及 `./src/js/config.js`中预先配置。
 
 将 pet-shop 部署到远程服务器。
 
