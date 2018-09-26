@@ -1,12 +1,11 @@
-var nervos;
+var nervos
 
 if (typeof nervos !== 'undefined') {
-    nervos = Nervos(nervos.currentProvider);
-    nervos.currentProvider.setHost("http://121.196.200.225:1337");
-    // nervos.currentProvider.setHost(config.chain);
+    nervos = Nervos(nervos.currentProvider)
+    nervos.currentProvider.setHost(config.chain)
 } else {
     console.log('No Nervos? You should consider trying Neuron!')
-    nervos = Nervos(config.chain);
+    nervos = Nervos(config.chain)
 }
 
 App = {
