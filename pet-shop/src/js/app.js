@@ -1,4 +1,4 @@
-const nervos = NervosWeb3(config.chain)
+const nervos = Nervos(config.chain)
 App = {
     contracts: {},
 

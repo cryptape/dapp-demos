@@ -82,39 +82,39 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@nervos/appchain-truffle-migrate@0.1.3":
-  version "0.1.3"
-  resolved "http://registry.npm.taobao.org/@nervos/appchain-truffle-migrate/download/@nervos/appchain-truffle-migrate-0.1.3.tgz#4b478ddb64df69b96a2144a926600e5d32014e45"
+"@nervos/appchain-truffle-migrate@0.1.5":
+  version "0.1.5"
+  resolved "http://registry.npm.taobao.org/@nervos/appchain-truffle-migrate/download/@nervos/appchain-truffle-migrate-0.1.5.tgz#babdb3f6bdc06d0f2196a46f6f62be7b2f4fed72"
   dependencies:
-    "@nervos/chain" "^0.17.5"
-    async "^2.6.1"
+    "@nervos/chain" "^0.17.22"
+    colors "^1.3.2"
     cpr "^3.0.1"
+    ethjs-abi "^0.2.1"
     lodash "^4.17.10"
     node-ipc "^9.1.1"
     original-require "^1.0.1"
     temp "^0.8.3"
-    truffle-config "^1.0.6"
-    truffle-contract "^3.0.6"
+    truffle-artifactor "^3.0.7"
+    truffle-compile "^3.0.13"
     truffle-contract-schema "^2.0.1"
     truffle-deployer "^2.0.7"
-    truffle-expect "^0.0.4"
-    truffle-provisioner "^0.1.1"
+    truffle-error "^0.0.3"
+    truffle-provider "^0.0.6"
     truffle-require "^1.0.7"
-    truffle-workflow-compile "^1.0.6"
     utf8 "3.0.0"
     web3 "0.20.6"
     yargs "^12.0.1"
 
-"@nervos/chain@^0.17.5":
-  version "0.17.21"
-  resolved "http://registry.npm.taobao.org/@nervos/chain/download/@nervos/chain-0.17.21.tgz#7b874bc240eb7b1a46a397b8551f376c7b8d43e9"
+"@nervos/chain@^0.17.22":
+  version "0.17.22"
+  resolved "http://registry.npm.taobao.org/@nervos/chain/download/@nervos/chain-0.17.22.tgz#1afa41277ee1905eb02053dc606b4e13022ef9ab"
   dependencies:
-    "@nervos/signer" "^1.0.35"
+    "@nervos/signer" "^1.0.36"
     web3 "^1.0.0-beta.34"
 
-"@nervos/signer@^1.0.35":
-  version "1.0.35"
-  resolved "http://registry.npm.taobao.org/@nervos/signer/download/@nervos/signer-1.0.35.tgz#2b464bcfcca00bd389e7fd6dad5faa67f8c65b45"
+"@nervos/signer@^1.0.36":
+  version "1.0.36"
+  resolved "http://registry.npm.taobao.org/@nervos/signer/download/@nervos/signer-1.0.36.tgz#63902e281749cf49429584d51a8ef09611622ae1"
   dependencies:
     ec "^0.0.1"
     elliptic "^6.4.0"
@@ -447,7 +447,7 @@ async-limiter@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/async-limiter/download/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
 
-async@2.6.1, async@^2.0.1, async@^2.1.2, async@^2.1.4, async@^2.4.0, async@^2.4.1, async@^2.5.0, async@^2.6.1:
+async@2.6.1, async@^2.0.1, async@^2.1.2, async@^2.1.4, async@^2.4.0, async@^2.4.1, async@^2.5.0:
   version "2.6.1"
   resolved "http://registry.npm.taobao.org/async/download/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   dependencies:
@@ -1901,7 +1901,7 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@^1.1.2:
+colors@^1.1.2, colors@^1.3.2:
   version "1.3.2"
   resolved "http://registry.npm.taobao.org/colors/download/colors-1.3.2.tgz#2df8ff573dfbf255af562f8ce7181d6b971a359b"
 
@@ -3257,6 +3257,14 @@ ethers@4.0.0-beta.1:
 ethjs-abi@0.1.8:
   version "0.1.8"
   resolved "http://registry.npm.taobao.org/ethjs-abi/download/ethjs-abi-0.1.8.tgz#cd288583ed628cdfadaf8adefa3ba1dbcbca6c18"
+  dependencies:
+    bn.js "4.11.6"
+    js-sha3 "0.5.5"
+    number-to-bn "1.7.0"
+
+ethjs-abi@^0.2.1:
+  version "0.2.1"
+  resolved "http://registry.npm.taobao.org/ethjs-abi/download/ethjs-abi-0.2.1.tgz#e0a7a93a7e81163a94477bad56ede524ab6de533"
   dependencies:
     bn.js "4.11.6"
     js-sha3 "0.5.5"
@@ -8453,10 +8461,6 @@ truffle-provider@^0.0.6:
     truffle-error "^0.0.3"
     web3 "0.20.6"
 
-truffle-provisioner@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/truffle-provisioner/download/truffle-provisioner-0.1.1.tgz#5a8327d62511ef23c950d3aa862610a7c377e2aa"
-
 truffle-require@^1.0.7:
   version "1.0.7"
   resolved "http://registry.npm.taobao.org/truffle-require/download/truffle-require-1.0.7.tgz#d60d5495451787f7c84656f4256797d2aa6c7f7c"
@@ -8465,28 +8469,6 @@ truffle-require@^1.0.7:
     truffle-config "^1.0.6"
     truffle-expect "^0.0.4"
     web3 "0.20.6"
-
-truffle-resolver@^4.0.4:
-  version "4.0.4"
-  resolved "http://registry.npm.taobao.org/truffle-resolver/download/truffle-resolver-4.0.4.tgz#dfd9a8dbca5c5873d7792d1444473d0770ac97d4"
-  dependencies:
-    async "2.6.1"
-    truffle-contract "^3.0.6"
-    truffle-expect "^0.0.4"
-    truffle-provisioner "^0.1.1"
-
-truffle-workflow-compile@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/truffle-workflow-compile/download/truffle-workflow-compile-1.0.6.tgz#5c5c18d49d218d42f1c327044832d99f1d8bf52d"
-  dependencies:
-    async "2.6.1"
-    lodash "4.17.10"
-    mkdirp "^0.5.1"
-    truffle-artifactor "^3.0.7"
-    truffle-compile "^3.0.13"
-    truffle-config "^1.0.6"
-    truffle-expect "^0.0.4"
-    truffle-resolver "^4.0.4"
 
 truffle@^4.1.13:
   version "4.1.14"
