@@ -94,7 +94,7 @@ App = {
                     console.log("transaction response: " + JSON.stringify(res))
                     nervos.listeners.listenToTransactionReceipt(res)
                         .then(receipt => {
-                            if (!receipt.errorMessage) { 
+                            if (!receipt.errorMessage) {
                                 console.log('Transaction Done!')
                                 alert('Transaction Done!')
                                 return App.markAdopted()

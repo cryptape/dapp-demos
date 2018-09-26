@@ -176,7 +176,8 @@ cd src/js
 ### 3. 打包并重命名 `src` 文件夹，上传至服务器
 
 ```shell
-pet-shop > tar -zcvf pet-shop.tar.gz src
+pet-shop > mv src pet-shop   // 将 src 文件夹重命名为 pet-shop
+pet-shop > tar -zcvf pet-shop.tar.gz pet-shop  // 打包 pet-shop
 ```
 
 ### 4. 将 pet-shop.tar.gz 上传到服务器
@@ -395,3 +396,8 @@ const transaction = {
 点击页面上的 `Adopt` 按钮，弹窗将会显示交易信息，点击 `submit` 等待交易完成。
 
 ![step4](../../src/pics/neuron_step4.png)
+
+<!-- 
+"dependencies": {
+  "@nervos/chain": "^0.17.22"
+}, -->
