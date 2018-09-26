@@ -1,4 +1,4 @@
-const nervos = NervosWeb3(config.chain)
+const nervos = Nervos(config.chain)
 window.addEventListener("neuronWebReady", () => {
     window.console.log('neuron web ready')
     window.addMessenger(nervos)

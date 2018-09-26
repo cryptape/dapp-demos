@@ -113,7 +113,7 @@ truffle compile
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 `truffle-box` 有所不同。
 
 ```shell
-npm run migrate
+yarn migrate
 ```
 
 如果终端显示以下信息，代表已经成功部署合约。
@@ -125,14 +125,13 @@ Using network 'development'.
 
 Running migration: 1_initial_migration.js
   Deploying Migrations...
-store abi success
-  Migrations: 0xEAa463CB5ed86064CCFE52e468472f88b7eEE24B // 数值可能有所不同
+transaction hash of deploy contract:  0x2cfce2e5ce5bf8b76fc84108e1efc84666c5d80fa9f61c0fd157b67cfcde3396
+  Migrations: 0x22497a741b3A0acB9379B42B6b8BE2a4AAA9aA76  // contract address may be different
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
   Deploying Adoption...
-
-store abi success
-  Adoption: 0xB48af013Cec674C37e2B4D623c6298efe30C7581 // 数值可能有所不同
+transaction hash of deploy contract:  0x32948be9eb8422d09e4faac78e2b76871bc0c0f1b457d688e23290a400d97065
+  Adoption: 0x6FA9e49Af3De8BEbC5eD2b100E8670E064ecA23c // contract address may be different
 Saving artifacts...
 ```
 
@@ -182,8 +181,8 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 ### 实例化 nervos.js
 
-```js
-const nervos = NervosWeb3(config.chain)
+```JavaScript
+const nervos = Nervos(config.chain)
 ```
 
 `nervos.js` 库用于和 `AppChain` 交互。它能够实现获取用户账号，发出交易，与智能合约交互，等功能。
@@ -192,7 +191,7 @@ const nervos = NervosWeb3(config.chain)
 
 ### 实例化合约
 
-```js
+```JavaScript
 App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, contract_address)
 ```
 
@@ -200,7 +199,7 @@ App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, cont
 
 ### 领养宠物并更新界面
 
-```js
+```JavaScript
 App.contracts.Adoption.methods
   .getAdopters()
   .call()
@@ -218,7 +217,7 @@ App.contracts.Adoption.methods
 
 ### 处理 adopt() 函数
 
-```js
+```JavaScript
 const transaction = {
   from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
   privateKey: config.privateKey,
@@ -236,7 +235,7 @@ const transaction = {
 
 关于交易对象字段的详情, 可以参考 [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc)。
 
-```js
+```JavaScript
 nervos.appchain.getBlockNumber().then(res => {
   const num = Number(res)
   transaction.validUntilBlock = num + 88
@@ -245,19 +244,19 @@ nervos.appchain.getBlockNumber().then(res => {
 
 查看目前的区块高度，并且更新 `validUntilBlock` 字段，若这笔交易在 `validUntilBlock` 高度之后还未被执行，则视为失败。
 
-```js
+```JavaScript
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
 
 调用 `adopt` 方法并发送交易到 `AppChain`。
 
-```js
+```JavaScript
 return nervos.listeners.listenToTransactionReceipt(result.hash)
 ```
 
 使用交易哈希，轮询获取交易回执。
 
-```js
+```JavaScript
 ;(receipt => {
   if (receipt.errorMessage === null) {
     console.log('Transaction Done!')

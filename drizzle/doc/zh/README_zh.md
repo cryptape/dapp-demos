@@ -48,7 +48,7 @@ truffle compile
 > 注意: 我们使用 [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) 来部署合约, 所以使用的命令与 truffle-box 有所不同。
 
 ```shell
-npm run migrate
+yarn migrate
 ```
 如果终端显示以下信息，代表已经成功部署多个合约。
 
@@ -59,24 +59,23 @@ Using network 'development'.
 
 Running migration: 1_initial_migration.js
   Deploying Migrations...
-store abi success
-
-  Migrations: 0xfEDaB71B8C899f53CF6af5AfFdf300bf0b8Dc9B6 // contract address may be different
+transaction hash of deploy contract:  0xe2e65438943162897c2aaaaeb8efdb00ac0f190f6a4ed78cff95ffc58f6fb45a
+  Migrations: 0x46A44Fd45d775d29ce4ba3Aa2079BD7b1C2882b1 // contract address may be different
 Saving artifacts...
 Running migration: 2_deploy_simplestorage.js
   Deploying SimpleStorage...
-store abi success
-  SimpleStorage: 0xe7F8Ea1857906a7736bBDB500e82f092242347F8 // contract address may be different
+transaction hash of deploy contract:  0xc33ee84de7b7cd649befdfdece8c7623380fe978ecbbd1d615c33b72a52bd4bd
+  SimpleStorage: 0x06f24BC6db34229CBd258171e3310084fe20E540 // contract address may be different
 Saving artifacts...
 Running migration: 3_deploy_tutorialtoken.js
   Deploying TutorialToken...
-store abi success
-  TutorialToken: 0xB87a2fDC7cb9cce5b260ae460A72c4cf89Cb1a4C // contract address may be different
+transaction hash of deploy contract:  0x646f1abe3ca3c2180f290e9b0f6a67cf4ae32295d744db94fe4325d56ea8bf21
+  TutorialToken: 0xe72fe688d5dADb0CeDc6681479497e7f40061cCD // contract address may be different
 Saving artifacts...
 Running migration: 4_deploy_complexstorage.js
   Deploying ComplexStorage...
-store abi success
-  ComplexStorage: 0xB6C3B3b23DcE145bC13FB29233E7Dd78c7f4Ea41 // contract address may be different
+transaction hash of deploy contract:  0x6cf131425649a9f5ce7c25bcd80342f1e1f9417558bc51d80f35f56a2b4cf4dd
+  ComplexStorage: 0xD468D53CAB68BB457B9cbc28Bb04bE6D3334D800 // contract address may be different
 Saving artifacts...
 ```
 
