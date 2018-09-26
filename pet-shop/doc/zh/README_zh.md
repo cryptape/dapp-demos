@@ -396,8 +396,3 @@ const transaction = {
 点击页面上的 `Adopt` 按钮，弹窗将会显示交易信息，点击 `submit` 等待交易完成。
 
 ![step4](../../src/pics/neuron_step4.png)
-
-<!-- 
-"dependencies": {
-  "@nervos/chain": "^0.17.22"
-}, -->
