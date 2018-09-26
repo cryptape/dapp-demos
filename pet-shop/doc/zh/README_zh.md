@@ -173,7 +173,7 @@ cd src/js
 
 将 app.js 文件中第 32 行的 'Adoption.json' 改成 '../Adoption.json'
 
-### 3. 打包并重命名 `src` 文件夹，上传至服务器
+### 3. 打包并重命名 `src` 文件夹
 
 ```shell
 pet-shop > mv src pet-shop   // 将 src 文件夹重命名为 pet-shop

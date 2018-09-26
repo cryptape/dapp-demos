@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "lite-server": "^2.3.0",
-    "@nervos/appchain-truffle-migrate": "0.1.7"
+    "@nervos/appchain-truffle-migrate": "0.1.8"
   }
 }
