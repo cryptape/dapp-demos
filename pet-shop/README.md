@@ -175,7 +175,7 @@ mv ./build/contracts/Adoption.json ./src/
 cd src/js
 ```
 
-Modified 'Adoption.json' to '../Adoption.json' in  row 32 `app.js`
+Modified 'Adoption.json' to '../Adoption.json' in `initContract` method in `app.js`
 
 ### 3. Pack and rename `src` folder
 
@@ -205,9 +205,7 @@ cd /var/www
 tar -zxvf pet-shop.tar.gz  // Unpack pet-shop
 ```
 
-### 7. 起一个静态文件服务器，例如 nginx 来 serve pet-shop 目录
-
-这个有点难翻译，要考虑下
+### 7. Use a static files server, e.g. [NGINX](https://www.nginx.com/) to serve the pet-shop directory
 
 ---
 

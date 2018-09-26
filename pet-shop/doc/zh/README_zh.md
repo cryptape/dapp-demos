@@ -171,7 +171,7 @@ mv ./build/contracts/Adoption.json ./src/     // 将编译后的合约移动到 
 cd src/js
 ```
 
-将 app.js 文件中第 32 行的 'Adoption.json' 改成 '../Adoption.json'
+将 `app.js` 文件中 `initContract` 方法中的 'Adoption.json' 改成 '../Adoption.json'
 
 ### 3. 打包并重命名 `src` 文件夹
 
@@ -201,7 +201,7 @@ cd /var/www
 tar -zxvf pet-shop.tar.gz  // pet-shop 解压完毕
 ```
 
-### 7. 起一个静态文件服务器，例如 nginx 来 serve pet-shop 目录
+### 7. 起一个静态文件服务器，例如 [NGINX](https://www.nginx.com/) 来 serve pet-shop 目录
 
 ---
 
