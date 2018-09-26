@@ -161,32 +161,44 @@ Adopt 按钮将会变成置灰状态，按钮文字部分会变成 'Success'。 
 
 ### 1. 移动编译后的合约文件
 
+```shell
 mv ./build/contract/Adoption.json ./src/     // 将编译后的合约移动到 src 目录
+```
 
 ### 2. 修改 src/js/app.js 文件中 Adoption.json 的路径
 
+```shell
 cd src/js
+```
 
 将 app.js 文件中第 32 行的 'Adoption.json' 改成 '../Adoption.json'
 
 ### 3. 打包并重命名 `src` 文件夹，上传至服务器
 
+```shell
 pet-shop > tar -zcvf pet-shop.tar.gz src
+```
 
 ### 4. 将 pet-shop.tar.gz 上传到服务器
 
+```shell
 scp pet-shop.tar.gz user@remote:/tmp  //用自己的服务器地址替换这个地址
+```
 
 ### 5. 连接上服务器
 
+```shell
 ssh user@remote //用自己的服务器地址替换这个地址
+```
 
 ### 6. 将 pet-shop 解压到相应的位置
 
+```shell
 cd /tmp
 mv pet-shop.tar.gz /var/www
 cd /var/www
 tar -zxvf pet-shop.tar.gz  // pet-shop 解压完毕
+```
 
 ### 7. 起一个静态文件服务器，例如 nginx 来 serve pet-shop 目录
 
