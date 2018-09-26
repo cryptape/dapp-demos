@@ -175,13 +175,22 @@ Deploy your pet-shop to your server.
 mv ./build/contracts/Adoption.json ./src/     
 ```
 
-### 2. Modified Adoption.json's path in src/js/app.js
+### 2. Modify Adoption.json's path in src/js/app.js
 
 ```shell
 cd src/js
 ```
 
-Modified 'Adoption.json' to '../Adoption.json' in `initContract` method in `app.js`
+Modify 'Adoption.json' to '../Adoption.json' in `initContract` method in `app.js`
+
+```JavaScript
+// app.js
+initContract: () => {
+    // $.getJSON('Adoption.json', (data) => {
+    $.getJSON('../Adoption.json', (data) => {
+        const AdoptionArtifact = data;
+```
+
 
 ### 3. Pack and rename `src` folder
 

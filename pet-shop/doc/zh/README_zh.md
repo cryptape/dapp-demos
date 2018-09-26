@@ -179,6 +179,14 @@ cd src/js
 
 将 `app.js` 文件中 `initContract` 方法中的 'Adoption.json' 改成 '../Adoption.json'
 
+```JavaScript
+// app.js
+initContract: () => {
+    // $.getJSON('Adoption.json', (data) => {
+    $.getJSON('../Adoption.json', (data) => {
+        const AdoptionArtifact = data;
+```
+
 ### 3. 打包并重命名 `src` 文件夹
 
 ```shell
