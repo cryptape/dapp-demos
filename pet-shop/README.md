@@ -117,7 +117,7 @@ You will get a new folder named build.
 > Notice: We use [AppChain-Truffle-Migrate](https://github.com/cryptape/appchain-truffle-migrate) to deploy the contract, so the commend is different from `truffle-box`.
 
 ```shell
-npm run migrate
+yarn migrate
 ```
 
 If your terminal shows informations below means you successfully deployed the contract.
@@ -186,8 +186,8 @@ From here, we assume you already read the [pet-shop-box-tutorial](https://truffl
 
 ### Instantiating nervos.js
 
-```js
-const nervos = NervosWeb3(config.chain)
+```JavaScript
+const nervos = Nervos(config.chain)
 ```
 
 `nervos.js` interacts with `AppChain`. It can retrieve user accounts, send transactions, interact with smart contracts, and more.
@@ -196,7 +196,7 @@ No more need for `initWeb3`.
 
 ### Instantiating the contract
 
-```js
+```JavaScript
 App.contracts.Adoption = new nervos.appchain.Contract(AdoptionArtifact.abi, contract_address)
 ```
 
@@ -204,7 +204,7 @@ Create contract instance by using `abi` and deployed `contract address`.
 
 ### Getting The Adopted Pets and Updating The UI
 
-```js
+```JavaScript
 App.contracts.Adoption.methods
   .getAdopters()
   .call()
@@ -222,7 +222,7 @@ We can use `App.contracts.Adoption.methods.methodName`, to call the method in de
 
 ### Handling the adopt() Function
 
-```js
+```JavaScript
 const transaction = {
   from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
   privateKey: config.privateKey,
@@ -240,7 +240,7 @@ const transaction = {
 
 For more details about `transaction` object, please refer to [JSON-RPC](https://docs.nervos.org/cita/#/rpc_guide/rpc).
 
-```js
+```JavaScript
 nervos.appchain.getBlockNumber().then(res => {
   const num = Number(res)
   transaction.validUntilBlock = num + 88
@@ -249,19 +249,19 @@ nervos.appchain.getBlockNumber().then(res => {
 
 Check the `block height` right now and update `validUntilBlock`, if transaction doesn't executed after `validUntilBlock`, then we can say `transaction` failed.
 
-```js
+```JavaScript
 App.contracts.Adoption.methods.adopt(petId).send(transaction)
 ```
 
 Call `adopt` method and send `transaction` to `AppChain`.
 
-```js
+```JavaScript
 return nervos.listeners.listenToTransactionReceipt(result.hash)
 ```
 
 Polling to get `transaction receipt` by using `transaction hash`.
 
-```js
+```JavaScript
 ;(receipt => {
   if (receipt.errorMessage === null) {
     console.log('Transaction Done!')
