@@ -1,10 +1,19 @@
-const nervos = Nervos(config.chain)
+var nervos
+
+if (typeof nervos !== 'undefined') {
+    nervos = Nervos(nervos.currentProvider)
+    nervos.currentProvider.setHost(config.chain)
+} else {
+    console.log('No Nervos? You should consider trying Neuron!')
+    nervos = Nervos(config.chain)
+}
+
 App = {
     contracts: {},
 
     init: () => {
         // Load pets.
-        $.getJSON('../pets.json', (data) => {
+        $.getJSON('pets.json', (data) => {
             const petsRow = $('#petsRow')
             const petTemplate = $('#petTemplate')
 
@@ -64,7 +73,7 @@ App = {
 
         const transaction = {
             from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
-            privateKey: config.privateKey,
+            // privateKey: config.privateKey,
             nonce: 999999,
             quota: 1000000,
             data: App.contracts.bytecode,
@@ -78,21 +87,24 @@ App = {
             const num = Number(res)
             transaction.validUntilBlock = num + 88
         }).then(() => {
-            return App.contracts.Adoption.methods.adopt(petId).send(transaction)
-        }).then((result) => {
-            console.log('Waiting for transaction result')
-            alert('Waiting for transaction result')
-            return nervos.listeners.listenToTransactionReceipt(result.hash)
-        }).then((receipt) => {
-            if(receipt.errorMessage === null) {
-                console.log('Transaction Done!')
-                alert('Transaction Done!')
-                return App.markAdopted()
-            } else {
-                throw new Error(receipt.errorMessage)
-            }
-        }).catch((err) => {
-            console.log(err.message)
+            console.log(transaction)
+            App.contracts.Adoption.methods.adopt(petId).send(transaction, function(err, res) {
+                if (res) {
+                    console.log("transaction response: " + JSON.stringify(res))
+                    nervos.listeners.listenToTransactionReceipt(res)
+                        .then(receipt => {
+                            if (!receipt.errorMessage) {
+                                console.log('Transaction Done!')
+                                alert('Transaction Done!')
+                                return App.markAdopted()
+                            } else {
+                                throw new Error(receipt.errorMessage)
+                            }
+                        })
+                } else {
+                    console.log(err.message)
+                }
+            })
         })
     }
 }

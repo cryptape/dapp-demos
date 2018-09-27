@@ -20,11 +20,13 @@ const Record = ({ time, text, hasYearLabel }) => {
 
 class List extends React.Component {
   state = {
+    loading: false,
     times: [],
     texts: [],
   }
   componentDidMount() {
-    const from = nervos.appchain.accounts.wallet[0] ? nervos.appchain.accounts.wallet[0].address : ''
+    const from = window.neuron.getAccount()
+    this.setState({ loading: true })
     simpleStoreContract.methods
       .getList()
       .call({
@@ -33,15 +35,22 @@ class List extends React.Component {
       .then(times => {
         times.reverse()
         this.setState({ times })
+        console.log('list account' + window.neuron.getAccount())
         return Promise.all(times.map(time => simpleStoreContract.methods.get(time).call({ from })))
       })
       .then(texts => {
-        this.setState({ texts })
+        this.setState({ texts, loading: false })
       })
-      .catch(console.error)
+      .catch(err => {
+        this.setState({ loading: false })
+        console.error(err)
+      })
   }
   render() {
-    const { times, texts } = this.state
+    const { times, texts, loading } = this.state
+    if (loading) {
+      return <div>Loading</div>
+    }
     return (
       <div className="list__record--page">
         {times.map((time, idx) => (

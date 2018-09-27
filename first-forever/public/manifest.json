@@ -1,18 +1,14 @@
 {
   "short_name": "First Forever",
   "name": "First Forever",
-  "icons": [{
-    "src": "favicon.ico",
-    "sizes": "64x64 32x32 24x24 16x16",
-    "type": "image/x-icon"
-  }],
-  "start_url": "./index.html",
+  "icon": "https://cdn.cryptape.com/neuron/Artboard3.png",
+  "start_url": "http://dapp.cryptape.com:8080/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "blockViewer": "https://etherscan.io/",
   "chainSet": {
-    "1": "http://121.196.200.225:1337"
+    "1": "https://node.cryptape.com"
   },
-  "entry": "index.html"
+  "entry": "http://dapp.cryptape.com:8080/"
 }
