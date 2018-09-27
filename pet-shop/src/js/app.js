@@ -1,10 +1,27 @@
+<<<<<<< HEAD
 const nervos = Nervos(config.chain)
+=======
+var nervos
+
+if (typeof nervos !== 'undefined') {
+    nervos = Nervos(nervos.currentProvider)
+    nervos.currentProvider.setHost(config.chain)
+} else {
+    console.log('No Nervos? You should consider trying Neuron!')
+    nervos = Nervos(config.chain)
+}
+
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
 App = {
     contracts: {},
 
     init: () => {
         // Load pets.
+<<<<<<< HEAD
         $.getJSON('../pets.json', (data) => {
+=======
+        $.getJSON('pets.json', (data) => {
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
             const petsRow = $('#petsRow')
             const petTemplate = $('#petTemplate')
 
@@ -64,7 +81,11 @@ App = {
 
         const transaction = {
             from: '0x46a23E25df9A0F6c18729ddA9Ad1aF3b6A131160',
+<<<<<<< HEAD
             privateKey: config.privateKey,
+=======
+            // privateKey: config.privateKey,
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
             nonce: 999999,
             quota: 1000000,
             data: App.contracts.bytecode,
@@ -78,6 +99,7 @@ App = {
             const num = Number(res)
             transaction.validUntilBlock = num + 88
         }).then(() => {
+<<<<<<< HEAD
             return App.contracts.Adoption.methods.adopt(petId).send(transaction)
         }).then((result) => {
             console.log('Waiting for transaction result')
@@ -93,6 +115,26 @@ App = {
             }
         }).catch((err) => {
             console.log(err.message)
+=======
+            console.log(transaction)
+            App.contracts.Adoption.methods.adopt(petId).send(transaction, function(err, res) {
+                if (res) {
+                    console.log("transaction response: " + JSON.stringify(res))
+                    nervos.listeners.listenToTransactionReceipt(res)
+                        .then(receipt => {
+                            if (!receipt.errorMessage) {
+                                console.log('Transaction Done!')
+                                alert('Transaction Done!')
+                                return App.markAdopted()
+                            } else {
+                                throw new Error(receipt.errorMessage)
+                            }
+                        })
+                } else {
+                    console.log(err.message)
+                }
+            })
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
         })
     }
 }

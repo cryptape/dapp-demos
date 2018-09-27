@@ -165,7 +165,11 @@ The Adopt button will becomes disabled and the text will change to 'Success'. Me
 
 ### Product mode
 
+<<<<<<< HEAD
 >Notice: You should config your server address in `./src/js/config.js` and `truffle.js` first.
+=======
+>Notice: You should config your server address in `./src/manifest.json` , `./src/js/config.js` and `truffle.js` first.
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
 
 Deploy your pet-shop to your server.
 

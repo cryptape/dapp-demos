@@ -6,13 +6,20 @@
   "directories": {
     "test": "test"
   },
+<<<<<<< HEAD
   "dependencies": {},
+=======
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
   "scripts": {
     "dev": "lite-server",
     "migrate": "appchain-migrate migrate"
   },
   "devDependencies": {
     "lite-server": "^2.3.0",
+<<<<<<< HEAD
     "@nervos/appchain-truffle-migrate": "0.1.5"
+=======
+    "@nervos/appchain-truffle-migrate": "0.1.8"
+>>>>>>> cf315606505c3dbbdf80761af9a1c94128e86990
   }
 }
