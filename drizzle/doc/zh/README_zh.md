@@ -71,6 +71,7 @@ Using network 'development'.
 
 Running migration: 1_initial_migration.js
   Deploying Migrations...
+<<<<<<< HEAD
 transaction hash of deploy contract:  0x5b19395742eac3eeb34a2cc0a149358e321dd2d57bfb725224708ba0ab855ad8
   Migrations: 0xa9845100889C69Be570377DcBDc4752A8B7428D2  // contract address may be different
 Saving artifacts...
@@ -88,6 +89,25 @@ Running migration: 4_deploy_complexstorage.js
   Deploying ComplexStorage...
 transaction hash of deploy contract:  0x479f6359d18d725821bb59afcf2b5791124b64659ed6a081d25347415344b4e3
   ComplexStorage: 0x986Dc6372cEF71A6Ff87DC47c9A0C12712D1304E // contract address may be different
+=======
+transaction hash of deploy contract:  0xe2e65438943162897c2aaaaeb8efdb00ac0f190f6a4ed78cff95ffc58f6fb45a
+  Migrations: 0x46A44Fd45d775d29ce4ba3Aa2079BD7b1C2882b1 // contract address may be different
+Saving artifacts...
+Running migration: 2_deploy_simplestorage.js
+  Deploying SimpleStorage...
+transaction hash of deploy contract:  0xc33ee84de7b7cd649befdfdece8c7623380fe978ecbbd1d615c33b72a52bd4bd
+  SimpleStorage: 0x06f24BC6db34229CBd258171e3310084fe20E540 // contract address may be different
+Saving artifacts...
+Running migration: 3_deploy_tutorialtoken.js
+  Deploying TutorialToken...
+transaction hash of deploy contract:  0x646f1abe3ca3c2180f290e9b0f6a67cf4ae32295d744db94fe4325d56ea8bf21
+  TutorialToken: 0xe72fe688d5dADb0CeDc6681479497e7f40061cCD // contract address may be different
+Saving artifacts...
+Running migration: 4_deploy_complexstorage.js
+  Deploying ComplexStorage...
+transaction hash of deploy contract:  0x6cf131425649a9f5ce7c25bcd80342f1e1f9417558bc51d80f35f56a2b4cf4dd
+  ComplexStorage: 0xD468D53CAB68BB457B9cbc28Bb04bE6D3334D800 // contract address may be different
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7
 Saving artifacts...
 ```
 

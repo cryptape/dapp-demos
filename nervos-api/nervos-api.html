@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--
 Author: watson
@@ -8,7 +7,9 @@ https://github.com/cryptape
 nervos.js version used: 1.0
 -->
 <html>
+
 <head>
+<<<<<<< HEAD:nervos-api/nervos-api.html
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -20,9 +21,22 @@ nervos.js version used: 1.0
 <!-- for ecrecover -->
 <script type="text/javascript" src="./ethereumjs-util.js"></script>
 <script>
+=======
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style/main.css">
+  <link ref="manifest" href="/web3api/appchain/manifest.json">
+
+  <title>Using Nervos web3 API with Neuron</title>
+  <script type="text/javascript" src="./bundle.js"></script>
+  <!-- for ecrecover -->
+  <script type="text/javascript" src="./ethereumjs-util.js"></script>
+  <script>
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
 
 
-window.addEventListener('load', function() {
+    window.addEventListener('load', function() {
 
   console.log(typeof nervos !== 'undefined')
   console.log(nervos)
@@ -32,12 +46,27 @@ window.addEventListener('load', function() {
     nervos = Nervos(nervos.currentProvider);
     nervos.currentProvider.setHost("http://121.196.200.225:1337");
   } else {
+<<<<<<< HEAD:nervos-api/nervos-api.html
     console.log('No Nervos? You should consider trying Neuron!')
 	  nervos = Nervos("http://121.196.200.225:1337");
+=======
+    console.log('No Nervos web3? You should consider trying Neuron!')
+    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+	  window.web3 = NervosWeb3("http://121.196.200.225:1337");
+    //window.web3 = new Web3(new Web3.providers.HttpProvider("https://proxy.mobilefish.com:9070"));
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
   }
+  window.nervos = window.web3
 
+<<<<<<< HEAD:nervos-api/nervos-api.html
   // Now you can start your app & access nervos freely:
   startApp();
+=======
+  // Now you can start your app & access web3 freely:
+  setTimeout(() => {
+    startApp();
+  }, 1000)
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
 })
 
 // =================================================
@@ -75,6 +104,7 @@ function showPeerCount() {
 // =================================================
 
 function showMetaData() {
+<<<<<<< HEAD:nervos-api/nervos-api.html
   nervos.appchain.getMetaData((err, res) => {
     var output = "";
 
@@ -85,6 +115,13 @@ function showMetaData() {
     }
 
     document.getElementById('metaData').innerHTML = "[nervos.appchain.getMetaData] The default block = " + output + "<br />";
+=======
+  web3.appchain.getMetaData().then(res => {
+      output = JSON.stringify(res, null, 2);
+    document.getElementById('metaData').innerHTML = "[web3.appchain.getMetaData] The default block = " + output + "<br />";
+  }).catch(err => {
+    document.getElementById('metaData').innerHTML = "[web3.appchain.getMetaData] The default block = " + err.message + "<br />";
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
   })
   
 }
@@ -92,8 +129,22 @@ function showMetaData() {
 // =================================================
 
 function showAccounts() {
+<<<<<<< HEAD:nervos-api/nervos-api.html
   var output = neuron.getAccounts();
   document.getElementById('accounts').innerHTML = "[neuron.getAccounts] Accounts = <br />" + output + "<br />";
+=======
+  web3.appchain.getAccounts((err, res) => {
+    var output = "";
+    console.log(res)
+
+    if (!err) {
+      output = res.join("<br />");
+    } else {
+      output = "Error";
+    }
+    document.getElementById('accounts').innerHTML = "[web3.appchain.getAccounts] Accounts = <br />" + output + "<br />";
+  })
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
 }
 
 // =================================================
@@ -107,14 +158,22 @@ function showCurrentBlockNumber() {
     } else {
       output = "Error";
     }
+<<<<<<< HEAD:nervos-api/nervos-api.html
     document.getElementById('blocknumber').innerHTML = "[nervos.appchain.getBlockNumber] Current block number = " + output + "<br />";
+=======
+    document.getElementById('blocknumber').innerHTML = "[web3.appchain.getBlockNumber] Current block number = " + output + "<br />";
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
   })
 }
 
 // =================================================
 
 function showGetBalance() {
+<<<<<<< HEAD:nervos-api/nervos-api.html
   nervos.appchain.getAccounts((err, res) => {
+=======
+  web3.appchain.getAccounts((err, res) => {
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
     var output = "";
     if (!err) {
 
@@ -311,7 +370,8 @@ function signData() {
       console.log("sign result: ", res)
 
       if (!err) {
-        output += res;
+        // output += res;
+        output = JSON.stringify(res, null, 2)
         // var r = res.slice(0, 66);
         // var s = '0x' + res.slice(66, 130);
         // var v = '0x' + res.slice(130, 132)
@@ -438,9 +498,15 @@ function isAddress() {
 
 function setDefaultAccount(){
   var defaultAccount = document.getElementById('defaultAccount').value;
+<<<<<<< HEAD:nervos-api/nervos-api.html
   if (defaultAccount != null && nervos.utils.isAddress(defaultAccount)) {
     nervos.appchain.defaultAccount = defaultAccount;
     document.getElementById('displayDefaultAccount').innerHTML = "Default account is now: " +nervos.appchain.defaultAccount;
+=======
+  if (defaultAccount != null && web3.utils.isAddress(defaultAccount)) {
+    web3.appchain.defaultAccount = defaultAccount;
+    document.getElementById('displayDefaultAccount').innerHTML = "Default account is now: " +web3.appchain.defaultAccount;
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
   }
 }
 
@@ -478,6 +544,7 @@ function parseResultObject(res){
 }
 </script>
 </head>
+<<<<<<< HEAD:nervos-api/nervos-api.html
 <body>
 
 <h1>Using nervos API with Neuron</h1>
@@ -730,6 +797,263 @@ Amount (quota):
 <input type="text" id="amount" size="100" value="0x3B9ACA00">
 <br /><br />
 <!--
+=======
+
+<body>
+
+  <h1>Using web3 API with Neuron</h1>
+  This web page shows examples using web3 methods together with Neuron.
+  <br /><br />
+
+  Information about web3 API: <a href="https://github.com/cryptape/web3" target="_blank">https://github.com/cryptape/web3</a><br />
+  Explore Ethereum Main Network blockchain: <a href="https://etherscan.io/" target="_blank">https://etherscan.io/</a><br />
+  Gitter nervos/web3.js, see: <a href="https://github.com/cryptape/web3" target="_blank">https://github.com/cryptape/web3</a>
+
+  <h2>How to use</h2>
+  <ul>
+    <li>Install Neuron wallet APP: <a href="https://github.com/cryptape/Neuron-Android/releases" target="_blank">https://github.com/cryptape/Neuron-Android/releases</a></li>
+    <li>Input your web3api web address to first tab page of Neuron APP</li>
+    <li>Click any button of web3api page and test the api you want</li>
+  </ul>
+
+
+  <h2>Examples</h2>
+
+  <div id="network"></div>
+  <div id="api"></div>
+  <div id="ethereum"></div>
+  <div id="connection"></div>
+  <div id="listening"></div>
+  <div id="peer"></div>
+  <div id="metaData"></div>
+  <div id="accounts"></div>
+  <div id="blocknumber"></div>
+  <div id="balance"></div>
+
+  <!-- ================================================= -->
+  <hr />
+
+  [web3.appchain.defaultAccount] This default account is used for the following methods:<br />
+  - web3.appchain.sendTransaction()<br />
+  - web3.appchain.call()<br />
+  Note: The defaultAccount optionally can be overwritten by specifying the from property.
+  <br />
+  Default account (rinkeby example):
+  <input type="text" id="defaultAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+  <button onclick="setDefaultAccount()">Set</button>
+  <br /><br />
+  <div id="displayDefaultAccount"></div>
+  <hr />
+
+  <!-- ================================================= -->
+  <hr />
+
+  [web3.utils.sha3] The Keccak-256 SHA3 of the given data<br />
+  Data to be hashed:<br />
+  <textarea id="dataToHash" rows="10" cols="80">Some string to be hashed</textarea><br />
+  Encoding:
+  <select id="sha3Encoding">
+    <option value="no" selected="selected">no encoding</option>
+    <option value="hex">hex encoding</option>
+  </select>
+
+  <br /><br />
+  <button onclick="sha3()">Hash</button>
+  <br /><br />
+  <div id="sha3Response"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.toHex] Converts any value into HEX<br />
+  Data to be converted into hex:<br />
+  <textarea id="dataToHex" rows="10" cols="80">{test: 'test'}</textarea><br />
+  <button onclick="toHex()">Convert</button>
+  <br /><br />
+  <div id="toHexResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.toAscii] Converts a HEX string into a ASCII string<br />
+  Hex string:<br />
+  <textarea id="hexString" rows="10" cols="80">0x657468657265756d000000000000000000000000000000000000000000000000</textarea><br />
+  <button onclick="hexToASCII()">Convert</button>
+  <br /><br />
+  <div id="toASCIIResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.fromAscii] Converts any ASCII string to a HEX string.<br />
+  ASCII string:<br />
+  <textarea id="asciiString" rows="10" cols="80">ethereum</textarea>
+  <br /><br />
+  The number of bytes the returned HEX string should have (No paddding if value = 0). This does not work!! Bug maybe?<br />
+  <input type="text" id="numberOfBytes" size="20" value="0">
+  <br /><br />
+  <button onclick="fromASCII()">Convert</button>
+  <br /><br />
+  <div id="fromASCIIResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.toDecimal] Converts a HEX string to its number representation.<br />
+  An HEX string to be converted to a number:<br />
+  <textarea id="hexToNumber" rows="10" cols="80">0x15</textarea><br />
+  <button onclick="toDecimal()">Convert</button>
+  <br /><br />
+  <div id="toDecimalResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.fromDecimal] Converts a number or number string to its HEX representation.<br />
+  A number to be converted to a HEX string:<br />
+  <textarea id="numberToHex" rows="10" cols="80">21</textarea><br />
+  <button onclick="fromDecimal()">Convert</button>
+  <br /><br />
+  <div id="fromDecimalResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.fromWei] Converts a number of wei into selected ethereum unit:<br />
+  Wei (in dec or hex):<br />
+  <textarea id="numberOfWei" rows="10" cols="80">21000000000000</textarea><br />
+  Unit:
+  <select id="etherUnit">
+    <option value="kwei">kwei/ada</option>
+    <option value="mwei">mwei/babbage</option>
+    <option value="gwei">gwei/shannon</option>
+    <option value="szabo">szabo</option>
+    <option value="finney">finney</option>
+    <option value="ether" selected="selected">ether</option>
+    <option value="kether">kether</option>
+    <option value="mether">mether</option>
+    <option value="gether">gether</option>
+    <option value="tether">tether</option>
+  </select>
+
+  <br /><br />
+  <button onclick="fromWei()">Convert</button>
+  <br /><br />
+  <div id="fromWeiResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.toWei] Converts an ethereum unit into wei:<br />
+  Number of Ethereum units (in dec or hex):<br />
+  <textarea id="numberOfEthereumUnit" rows="10" cols="80">1</textarea><br />
+  Unit:
+  <select id="etherUnit2">
+    <option value="kwei">kwei/ada</option>
+    <option value="mwei">mwei/babbage</option>
+    <option value="gwei">gwei/shannon</option>
+    <option value="szabo">szabo</option>
+    <option value="finney">finney</option>
+    <option value="ether" selected="selected">ether</option>
+    <option value="kether">kether</option>
+    <option value="mether">mether</option>
+    <option value="gether">gether</option>
+    <option value="tether">tether</option>
+  </select>
+
+  <br /><br />
+  <button onclick="toWei()">Convert</button>
+  <br /><br />
+  <div id="toWeiResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.utils.isAddress] Checks if the given string is an address.<br />
+  An address (HEX string):<br />
+  <textarea id="hexAddress" rows="10" cols="80">0x8888f1f195afa192cfee860698584c030f4c9db1</textarea><br />
+  <button onclick="isAddress()">Check</button>
+  <br /><br />
+  <div id="isAddressResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+  [web3.appchain.getCode] Get the code at the specified contract address<br />
+  Contract Address (rinkeby example):
+  <input type="text" id="addressCode" size="100" value="0x31a6e88ebf249b4561ee864408df9577fe25905b">
+  <button onclick="showCodeAtAdddress()">Get</button>
+  <br /><br />
+  To find the contract address deployed from an address, goto <a href="https://rinkeby.etherscan.io" target="_blank">https://rinkeby.etherscan.io</a>
+  enter the address and search for the transaction which created the contract.<br />
+  In the transaction details you will find the contract address.
+  <br /><br />
+  <div id="code"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.getBlock] Get the block information at the specified block hash or block number<br />
+  Block hash or block number (rinkeby example):
+  <input type="text" id="blockHashOrNumber" size="100" value="53">
+  <button onclick="showBlockInfo()">Get</button>
+  <br /><br />
+  <div id="blockinfo"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.getTransaction] Get transactions for given transaction hash<br />
+  Transaction hash (rinkeby example):
+  <input type="text" id="transactionHash" size="100" value="0x1314856676edb716ccb3a76612637e0a2902f6e07ade3cbcccf0a4ec270b481b">
+  <button onclick="showTransactions()">Get</button>
+  <br /><br />
+  <div id="transactions"></div>
+  <hr />
+
+
+  <!-- ================================================= -->
+
+  [web3.appchain.getTransactionReceipt] Get transaction receipt for given transaction hash
+  <br /><br />
+  Use this method to get the contract address.<br />
+  When a contract is created using method web3.appchain.sendTransaction a transaction hash is returned.<br />
+  This transaction hash can be used as input for web3.appchain.getTransactionReceipt.
+  <br /><br />
+  Note:<br />
+  If you got null instead of a receipt the transaction has not been included in a block yet. <br />
+  Wait for a moment and check if a miner has included the transaction in a block and retry it.
+  <br /><br />
+  Transaction hash (rinkeby example):
+  <input type="text" id="transactionHash2" size="100" value="0x1314856676edb716ccb3a76612637e0a2902f6e07ade3cbcccf0a4ec270b481b">
+  <button onclick="showTransactionReceipt()">Get</button>
+  <br /><br />
+  <div id="transactionReceipt"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.getTransactionCount] Get the number of transaction send for specified address<br />
+  Address (rinkeby example):
+  <input type="text" id="address" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+  <button onclick="showTransactionsFromAdddress()">Get</button>
+  <br /><br />
+  <div id="transactions2"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.sendTransaction] Send a transaction (ether transfer)<br />
+  From account (rinkeby example):
+  <input type="text" id="fromAccount" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+  <br /><br />
+  To account:
+  <input type="text" id="toAccount" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+  <br /><br />
+  Amount (Ether):
+  <input type="text" id="amount" size="100" value="10">
+  <br /><br />
+  <!--
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
 Gas limit (gas):
 <input type="text" id="gasLimit" size="100" value="21000">
 <br /><br />
@@ -737,6 +1061,7 @@ Gas limit (gas):
 Gas price (Wei)
 <input type="text" id="gasPrice" size="100" value="20000000000">
 -->
+<<<<<<< HEAD:nervos-api/nervos-api.html
 <button onclick="sendTransaction()">Send</button>
 <br /><br />
 <div id="transactionResponse"></div>
@@ -750,20 +1075,35 @@ From account (rinkeby example):
 <br /><br />
 Bytecode:<br />
 <textarea id="byteCode" rows="20" cols="80">
+=======
+  <button onclick="sendTransaction()">Send</button>
+  <br /><br />
+  <div id="transactionResponse"></div>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.sendTransaction] Send a transaction (contract creation)<br />
+  From account (rinkeby example):
+  <input type="text" id="fromAccount2" size="100" value="0x2b417fe5d262443918358a92868c60922285eda1">
+  <br /><br />
+  Bytecode:<br />
+  <textarea id="byteCode" rows="20" cols="80">
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
   6060604052341561000f57600080fd5b5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b5b61010c806100616000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b514603d575b600080fd5b3415604757600080fd5b604d604f565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141560dd576000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b5600a165627a7a72305820cadc222fb5cdf67c7aa4fa651568819877bb5258488d9678c11c9c599181806b0029
 </textarea>
-<br /><br />
-<button onclick="sendContractTransaction()"> Send </button>
-<br /><br />
-<div id="transactionResponse2"></div>
-<br />
-Note: <br />
-The Bytecode value above was created as follow:
-<ul>
-  <li>
-    Greeter contract copied from: <a href="https://www.ethereum.org/greeter" target="_blank">https://www.ethereum.org/greeter</a>.
-    <br /><br />
-    <textarea rows="20" cols="80">
+  <br /><br />
+  <button onclick="sendContractTransaction()"> Send </button>
+  <br /><br />
+  <div id="transactionResponse2"></div>
+  <br />
+  Note: <br />
+  The Bytecode value above was created as follow:
+  <ul>
+    <li>
+      Greeter contract copied from: <a href="https://www.ethereum.org/greeter" target="_blank">https://www.ethereum.org/greeter</a>.
+      <br /><br />
+      <textarea rows="20" cols="80">
     pragma solidity ^0.4.0;
 
     contract mortal {
@@ -793,6 +1133,7 @@ The Bytecode value above was created as follow:
     }
     </textarea>
 
+<<<<<<< HEAD:nervos-api/nervos-api.html
     <br /><br />
   </li>
   <li>
@@ -836,6 +1177,53 @@ Data to sign:<br />
 <div id="pubKey"></div>
 <br />
 <hr />
+=======
+      <br /><br />
+    </li>
+    <li>
+      Load this code into the Remix Solidity IDE <a href="http://remix.ethereum.org" target="_blank">http://remix.ethereum.org</a>
+      or press <a href="http://remix.ethereum.org/#gist=39436b3073ac5f90ed9d047ca547cd6c&amp;version=soljson-v0.4.13+commit.fb4cb1a.js"
+        target="_blank">this link</a>
+      and it will be done automatically for you (Use Chrome browser).
+    </li>
+    <li>
+      Compile the code in the Remix Solidity IDE.
+    </li>
+    <li>
+      Select the Contract tab and click the link "Contract details (bytecode, interface etc.)".
+    </li>
+    <li>
+      Copy the Remix Bytecode value and paste it into the Bytecode field above.
+    </li>
+    <li>
+      I already copied the Greeter interface here below, because you will need it in the web3.appchain.call example:
+      <br /><br />
+      <textarea rows="10" cols="80">[{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"type":"constructor"}]</textarea>
+    </li>
+
+  </ul>
+  <hr />
+
+  <!-- ================================================= -->
+
+  [web3.appchain.sign] Sign data<br />
+  From a specific account (rinkeby example):
+  <input type="text" id="fromAccount3" size="100" value="0x9C44Bd96CC833eCb60C99dE0392f24d3Bc3e6094">
+  <br /><br />
+  Data to sign:<br />
+  <textarea id="dataToSign" rows="20" cols="80">Hello World</textarea>
+  <br /><br />
+  <button onclick="signData()">Sign</button>
+  <br /><br />
+  <div id="signResponse"></div>
+  <div id="rValue"></div>
+  <div id="sValue"></div>
+  <div id="vValue"></div>
+  <div id="pubKey"></div>
+  <br />
+  <hr />
+>>>>>>> 7dd949c4bc9fd6a86fdae2a7ea91d2013f91dbd7:neuron-api/neuron-api.html
 
 </body>
+
 </html>
