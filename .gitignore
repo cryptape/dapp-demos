@@ -25,3 +25,4 @@ yarn.lock
 
 # config
 config.js
+truffle.js
