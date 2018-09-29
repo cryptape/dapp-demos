@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "first-forever",
   "dependencies": {
-    "@nervos/chain": "^0.17.4",
+    "@nervos/chain": "^0.17.22",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",

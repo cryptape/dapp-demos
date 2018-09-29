@@ -39,8 +39,12 @@ class Add extends React.Component {
         console.log("add account" + window.neuron.getAccount())
         var that = this;
         simpleStoreContract.methods.add(text, +time).send(tx, function(err, res) {
-          if (res) {
-            nervos.listeners.listenToTransactionReceipt(res)
+          console.log("simpleStoreContract response", res)
+          if (typeof res === 'string') {
+            res = JSON.parse(res)
+          }
+          if (res.hash) {
+            nervos.listeners.listenToTransactionReceipt(res.hash)
               .then(receipt => {
                 if (!receipt.errorMessage) { 
                   that.setState({ submitText: submitTexts.submitted })
